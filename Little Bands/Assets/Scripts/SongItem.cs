@@ -11,7 +11,8 @@ public class SongItem : MonoBehaviour
     public string artist;
     public string length;
 
-    [Header ("Original Audio")]
+    [Header("Original Audio")]
+    public AudioClip original_full_audio;
     public AudioClip original_guitar;
     public AudioClip original_bass;
     public AudioClip original_piano;
