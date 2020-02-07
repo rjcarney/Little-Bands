@@ -5,9 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    public GameObject SongListPage;
+    public GameObject InstrumentSelect;
+    public GameObject RecordPage;
 
-    public SongItem SelectedSong;
-    private GameObject canvas;
+    private SongItem SelectedSong;
+    private string SelectedInstrument;
 
     // Start is called before the first frame update
     void Awake()
@@ -19,11 +22,22 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        SongListPage.SetActive(true);
+        InstrumentSelect.SetActive(false);
+        RecordPage.SetActive(false);
         SelectedSong = null;
     }
 
     public void selectSong(GameObject SongListItem) {
         SelectedSong = SongListItem.GetComponent<SongItem>();
+        SongListPage.SetActive(false);
+        InstrumentSelect.SetActive(true);
+    }
+
+    public void selectInstrument(string instrument) {
+        SelectedInstrument = instrument;
+        InstrumentSelect.SetActive(false);
+        RecordPage.SetActive(true);
     }
     // Update is called once per frame
     void Update()
