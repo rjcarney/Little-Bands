@@ -5,14 +5,21 @@ using System;
 
 public class AudioRead : MonoBehaviour {
  
-    bool isRecording = true;
+    bool isRecording = false;
     private AudioSource audioSource;
+
+    //Controls
+    //Space: Records
+    //1-9: Sets track and plays recording
+    //M: Mixes the recording into one file
+    //S: Stop sound
  
     //temporary audio vector we write to every second while recording is enabled..
     List<float> tempRecording = new List<float>();
  
     //list of recorded clips...
     List<float[]> recordedClips = new List<float[]>();
+    List<float[]> finishedTrack = new List<float[]>();
  
     void Start()
     {
@@ -26,7 +33,6 @@ public class AudioRead : MonoBehaviour {
 
     static public byte[] SaveAudioClipToWav(AudioClip audioClip, string filename)
     {
-        print("working");
         byte[] buffer;
         FileStream fsWrite = File.Open(filename, FileMode.Create);
 
@@ -76,7 +82,26 @@ public class AudioRead : MonoBehaviour {
             Invoke("ResizeRecording", 1);
         }
     }
- 
+
+    private float ClampToValidRange(float value)
+    {
+        float min = -1.0f;
+        float max = 1.0f;
+        return (value < min) ? min : (value > max) ? max : value;
+    }
+
+    private float[] MixAndClampFloatBuffers(float[] bufferA, float[] bufferB)
+    {
+        int maxLength = Math.Min(bufferA.Length, bufferB.Length);
+        float[] mixedFloatArray = new float[maxLength];
+
+        for (int i = 0; i < maxLength; i++)
+        {
+            mixedFloatArray[i] = ClampToValidRange((bufferA[i] + bufferB[i]) / 2);
+        }
+        return mixedFloatArray;
+    }
+
     void Update()
     {
         //space key triggers recording to start...
@@ -111,7 +136,7 @@ public class AudioRead : MonoBehaviour {
                 audioSource.clip.SetData(fullClip, 0);
                 audioSource.loop = true;
                 //Saves audio file
-                SaveAudioClipToWav(audioSource.clip, "testAudio381.wav");
+                //SaveAudioClipToWav(audioSource.clip, "testAudio381.wav");
             }
             else
             {
@@ -123,7 +148,7 @@ public class AudioRead : MonoBehaviour {
                 Invoke("ResizeRecording", 1);
             }
 
- 
+
         }
  
         //use number keys to switch between recorded clips, start from 1!!
@@ -134,7 +159,18 @@ public class AudioRead : MonoBehaviour {
                 SwitchClips(i-1);
             }
         }
- 
+
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            float[] temp=MixAndClampFloatBuffers(recordedClips[0], recordedClips[1]);
+            audioSource.clip = AudioClip.Create("recorded samples", temp.Length, 1, 44100, false);
+            audioSource.clip.SetData(temp, 0);
+            SaveAudioClipToWav(audioSource.clip, "testAudio.wav");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+            audioSource.Stop();
+
     }
  
     //chooose which clip to play based on number key..
