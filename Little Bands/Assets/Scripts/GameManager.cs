@@ -84,10 +84,32 @@ public class GameManager : MonoBehaviour
             playing_fullAudio = false;
         }
     }
+
+    public void Record() {
+        /*
+        switch (SelectedInstrument) {
+            case "guitar":
+                SelectedSong.recorded_guitar = ;
+                break;
+            case "bass":
+                SelectedSong.recorded_bass = ;
+                break;
+            case "piano":
+                SelectedSong.recorded_piano = ;
+                break;
+            case "drums":
+                SelectedSong.recorded_drums = ;
+                break;
+            case "voice":
+                SelectedSong.recorded_voice = ;
+                break;
+        }
+        */
+    }
     
     // Update is called once per frame
     void Update()
     {
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = GetComponent<AudioSource>().time;
+        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = audio.time;
     }
 }
