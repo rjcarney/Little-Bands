@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     public GameObject InstrumentSelect;
     public GameObject RecordPage;
 
+    private AudioSource audioSource;
     private SongItem SelectedSong;
     private string SelectedInstrument;
+
+    private bool playing_fullAudio;
 
     // Start is called before the first frame update
     void Awake()
@@ -22,10 +25,12 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        audioSource = GetComponent<AudioSource>();
         SongListPage.SetActive(true);
         InstrumentSelect.SetActive(false);
         RecordPage.SetActive(false);
         SelectedSong = null;
+        playing_fullAudio = false;
     }
 
     public void selectSong(GameObject SongListItem) {
@@ -51,6 +56,19 @@ public class GameManager : MonoBehaviour
         RecordPage.SetActive(false);
         InstrumentSelect.SetActive(true);
     }
+
+    public void playFullAudio() {
+        if (playing_fullAudio == false) {
+            audioSource.clip = SelectedSong.original_full_audio;
+            audioSource.Play();
+            playing_fullAudio = true;
+        } else {
+            audioSource.Stop();
+            audioSource.clip = null;
+            playing_fullAudio = false;
+        }
+    }
+    
     // Update is called once per frame
     void Update()
     {
