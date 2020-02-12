@@ -34,10 +34,22 @@ public class GameManager : MonoBehaviour
         InstrumentSelect.SetActive(true);
     }
 
+   public void backToSongs() {
+        SelectedSong = null;
+        InstrumentSelect.SetActive(false);
+        SongListPage.SetActive(true);
+    }
+
     public void selectInstrument(string instrument) {
         SelectedInstrument = instrument;
         InstrumentSelect.SetActive(false);
         RecordPage.SetActive(true);
+    }
+
+    public void backToInstrument() {
+        SelectedInstrument = null;
+        RecordPage.SetActive(false);
+        InstrumentSelect.SetActive(true);
     }
     // Update is called once per frame
     void Update()
