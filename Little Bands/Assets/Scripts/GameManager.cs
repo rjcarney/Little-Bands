@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public GameObject InstrumentSelect;
     public GameObject RecordPage;
 
+    public GameObject fullAudio_playBtn;
+    public Texture playTexture;
+    public Texture stopTexture;
+
     private AudioSource audioSource;
     private SongItem SelectedSong;
     private string SelectedInstrument;
@@ -61,10 +65,12 @@ public class GameManager : MonoBehaviour
         if (playing_fullAudio == false) {
             audioSource.clip = SelectedSong.original_full_audio;
             audioSource.Play();
+            fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
             playing_fullAudio = true;
         } else {
             audioSource.Stop();
             audioSource.clip = null;
+            fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
             playing_fullAudio = false;
         }
     }
