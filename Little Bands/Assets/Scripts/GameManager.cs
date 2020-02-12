@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Texture playTexture;
     public Texture stopTexture;
     public GameObject fullAudio_playBtnTxt;
+    public GameObject audioSlider;
 
     private AudioSource audioSource;
     private SongItem SelectedSong;
@@ -36,6 +38,10 @@ public class GameManager : MonoBehaviour
         RecordPage.SetActive(false);
         SelectedSong = null;
         playing_fullAudio = false;
+
+        audioSlider.GetComponent<UnityEngine.UI.Slider>().direction = Slider.Direction.LeftToRight;
+        audioSlider.GetComponent<UnityEngine.UI.Slider>().minValue = 0;
+        audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = 1;
     }
 
     public void selectSong(GameObject SongListItem) {
@@ -65,6 +71,7 @@ public class GameManager : MonoBehaviour
     public void playFullAudio() {
         if (playing_fullAudio == false) {
             audioSource.clip = SelectedSong.original_full_audio;
+            audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = audioSource.clip.length;
             audioSource.Play();
             fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
             fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nStop";
@@ -81,6 +88,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = GetComponent<AudioSource>().time;
     }
 }
