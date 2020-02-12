@@ -112,7 +112,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -180, y: 0}
-  m_SizeDelta: {x: 119, y: 120}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2470767133673883730
 CanvasRenderer:
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3207547, g: 0.249644, b: 0.249644, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -317,7 +317,7 @@ MonoBehaviour:
   title: Lochness
   artist: unknown
   length: 1:30
-  original_full_audio: {fileID: 0}
+  original_full_audio: {fileID: 8300000, guid: 3c5394ffb823a494486ef07b9fcb52c0, type: 3}
   original_guitar: {fileID: 8300000, guid: 5e14391cae91dfd479f8d9a79e83f092, type: 3}
   original_bass: {fileID: 8300000, guid: 0a511cb10cc97b44a8d82accdb458225, type: 3}
   original_piano: {fileID: 8300000, guid: a828c5a31422b744696ff27c3b31dd27, type: 3}
@@ -328,12 +328,12 @@ MonoBehaviour:
   recorded_piano: {fileID: 0}
   recorded_drums: {fileID: 0}
   recorded_voice: {fileID: 0}
-  emptyBadge: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 3}
-  guitarBadge: {fileID: 0}
-  bassBadge: {fileID: 0}
-  pianoBadge: {fileID: 0}
-  drumsBadge: {fileID: 0}
-  voiceBadge: {fileID: 0}
+  emptyBadge: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+  guitarBadge: {fileID: 2800000, guid: 3af22f65c76f81b4b94b869e0c06da33, type: 3}
+  bassBadge: {fileID: 2800000, guid: 275680031ba235a49adf5bd7f0b0f716, type: 3}
+  pianoBadge: {fileID: 2800000, guid: 1c8e2f5ce37700743a333dac3bbed281, type: 3}
+  drumsBadge: {fileID: 2800000, guid: 5128dd7aa5eb5784489c453d9624d85e, type: 3}
+  voiceBadge: {fileID: 2800000, guid: 99b4bf4f76e16f540b1d13befdfdb648, type: 3}
   albumArt_image: {fileID: 0}
   title_text: {fileID: 2470767133486855109}
   artist_text: {fileID: 2470767135147877979}
@@ -378,7 +378,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -90, y: 0}
-  m_SizeDelta: {x: 119, y: 120}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2470767134787380535
 CanvasRenderer:
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30980393, g: 0.2392157, b: 0.2392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -595,7 +595,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 180, y: 0}
-  m_SizeDelta: {x: 119, y: 120}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2470767134957861686
 CanvasRenderer:
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2901961, g: 0.227451, b: 0.227451, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -665,7 +665,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 90, y: 0}
-  m_SizeDelta: {x: 119, y: 120}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2470767134974144891
 CanvasRenderer:
@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019608, g: 0.23529413, b: 0.23529413, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1018,7 +1018,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 119, y: 120}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2470767135294075495
 CanvasRenderer:
@@ -1041,7 +1041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30980393, g: 0.2392157, b: 0.2392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
