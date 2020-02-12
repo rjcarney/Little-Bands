@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject fullAudio_playBtn;
     public Texture playTexture;
     public Texture stopTexture;
+    public GameObject fullAudio_playBtnTxt;
 
     private AudioSource audioSource;
     private SongItem SelectedSong;
@@ -66,11 +67,13 @@ public class GameManager : MonoBehaviour
             audioSource.clip = SelectedSong.original_full_audio;
             audioSource.Play();
             fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
+            fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nStop";
             playing_fullAudio = true;
         } else {
             audioSource.Stop();
             audioSource.clip = null;
             fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+            fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nPlay";
             playing_fullAudio = false;
         }
     }

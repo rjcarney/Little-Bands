@@ -5822,6 +5822,11 @@ PrefabInstance:
       propertyPath: stopTexture
       value: 
       objectReference: {fileID: 2800000, guid: bdda5725432751d42b0332e73501ec99, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: fullAudio_playBtnTxt
+      value: 
+      objectReference: {fileID: 748997316}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name
