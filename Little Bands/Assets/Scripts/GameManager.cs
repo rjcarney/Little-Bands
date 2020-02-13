@@ -91,11 +91,19 @@ public class GameManager : MonoBehaviour
         voiceAudioSource.clip = null;
         InstrumentSelect.SetActive(false);
         SongListPage.SetActive(true);
+        fullAudioSource.Stop();
+        fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+        fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nPlay";
+        playing_fullAudio = false;
     }
 
     public void selectInstrument(string instrument) {
         SelectedInstrument = instrument;
         InstrumentSelect.SetActive(false);
+        fullAudioSource.Stop();
+        fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+        fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nPlay";
+        playing_fullAudio = false;
         RecordPage.SetActive(true);
         sheetMusicTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedInstrument + " - " + SelectedSong.title;
         sheetMusicPopUp.SetActive(false);
@@ -105,6 +113,11 @@ public class GameManager : MonoBehaviour
         SelectedInstrument = null;
         RecordPage.SetActive(false);
         InstrumentSelect.SetActive(true);
+        guitarAudioSource.Stop();
+        bassAudioSource.Stop();
+        pianoAudioSource.Stop();
+        drumsAudioSource.Stop();
+        voiceAudioSource.Stop();
     }
 
     public void OpenSheetMusic() {
