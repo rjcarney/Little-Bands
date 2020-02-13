@@ -10,11 +10,16 @@ public class GameManager : MonoBehaviour
     public GameObject InstrumentSelect;
     public GameObject RecordPage;
 
+    public AudioRead audioReader;
+
     public GameObject fullAudio_playBtn;
     public Texture playTexture;
     public Texture stopTexture;
     public GameObject fullAudio_playBtnTxt;
     public GameObject audioSlider;
+
+    public GameObject layeredAudio_playBtn;
+    public GameObject layeredAudio_playBtnTxt;
 
     private AudioSource audioSource;
     private SongItem SelectedSong;
@@ -71,7 +76,6 @@ public class GameManager : MonoBehaviour
     public void playFullAudio() {
         if (playing_fullAudio == false) {
             audioSource.clip = SelectedSong.original_full_audio;
-            audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = audioSource.clip.length;
             audioSource.Play();
             fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
             fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nStop";
@@ -85,7 +89,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void playLayeredAudio() {
+        if (playing_fullAudio == false) {
+            audioSource.clip = SelectedSong.original_full_audio;
+            audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
+            audioSource.Play();
+            layeredAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
+            layeredAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\nStop";
+            playing_fullAudio = true;
+        } else {
+            audioSource.Stop();
+            audioSource.clip = null;
+            layeredAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+            layeredAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\nPlay";
+            playing_fullAudio = false;
+        }
+    }
+
     public void Record() {
+        playLayeredAudio();
         /*
         switch (SelectedInstrument) {
             case "guitar":
@@ -110,6 +132,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = audio.time;
+        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = GetComponent<AudioSource>().time;
     }
 }
