@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public GameObject fullAudio_playBtnTxt;
     public GameObject audioSlider;
 
+    public GameObject sheetMusicPopUp;
+    public GameObject sheetMusicTitle;
+
     public GameObject layeredAudio_playBtn;
     public GameObject layeredAudio_playBtnTxt;
 
@@ -94,12 +97,22 @@ public class GameManager : MonoBehaviour
         SelectedInstrument = instrument;
         InstrumentSelect.SetActive(false);
         RecordPage.SetActive(true);
+        sheetMusicTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedInstrument + " - " + SelectedSong.title;
+        sheetMusicPopUp.SetActive(false);
     }
 
     public void backToInstrument() {
         SelectedInstrument = null;
         RecordPage.SetActive(false);
         InstrumentSelect.SetActive(true);
+    }
+
+    public void OpenSheetMusic() {
+        sheetMusicPopUp.SetActive(true);
+    }
+
+    public void CloseSheetMusic() {
+        sheetMusicPopUp.SetActive(false);
     }
 
     public void playFullAudio() {
@@ -220,6 +233,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = GetComponent<AudioSource>().time;
+        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
     }
 }
