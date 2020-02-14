@@ -136,7 +136,6 @@ public class GameManager : MonoBehaviour
             playing_fullAudio = true;
         } else {
             fullAudioSource.Stop();
-            fullAudioSource.clip = null;
             fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
             fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nPlay";
             playing_fullAudio = false;
