@@ -72,11 +72,6 @@ public class GameManager : MonoBehaviour
     public void selectSong(GameObject SongListItem) {
         SelectedSong = SongListItem.GetComponent<SongItem>();
         fullAudioSource.clip = SelectedSong.original_full_audio;
-        guitarAudioSource.clip = SelectedSong.original_guitar;
-        bassAudioSource.clip = SelectedSong.original_bass;
-        pianoAudioSource.clip = SelectedSong.original_piano;
-        drumsAudioSource.clip = SelectedSong.original_drums;
-        voiceAudioSource.clip = SelectedSong.original_voice;
         SongListPage.SetActive(false);
         InstrumentSelect.SetActive(true);
     }
@@ -84,11 +79,6 @@ public class GameManager : MonoBehaviour
    public void backToSongs() {
         SelectedSong = null;
         fullAudioSource.clip = null;
-        guitarAudioSource.clip = null;
-        bassAudioSource.clip = null;
-        pianoAudioSource.clip = null;
-        drumsAudioSource.clip = null;
-        voiceAudioSource.clip = null;
         InstrumentSelect.SetActive(false);
         SongListPage.SetActive(true);
         fullAudioSource.Stop();
@@ -104,6 +94,11 @@ public class GameManager : MonoBehaviour
         fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
         fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nPlay";
         playing_fullAudio = false;
+        guitarAudioSource.clip = SelectedSong.original_guitar;
+        bassAudioSource.clip = SelectedSong.original_bass;
+        pianoAudioSource.clip = SelectedSong.original_piano;
+        drumsAudioSource.clip = SelectedSong.original_drums;
+        voiceAudioSource.clip = SelectedSong.original_voice;
         RecordPage.SetActive(true);
         sheetMusicTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedInstrument + " - " + SelectedSong.title;
         sheetMusicPopUp.SetActive(false);
@@ -113,11 +108,22 @@ public class GameManager : MonoBehaviour
         SelectedInstrument = null;
         RecordPage.SetActive(false);
         InstrumentSelect.SetActive(true);
+
         guitarAudioSource.Stop();
         bassAudioSource.Stop();
         pianoAudioSource.Stop();
         drumsAudioSource.Stop();
         voiceAudioSource.Stop();
+
+        guitarAudioSource.clip = null;
+        bassAudioSource.clip = null;
+        pianoAudioSource.clip = null;
+        drumsAudioSource.clip = null;
+        voiceAudioSource.clip = null;
+
+        layeredAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+        layeredAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\nPlay";
+        playing_layeredAudio = false;
     }
 
     public void OpenSheetMusic() {
