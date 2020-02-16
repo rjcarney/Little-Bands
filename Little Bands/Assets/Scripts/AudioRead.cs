@@ -5,8 +5,9 @@ using System;
 
 public class AudioRead : MonoBehaviour {
  
-    bool isRecording = true;
+    public bool isRecording = false;
     private AudioSource audioSource;
+    public AudioClip produce;
  
     //temporary audio vector we write to every second while recording is enabled..
     List<float> tempRecording = new List<float>();
@@ -22,7 +23,10 @@ public class AudioRead : MonoBehaviour {
         audioSource.Play();
         //resize our temporary vector every second
         Invoke("ResizeRecording", 1);
+        
     }
+
+    
 
     static public byte[] SaveAudioClipToWav(AudioClip audioClip, string filename)
     {
@@ -108,6 +112,7 @@ public class AudioRead : MonoBehaviour {
                
                 recordedClips.Add(fullClip);
                 audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length, 1, 44100, false);
+                produce = audioSource.clip;
                 audioSource.clip.SetData(fullClip, 0);
                 audioSource.loop = true;
                 //Saves audio file

@@ -175,27 +175,27 @@ public class GameManager : MonoBehaviour
 
     public void Record() {
         playLayeredAudio();
-        /*
+        
          if (playing_layeredAudio == false){
             switch (SelectedInstrument) {
                 case "guitar":
-                    SelectedSong.recorded_guitar = ;
+                    SelectedSong.recorded_guitar = audioReader.produce;
                     break;
                 case "bass":
-                    SelectedSong.recorded_bass = ;
+                    SelectedSong.recorded_bass = audioReader.produce;
                     break;
                 case "piano":
-                    SelectedSong.recorded_piano = ;
+                    SelectedSong.recorded_piano = audioReader.produce;
                     break;
                 case "drums":
-                    SelectedSong.recorded_drums = ;
+                    SelectedSong.recorded_drums = audioReader.produce;
                     break;
                 case "voice":
-                    SelectedSong.recorded_voice = ;
+                    SelectedSong.recorded_voice = audioReader.produce;
                     break;
             }
         }
-        */
+        
     }
 
     public void guitarMuteToggle() {
