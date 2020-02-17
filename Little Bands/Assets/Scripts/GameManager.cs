@@ -184,7 +184,6 @@ public class GameManager : MonoBehaviour
                 case "guitar":
                     audioReader.startRecord = false;
                     SelectedSong.recorded_guitar = audioReader.produce;
-                    print("hit");
                     break;
                 case "bass":
                     audioReader.startRecord = false;
