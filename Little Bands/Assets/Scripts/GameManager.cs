@@ -258,6 +258,70 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
+        if (!fullAudioSource.isPlaying) {
+            fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+            fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nPlay";
+            playing_fullAudio = false;
+        }
+
+        if (!playing_layeredAudio) {
+            layeredAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+            layeredAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\nPlay";
+        }
+
+        if(SelectedInstrument != null) {
+            switch (SelectedInstrument) {
+                case "guitar":
+                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
+                    if (!guitarAudioSource.isPlaying) {
+                        playing_layeredAudio = false;
+                        if(audioReader.startRecord == false) {
+                            SelectedSong.recorded_guitar = audioReader.recordedClips[0];
+                            audioReader.startRecord = false;
+                        }
+                    }
+                    break;
+                case "bass":
+                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
+                    if (!bassAudioSource.isPlaying) {
+                        playing_layeredAudio = false;
+                        if (audioReader.startRecord == false) {
+                            SelectedSong.recorded_bass = audioReader.recordedClips[0];
+                            audioReader.startRecord = false;
+                        }
+                    }
+                    break;
+                case "piano":
+                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = pianoAudioSource.time;
+                    if (!pianoAudioSource.isPlaying) {
+                        playing_layeredAudio = false;
+                        if (audioReader.startRecord == false) {
+                            SelectedSong.recorded_piano = audioReader.recordedClips[0];
+                            audioReader.startRecord = false;
+                        }
+                    }
+                    break;
+                case "drums":
+                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
+                    if (!drumsAudioSource.isPlaying) {
+                        playing_layeredAudio = false;
+                        if (audioReader.startRecord == false) {
+                            SelectedSong.recorded_drums = audioReader.recordedClips[0];
+                            audioReader.startRecord = false;
+                        }
+                    }
+                    break;
+                case "voice":
+                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
+                    if (!voiceAudioSource.isPlaying) {
+                        playing_layeredAudio = false;
+                        if (audioReader.startRecord == false) {
+                            SelectedSong.recorded_voice = audioReader.recordedClips[0];
+                            audioReader.startRecord = false;
+                        }
+                    }
+                    break;
+            }
+        }
     }
 }
