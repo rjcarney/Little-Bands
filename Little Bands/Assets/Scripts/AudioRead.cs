@@ -27,8 +27,8 @@ public class AudioRead : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         //set up recording to last a max of 1 seconds and loop over and over
-        audioSource.clip = Microphone.Start(null, true, 1, 44100);
-        audioSource.Play();
+        audioSource.clip = Microphone.Start(null, true, 120, 44100);
+        //audioSource.Play();
         //resize our temporary vector every second
         Invoke("ResizeRecording", 1);
     }
@@ -148,8 +148,8 @@ public class AudioRead : MonoBehaviour
                 audioSource.Stop();
                 tempRecording.Clear();
                 Microphone.End(null);
-                audioSource.clip = Microphone.Start(null, true, 1, 44100);
-                Invoke("ResizeRecording", 1);
+                audioSource.clip = Microphone.Start(null, true, 120, 44100);
+                //Invoke("ResizeRecording", 1);
             }
 
 
@@ -188,7 +188,7 @@ public class AudioRead : MonoBehaviour
             audioSource.clip.SetData(recordedClips[0], 0);
             audioSource.loop = true;
             audioSource.Play();
-
+            print("looping");
         }
     }
 
