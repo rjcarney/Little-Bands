@@ -1,3 +1,4 @@
+﻿
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
@@ -5,18 +6,22 @@ using System;
 
 public class AudioRead : MonoBehaviour
 {
-
-    public bool isRecording = false;
     public bool startRecord = false;
-
+    public bool isRecording = false;
     private AudioSource audioSource;
-    public AudioClip produce;
+
+    //Controls
+    //Space: Records
+    //1-9: Sets track and plays recording
+    //M: Mixes the recording into one file
+    //S: Stop sound
 
     //temporary audio vector we write to every second while recording is enabled..
     List<float> tempRecording = new List<float>();
 
     //list of recorded clips...
-    List<float[]> recordedClips = new List<float[]>();
+    public List<float[]> recordedClips = new List<float[]>();
+    List<float[]> finishedTrack = new List<float[]>();
 
     void Start()
     {
@@ -26,14 +31,10 @@ public class AudioRead : MonoBehaviour
         audioSource.Play();
         //resize our temporary vector every second
         Invoke("ResizeRecording", 1);
-
     }
-
-
 
     static public byte[] SaveAudioClipToWav(AudioClip audioClip, string filename)
     {
-        print("working");
         byte[] buffer;
         FileStream fsWrite = File.Open(filename, FileMode.Create);
 
@@ -84,11 +85,31 @@ public class AudioRead : MonoBehaviour
         }
     }
 
+    private float ClampToValidRange(float value)
+    {
+        float min = -1.0f;
+        float max = 1.0f;
+        return (value < min) ? min : (value > max) ? max : value;
+    }
+
+    private float[] MixAndClampFloatBuffers(float[] bufferA, float[] bufferB)
+    {
+        int maxLength = Math.Min(bufferA.Length, bufferB.Length);
+        float[] mixedFloatArray = new float[maxLength];
+
+        for (int i = 0; i < maxLength; i++)
+        {
+            mixedFloatArray[i] = ClampToValidRange((bufferA[i] + bufferB[i]) / 2);
+        }
+        return mixedFloatArray;
+    }
+
     void Update()
     {
         //space key triggers recording to start...
-        if (startRecord)
+        if (Input.GetKeyDown("space") || startRecord)
         {
+            startRecord = false;
             isRecording = !isRecording;
             Debug.Log(isRecording == true ? "Is Recording" : "Off");
 
@@ -114,12 +135,12 @@ public class AudioRead : MonoBehaviour
                 }
 
                 recordedClips.Add(fullClip);
-                produce = audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length, 1, 44100, false);
-                //produce = audioSource.clip;
+                audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length, 1, 44100, false);
                 audioSource.clip.SetData(fullClip, 0);
                 audioSource.loop = true;
+                print(recordedClips[0].Length);
                 //Saves audio file
-                SaveAudioClipToWav(audioSource.clip, "testAudio381.wav");
+                //SaveAudioClipToWav(audioSource.clip, "testAudio381.wav");
             }
             else
             {
@@ -143,6 +164,17 @@ public class AudioRead : MonoBehaviour
             }
         }
 
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            float[] temp = MixAndClampFloatBuffers(recordedClips[0], recordedClips[1]);
+            audioSource.clip = AudioClip.Create("recorded samples", temp.Length, 1, 44100, false);
+            audioSource.clip.SetData(temp, 0);
+            SaveAudioClipToWav(audioSource.clip, "testAudio.wav");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+            audioSource.Stop();
+
     }
 
     //chooose which clip to play based on number key..
@@ -151,9 +183,9 @@ public class AudioRead : MonoBehaviour
         if (index < recordedClips.Count)
         {
             audioSource.Stop();
-            int length = recordedClips[index].Length;
+            int length = recordedClips[0].Length;
             audioSource.clip = AudioClip.Create("recorded samples", length, 1, 44100, false);
-            audioSource.clip.SetData(recordedClips[index], 0);
+            audioSource.clip.SetData(recordedClips[0], 0);
             audioSource.loop = true;
             audioSource.Play();
 

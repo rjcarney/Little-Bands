@@ -26,12 +26,19 @@ public class SongItem : MonoBehaviour
     // public AudioClip instruction_drums;
     // public AudioClip instruction_voice;
 
+    //[Header("Recorded Audio")]
+    //public AudioClip recorded_guitar;
+    //public AudioClip recorded_bass;
+    //public AudioClip recorded_piano;
+    //public AudioClip recorded_drums;
+    //public AudioClip recorded_voice;
+
     [Header("Recorded Audio")]
-    public AudioClip recorded_guitar;
-    public AudioClip recorded_bass;
-    public AudioClip recorded_piano;
-    public AudioClip recorded_drums;
-    public AudioClip recorded_voice;
+    public float[] recorded_guitar;
+    public float[] recorded_bass;
+    public float[] recorded_piano;
+    public float[] recorded_drums;
+    public float[] recorded_voice;
 
     [Header("Badge Icons")]
     public Texture emptyBadge;
