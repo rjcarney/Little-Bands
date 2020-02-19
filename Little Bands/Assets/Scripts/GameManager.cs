@@ -181,25 +181,25 @@ public class GameManager : MonoBehaviour
         {
             switch (SelectedInstrument)
             {
-                case "guitar":
-                    audioReader.startRecord = false;
+                case "guitar":     
                     SelectedSong.recorded_guitar = audioReader.recordedClips[0];
+                    audioReader.startRecord = false;
                     break;
                 case "bass":
-                    audioReader.startRecord = false;
                     SelectedSong.recorded_bass = audioReader.recordedClips[0];
+                    audioReader.startRecord = false;
                     break;
                 case "piano":
-                    audioReader.startRecord = false;
                     SelectedSong.recorded_piano = audioReader.recordedClips[0];
+                    audioReader.startRecord = false;
                     break;
                 case "drums":
-                    audioReader.startRecord = false;
                     SelectedSong.recorded_drums = audioReader.recordedClips[0];
+                    audioReader.startRecord = false;
                     break;
                 case "voice":
-                    audioReader.startRecord = false;
                     SelectedSong.recorded_voice = audioReader.recordedClips[0];
+                    audioReader.startRecord = false;
                     break;
             }
         }
