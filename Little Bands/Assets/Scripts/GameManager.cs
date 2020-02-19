@@ -275,50 +275,61 @@ public class GameManager : MonoBehaviour
                     audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
                     if (!guitarAudioSource.isPlaying) {
                         playing_layeredAudio = false;
-                        if(audioReader.startRecord == false) {
+                        /*
+                         * Save recording when song finishes
+                        if(audioReader.isRecording == true) {
                             SelectedSong.recorded_guitar = audioReader.recordedClips[0];
-                            audioReader.startRecord = false;
+                            audioReader.startRecord = true;
                         }
+                        */
                     }
                     break;
                 case "bass":
                     audioSlider.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
                     if (!bassAudioSource.isPlaying) {
                         playing_layeredAudio = false;
-                        if (audioReader.startRecord == false) {
+                        /*
+                        if (audioReader.isRecording == true) {
                             SelectedSong.recorded_bass = audioReader.recordedClips[0];
-                            audioReader.startRecord = false;
+                            audioReader.startRecord = true;
                         }
+                        */
                     }
                     break;
                 case "piano":
                     audioSlider.GetComponent<UnityEngine.UI.Slider>().value = pianoAudioSource.time;
                     if (!pianoAudioSource.isPlaying) {
                         playing_layeredAudio = false;
-                        if (audioReader.startRecord == false) {
+                        /*
+                        if (audioReader.isRecording == true) {
                             SelectedSong.recorded_piano = audioReader.recordedClips[0];
-                            audioReader.startRecord = false;
+                            audioReader.startRecord = true;
                         }
+                        */
                     }
                     break;
                 case "drums":
                     audioSlider.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
                     if (!drumsAudioSource.isPlaying) {
                         playing_layeredAudio = false;
-                        if (audioReader.startRecord == false) {
+                        /*
+                        if (audioReader.isRecording == true) {
                             SelectedSong.recorded_drums = audioReader.recordedClips[0];
-                            audioReader.startRecord = false;
+                            audioReader.startRecord = true;
                         }
+                        */
                     }
                     break;
                 case "voice":
                     audioSlider.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
                     if (!voiceAudioSource.isPlaying) {
                         playing_layeredAudio = false;
-                        if (audioReader.startRecord == false) {
+                        /*
+                        if (audioReader.isRecording == true) {
                             SelectedSong.recorded_voice = audioReader.recordedClips[0];
-                            audioReader.startRecord = false;
+                            audioReader.startRecord = true;
                         }
+                        */
                     }
                     break;
             }
