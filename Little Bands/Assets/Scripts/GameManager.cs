@@ -221,15 +221,17 @@ public class GameManager : MonoBehaviour
 
     // New Record page instrument buttons
     public void InstrumentButtonOnClick(string instrument) {
+        // First Click Select instrument
         if(SelectedInstrument != instrument) {
             SelectedInstrument = instrument;
-        } else {
+        }
+        // Every Subsequent Click Toggle Audio
+        else {
             if(instrument == "guitar") {
                 switch (SelectedSong.guitarToggleCount) {
                     case 0:
                         if (SelectedSong.recorded_guitar != null) {
                             guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
-                            guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
                             SelectedSong.guitarToggleCount = 1;
                             guitarAudioSource.volume = 1;
                         } else {
@@ -453,6 +455,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (userAvatar != null) {
+            // Set Avatar Texture
             switch (SelectedInstrument) {
                 case "guitar":
                     avatarDisplay.GetComponent<RawImage>().texture = userAvatar.avatarGuitar;
@@ -481,13 +484,66 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        /*
-        if (!fullAudioSource.isPlaying) {
-            fullAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
-            fullAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\nPlay";
-            playing_fullAudio = false;
+        // Toggle Track Text
+        if (SelectedSong != null) {
+            switch (SelectedSong.guitarToggleCount) {
+                case 0:
+                    guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    break;
+                case 1:
+                    guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    break;
+                case 2:
+                    guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    break;
+            }
+            switch (SelectedSong.bassToggleCount) {
+                case 0:
+                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    break;
+                case 1:
+                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    break;
+                case 2:
+                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    break;
+            }
+            switch (SelectedSong.pianoToggleCount) {
+                case 0:
+                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    break;
+                case 1:
+                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    break;
+                case 2:
+                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    break;
+            }
+            switch (SelectedSong.drumsToggleCount) {
+                case 0:
+                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    break;
+                case 1:
+                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    break;
+                case 2:
+                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    break;
+            }
+            switch (SelectedSong.voiceToggleCount) {
+                case 0:
+                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    break;
+                case 1:
+                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    break;
+                case 2:
+                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    break;
+            }
         }
-        */
+
+        // Revert To Play Button When Audio is Finished Playing
         if (!playing_layeredAudio) {
             layeredAudio_playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
             layeredAudio_playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\nPlay";
@@ -555,7 +611,11 @@ public class GameManager : MonoBehaviour
                         */
                     }
                     break;
-            }
+            } 
+        } else {
+            audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
+            if (!guitarAudioSource.isPlaying)
+                playing_layeredAudio = false;
         }
     }
 }
