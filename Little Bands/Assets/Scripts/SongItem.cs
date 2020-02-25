@@ -40,6 +40,12 @@ public class SongItem : MonoBehaviour
     public float[] recorded_drums;
     public float[] recorded_voice;
 
+    public AudioClip recorded_guitarClip;
+    public AudioClip recorded_bassClip;
+    public AudioClip recorded_pianoClip;
+    public AudioClip recorded_drumsClip;
+    public AudioClip recorded_voiceClip;
+
     [Header("Badge Icons")]
     public Texture emptyBadge;
     public Texture guitarBadge;
@@ -60,6 +66,18 @@ public class SongItem : MonoBehaviour
     public GameObject badge_drums;
     public GameObject badge_voice;
 
+    public int guitarToggleCount;
+    public int bassToggleCount;
+    public int pianoToggleCount;
+    public int drumsToggleCount;
+    public int voiceToggleCount;
+
+    private bool guitarRecorded;
+    private bool bassRecorded;
+    private bool pianoRecorded;
+    private bool drumsRecorded;
+    private bool voiceRecorded;
+
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +92,18 @@ public class SongItem : MonoBehaviour
         badge_piano.GetComponent<UnityEngine.UI.RawImage>().texture = (recorded_piano.Length <= 1) ? emptyBadge : pianoBadge;
         badge_drums.GetComponent<UnityEngine.UI.RawImage>().texture = (recorded_drums.Length <= 1) ? emptyBadge : drumsBadge;
         badge_voice.GetComponent<UnityEngine.UI.RawImage>().texture = (recorded_voice.Length <= 1) ? emptyBadge : voiceBadge;
+
+        guitarToggleCount = 0;
+        bassToggleCount = 0;
+        pianoToggleCount = 0;
+        drumsToggleCount = 0;
+        voiceToggleCount = 0;
+
+        guitarRecorded = false;
+        bassRecorded = false;
+        pianoRecorded = false;
+        drumsRecorded = false;
+        voiceRecorded = false;
     }
 
     // Update is called once per frame
