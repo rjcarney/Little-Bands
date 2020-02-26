@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
      * 
      *  We can remove the InstrumentSelectPage and go directly to the RecordPage
      *  
-     *  On the record page our instrument buttons will now have two knew functions:
+     *  On the record page our instrument buttons will now have two new functions:
      *  On first click if instrument has not been selected
      *                  then select that instrument
      *  else
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
      *      0. teacher audio
      *      1. if user has recording for insturment
      *          then users recording
-     *      else count = 2
+     *          else count = 2
      *      2. mute
      *  
      *  There also be the addition of a new Audio Source to play a teacher guide to play each instrument
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     // Record Page Variables
     public GameObject RecordPage;
+    public GameObject BackButton;
 
     private string SelectedInstrument;
     public GameObject avatarDisplay;
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
         AvatarSelecetPage.SetActive(true);
         SongListPage.SetActive(false);
         RecordPage.SetActive(false);
+        BackButton.SetActive(false);
 
         SelectedSong = null;
         playing_recording = false;
@@ -117,11 +119,10 @@ public class GameManager : MonoBehaviour
     /* SONG SELECTION PAGE
      * Once  the desired avatar has been selected the user will select a song
      * 
-     * selecting a song will
-     * 
+     * selecting a song will:
      * Set SelectedSong
      *     Audio Source for instrument files
-     *     These will be based on instrument toggels associated with the selected song
+     *     These will be based on instrument toggels variables associated with the selected song
      */
     public void selectSong(GameObject SongListItem) {
         SelectedSong = SongListItem.GetComponent<SongItem>();
@@ -207,6 +208,7 @@ public class GameManager : MonoBehaviour
         // Change View
         SongListPage.SetActive(false);
         RecordPage.SetActive(true);
+        BackButton.SetActive(true);
     }
 
     public void backToSongs() {
@@ -218,9 +220,11 @@ public class GameManager : MonoBehaviour
         pianoAudioSource.clip = null;
         drumsAudioSource.clip = null;
         voiceAudioSource.clip = null;
+        SelectedInstrument = null;
 
         // Change view
         RecordPage.SetActive(false);
+        BackButton.SetActive(false);
         SongListPage.SetActive(true);
     }
 
@@ -387,6 +391,7 @@ public class GameManager : MonoBehaviour
     //  The Play Button will now only play the users recorded audio
      public void PlayButtonOnClick() {
         if (playing_recording == false) {
+            // Stop all curently playing audio
             guitarAudioSource.Stop();
             bassAudioSource.Stop();
             pianoAudioSource.Stop();
@@ -394,7 +399,7 @@ public class GameManager : MonoBehaviour
             voiceAudioSource.Stop();
             playing_layeredAudio = false;
 
-            // Set all recording clips to recorded wav file otherwise set to null
+            // Set all recording clips to associated recorded wav file otherwise set to null
             guitarAudioSource.clip = (SelectedSong.recorded_guitarClip == null) ? null : SelectedSong.recorded_guitarClip;
             bassAudioSource.clip = (SelectedSong.recorded_bassClip == null) ? null : SelectedSong.recorded_bassClip;
             pianoAudioSource.clip = (SelectedSong.recorded_pianoClip == null) ? null : SelectedSong.recorded_pianoClip;
@@ -450,6 +455,7 @@ public class GameManager : MonoBehaviour
                 playing_recording = true;
             }
         } else {
+            // Stop All Audio
             guitarAudioSource.Stop();
             bassAudioSource.Stop();
             pianoAudioSource.Stop();
@@ -558,23 +564,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //
+    // Change view from Play Options to Sheet Music
     public void OpenSheetMusic() {
         sheetMusicPopUp.SetActive(true);
         PlayOptions.SetActive(false);
     }
 
+    // Change view from Sheet Music to Play Options
     public void CloseSheetMusic() {
         sheetMusicPopUp.SetActive(false);
         PlayOptions.SetActive(true);
     }
 
-    
-
-    
-
     public void Record() {
+        // Ensure instrument is selected
         if (SelectedInstrument != null) {
+            // Set Correct View Based on if recording or not
             if (recording == false) {
                 recording = true;
                 PlayOptions.SetActive(false);
@@ -585,9 +590,11 @@ public class GameManager : MonoBehaviour
                 sheetMusicPopUp.SetActive(false);
             }
 
+            // Toggle Audio and AudioReader start
             playLayeredAudio();
             audioReader.startRecord = true;
 
+            // Save recording float to correct variable
             if (playing_layeredAudio == false) {
                 switch (SelectedInstrument) {
                     case "guitar":
@@ -718,11 +725,15 @@ public class GameManager : MonoBehaviour
 
         if(SelectedInstrument != null) {
             switch (SelectedInstrument) {
+                // all cases do the same things, only difference is specific for selected instrument
                 case "guitar":
+                    // Audio bar size equals length of recorded instrument layer
                     audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
                     if (playing_recording && !guitarAudioSource.isPlaying) {
+                        // Finished playing user recorded track
                         PlayButtonOnClick();
                     } else if (recording && !guitarAudioSource.isPlaying) {
+                        // Finished recording
                         Record();
                     }
                     break;
@@ -760,9 +771,10 @@ public class GameManager : MonoBehaviour
                     break;
             } 
         } else {
-            audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
-            if (!guitarAudioSource.isPlaying)
-                playing_layeredAudio = false;
+            // Selected Instrument is null
+            // fill audio slider based on time passed
+            // check for end of song and change play buttin back
+            // can not record without a selected instrument
         }
     }
 }
