@@ -536,6 +536,9 @@ public class GameManager : MonoBehaviour
 
     
     public void playLayeredAudio() {
+        if (playing_recording)
+            PlayButtonOnClick();
+
         if (playing_layeredAudio == false) {
             audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
 
@@ -555,6 +558,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //
     public void OpenSheetMusic() {
         sheetMusicPopUp.SetActive(true);
         PlayOptions.SetActive(false);
