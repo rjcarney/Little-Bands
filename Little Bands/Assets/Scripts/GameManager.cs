@@ -57,6 +57,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject sheetMusicPopUp;
     public GameObject sheetMusicTitle;
+    public GameObject sheetMusicClose;
+
+    public GameObject audioGuideToggle;
+    public AudioSource audioGuideSource;
+
+    public GameObject videoPopUp;
 
     public AudioSource fullAudioSource;
     public AudioSource guitarAudioSource;
@@ -573,6 +579,18 @@ public class GameManager : MonoBehaviour
     // Change view from Sheet Music to Play Options
     public void CloseSheetMusic() {
         sheetMusicPopUp.SetActive(false);
+        PlayOptions.SetActive(true);
+    }
+
+    // Change view from Play Options to Video
+    public void OpenVideo() {
+        videoPopUp.SetActive(true);
+        PlayOptions.SetActive(false);
+    }
+
+    // Change view from Video to Play Options
+    public void CloseVideo() {
+        videoPopUp.SetActive(false);
         PlayOptions.SetActive(true);
     }
 
