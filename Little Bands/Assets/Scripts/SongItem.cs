@@ -61,11 +61,13 @@ public class SongItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set all song list item UI elements
         title_text.GetComponent<UnityEngine.UI.Text>().text = title;
         artist_text.GetComponent<UnityEngine.UI.Text>().text = artist;
         length_text.GetComponent<UnityEngine.UI.Text>().text = length;
         albumArt_image.GetComponent<UnityEngine.UI.RawImage>().texture = albumArt;
 
+        // preset all audio to teacher tracks
         guitarToggleCount = 0;
         bassToggleCount = 0;
         pianoToggleCount = 0;

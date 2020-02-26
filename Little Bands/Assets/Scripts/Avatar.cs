@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Avatar : MonoBehaviour
 {
+    // This class holds all of the textures for the individual avatars
     public string avatarName;
     public Texture avatar;
     public Texture avatarGuitar;
