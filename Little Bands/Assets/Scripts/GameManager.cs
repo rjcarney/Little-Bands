@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
 
     // Record Page Variables
     public GameObject RecordPage;
-    public GameObject BackButton;
 
     private string SelectedInstrument;
     public GameObject avatarDisplay;
@@ -93,7 +92,6 @@ public class GameManager : MonoBehaviour
         AvatarSelecetPage.SetActive(true);
         SongListPage.SetActive(false);
         RecordPage.SetActive(false);
-        BackButton.SetActive(false);
 
         SelectedSong = null;
         playing_recording = false;
@@ -214,7 +212,6 @@ public class GameManager : MonoBehaviour
         // Change View
         SongListPage.SetActive(false);
         RecordPage.SetActive(true);
-        BackButton.SetActive(true);
     }
 
     public void backToSongs() {
@@ -230,7 +227,6 @@ public class GameManager : MonoBehaviour
 
         // Change view
         RecordPage.SetActive(false);
-        BackButton.SetActive(false);
         SongListPage.SetActive(true);
     }
 
