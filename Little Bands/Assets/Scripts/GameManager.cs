@@ -570,44 +570,46 @@ public class GameManager : MonoBehaviour
     
 
     public void Record() {
-        if (recording == false) {
-            recording = true;
-            PlayOptions.SetActive(false);
-            sheetMusicPopUp.SetActive(true);
-        } else {
-            recording = false;
-            PlayOptions.SetActive(true);
-            sheetMusicPopUp.SetActive(false);
-        }
-
-        playLayeredAudio();
-        audioReader.startRecord = true;
-
-        if (playing_layeredAudio == false)
-        {
-            switch (SelectedInstrument)
-            {
-                case "guitar":     
-                    SelectedSong.recorded_guitar = audioReader.recordedClips[0];
-                    audioReader.startRecord = false;
-                    break;
-                case "bass":
-                    SelectedSong.recorded_bass = audioReader.recordedClips[0];
-                    audioReader.startRecord = false;
-                    break;
-                case "piano":
-                    SelectedSong.recorded_piano = audioReader.recordedClips[0];
-                    audioReader.startRecord = false;
-                    break;
-                case "drums":
-                    SelectedSong.recorded_drums = audioReader.recordedClips[0];
-                    audioReader.startRecord = false;
-                    break;
-                case "voice":
-                    SelectedSong.recorded_voice = audioReader.recordedClips[0];
-                    audioReader.startRecord = false;
-                    break;
+        if (SelectedInstrument != null) {
+            if (recording == false) {
+                recording = true;
+                PlayOptions.SetActive(false);
+                sheetMusicPopUp.SetActive(true);
+            } else {
+                recording = false;
+                PlayOptions.SetActive(true);
+                sheetMusicPopUp.SetActive(false);
             }
+
+            playLayeredAudio();
+            audioReader.startRecord = true;
+
+            if (playing_layeredAudio == false) {
+                switch (SelectedInstrument) {
+                    case "guitar":
+                        SelectedSong.recorded_guitar = audioReader.recordedClips[0];
+                        audioReader.startRecord = false;
+                        break;
+                    case "bass":
+                        SelectedSong.recorded_bass = audioReader.recordedClips[0];
+                        audioReader.startRecord = false;
+                        break;
+                    case "piano":
+                        SelectedSong.recorded_piano = audioReader.recordedClips[0];
+                        audioReader.startRecord = false;
+                        break;
+                    case "drums":
+                        SelectedSong.recorded_drums = audioReader.recordedClips[0];
+                        audioReader.startRecord = false;
+                        break;
+                    case "voice":
+                        SelectedSong.recorded_voice = audioReader.recordedClips[0];
+                        audioReader.startRecord = false;
+                        break;
+                }
+            }
+        } else {
+            // Prompt user to select an instrument
         }
     }
 
