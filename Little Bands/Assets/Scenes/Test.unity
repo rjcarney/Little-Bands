@@ -2184,7 +2184,7 @@ GameObject:
   - component: {fileID: 496929833}
   - component: {fileID: 496929832}
   m_Layer: 5
-  m_Name: VideoSongTitle
+  m_Name: VideoTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4318,6 +4318,11 @@ PrefabInstance:
       propertyPath: voiceTrackText
       value: 
       objectReference: {fileID: 209905792}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: videoTitle
+      value: 
+      objectReference: {fileID: 496929830}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name

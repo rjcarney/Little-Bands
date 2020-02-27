@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     public AudioSource audioGuideSource;
 
     public GameObject videoPopUp;
+    public GameObject videoTitle;
 
     public AudioSource fullAudioSource;
     public AudioSource guitarAudioSource;
@@ -131,6 +132,7 @@ public class GameManager : MonoBehaviour
      */
     public void selectSong(GameObject SongListItem) {
         SelectedSong = SongListItem.GetComponent<SongItem>();
+        videoTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedSong.title;
 
         //Set Audio Tracks
         fullAudioSource.clip = SelectedSong.original_full_audio;
@@ -238,46 +240,46 @@ public class GameManager : MonoBehaviour
 
     // New Record page instrument buttons
     public void InstrumentButtonOnClick(string instrument) {
-            if (!playing_recording && !recording) {
-                // First Click Select instrument
-                if (SelectedInstrument != instrument) {
-                    SelectedInstrument = instrument;
+        if (!playing_recording && !recording) {
+            // First Click Select instrument
+            if (SelectedInstrument != instrument) {
+                SelectedInstrument = instrument;
                 sheetMusicTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedSong.title + ": " + SelectedInstrument;
-                }
-                // Every Subsequent Click Toggle Audio
-                else {
-                    if (instrument == "guitar") {
-                        switch (SelectedSong.guitarToggleCount) {
-                            case 0:  // Teacher
-                                if (SelectedSong.recorded_guitarClip != null) {
-                                    // Change to student
-                                    guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
-                                    SelectedSong.guitarToggleCount = 1;
-                                    guitarAudioSource.volume = 1;
-                                } else {
-                                    // No student track, mute
-                                    guitarAudioSource.clip = SelectedSong.original_guitar;
-                                    guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
-                                    SelectedSong.guitarToggleCount = 2;
-                                    guitarAudioSource.volume = 0;
-                                }
-                                break;
-                            case 1:  // Student
-                                // Mute
+            }
+            // Every Subsequent Click Toggle Audio
+            else {
+                if (instrument == "guitar") {
+                    switch (SelectedSong.guitarToggleCount) {
+                        case 0:  // Teacher
+                            if (SelectedSong.recorded_guitarClip != null) {
+                                // Change to student
+                                guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
+                                SelectedSong.guitarToggleCount = 1;
+                                guitarAudioSource.volume = 1;
+                            } else {
+                                // No student track, mute
                                 guitarAudioSource.clip = SelectedSong.original_guitar;
                                 guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                 SelectedSong.guitarToggleCount = 2;
                                 guitarAudioSource.volume = 0;
-                                break;
-                            case 2:  // Muted
-                                // Change to teacher
-                                guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
-                                guitarAudioSource.volume = 1;
-                                SelectedSong.guitarToggleCount = 0;
-                                break;
-                        }
+                            }
+                            break;
+                        case 1:  // Student
+                            // Mute
+                            guitarAudioSource.clip = SelectedSong.original_guitar;
+                            guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            SelectedSong.guitarToggleCount = 2;
+                            guitarAudioSource.volume = 0;
+                            break;
+                        case 2:  // Muted
+                            // Change to teacher
+                            guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            guitarAudioSource.volume = 1;
+                            SelectedSong.guitarToggleCount = 0;
+                            break;
                     }
-                    if (instrument == "bass") {
+                }
+                if (instrument == "bass") {
                         switch (SelectedSong.bassToggleCount) {
                             case 0:
                                 if (SelectedSong.recorded_bassClip != null) {
@@ -305,7 +307,7 @@ public class GameManager : MonoBehaviour
                                 break;
                         }
                     }
-                    if (instrument == "piano") {
+                if (instrument == "piano") {
                         switch (SelectedSong.pianoToggleCount) {
                             case 0:
                                 if (SelectedSong.recorded_pianoClip != null) {
@@ -333,7 +335,7 @@ public class GameManager : MonoBehaviour
                                 break;
                         }
                     }
-                    if (instrument == "drums") {
+                if (instrument == "drums") {
                         switch (SelectedSong.drumsToggleCount) {
                             case 0:
                                 if (SelectedSong.recorded_drumsClip != null) {
@@ -362,7 +364,7 @@ public class GameManager : MonoBehaviour
                                 break;
                         }
                     }
-                    if (instrument == "voice") {
+                if (instrument == "voice") {
                         switch (SelectedSong.voiceToggleCount) {
                             case 0:
                                 if (SelectedSong.recorded_voiceClip != null) {
@@ -390,7 +392,7 @@ public class GameManager : MonoBehaviour
                                 break;
                         }
                     }
-                }
+            }
             }
     }
     
