@@ -247,25 +247,29 @@ public class GameManager : MonoBehaviour
                 else {
                     if (instrument == "guitar") {
                         switch (SelectedSong.guitarToggleCount) {
-                            case 0:
+                            case 0:  // Teacher
                                 if (SelectedSong.recorded_guitarClip != null) {
+                                    // Change to student
                                     guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
                                     SelectedSong.guitarToggleCount = 1;
                                     guitarAudioSource.volume = 1;
                                 } else {
+                                    // No student track, mute
                                     guitarAudioSource.clip = SelectedSong.original_guitar;
                                     guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                     SelectedSong.guitarToggleCount = 2;
                                     guitarAudioSource.volume = 0;
                                 }
                                 break;
-                            case 1:
+                            case 1:  // Student
+                                // Mute
                                 guitarAudioSource.clip = SelectedSong.original_guitar;
                                 guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                 SelectedSong.guitarToggleCount = 2;
                                 guitarAudioSource.volume = 0;
                                 break;
-                            case 2:
+                            case 2:  // Muted
+                                // Change to teacher
                                 guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
                                 guitarAudioSource.volume = 1;
                                 SelectedSong.guitarToggleCount = 0;
