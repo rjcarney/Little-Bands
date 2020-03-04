@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour
     public GameObject videoPopUp;
     public GameObject videoTitle;
 
+    public GameObject recordView;
+    public GameObject confirmPopUp;
+
     public AudioSource fullAudioSource;
     public AudioSource guitarAudioSource;
     public AudioSource bassAudioSource;
@@ -608,11 +611,11 @@ public class GameManager : MonoBehaviour
             if (recording == false) {
                 recording = true;
                 PlayOptions.SetActive(false);
-                sheetMusicPopUp.SetActive(true);
+                recordView.SetActive(true);
             } else {
                 recording = false;
                 PlayOptions.SetActive(true);
-                sheetMusicPopUp.SetActive(false);
+                recordView.SetActive(false);
             }
 
             // Toggle Audio and AudioReader start
