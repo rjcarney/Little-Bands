@@ -252,6 +252,11 @@ MonoBehaviour:
   original_piano: {fileID: 8300000, guid: a828c5a31422b744696ff27c3b31dd27, type: 3}
   original_drums: {fileID: 8300000, guid: 018edd4581bf75949b5a83ef99aa7425, type: 3}
   original_voice: {fileID: 8300000, guid: 656892ca6f0bfbd4fa83a6ade3c9df4b, type: 3}
+  instruction_guitar: {fileID: 8300000, guid: 73e9a0c776c31824a8e432d22c528492, type: 3}
+  instruction_bass: {fileID: 8300000, guid: 6837cf7fb140e9944aaa42e49e4f77fc, type: 3}
+  instruction_piano: {fileID: 8300000, guid: 28ae627abed1b2c49a0cbd9bdb01ecc5, type: 3}
+  instruction_drums: {fileID: 0}
+  instruction_voice: {fileID: 8300000, guid: 132464c860cb77047a6e1c8b6f0622dd, type: 3}
   recorded_guitar:
   - 0
   recorded_bass:
@@ -267,12 +272,6 @@ MonoBehaviour:
   recorded_pianoClip: {fileID: 0}
   recorded_drumsClip: {fileID: 0}
   recorded_voiceClip: {fileID: 0}
-  emptyBadge: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
-  guitarBadge: {fileID: 2800000, guid: 3af22f65c76f81b4b94b869e0c06da33, type: 3}
-  bassBadge: {fileID: 2800000, guid: 275680031ba235a49adf5bd7f0b0f716, type: 3}
-  pianoBadge: {fileID: 2800000, guid: 1c8e2f5ce37700743a333dac3bbed281, type: 3}
-  drumsBadge: {fileID: 2800000, guid: 5128dd7aa5eb5784489c453d9624d85e, type: 3}
-  voiceBadge: {fileID: 2800000, guid: 99b4bf4f76e16f540b1d13befdfdb648, type: 3}
   albumArt_image: {fileID: 0}
   title_text: {fileID: 2470767133486855109}
   artist_text: {fileID: 2470767135147877979}

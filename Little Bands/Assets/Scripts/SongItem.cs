@@ -19,12 +19,12 @@ public class SongItem : MonoBehaviour
     public AudioClip original_drums;
     public AudioClip original_voice;
 
-    // [Header ("Instruction Audio")]
-    // public AudioClip instruction_guitar;
-    // public AudioClip instruction_bass;
-    // public AudioClip instruction_piano;
-    // public AudioClip instruction_drums;
-    // public AudioClip instruction_voice;
+    [Header ("Instruction Audio")]
+    public AudioClip instruction_guitar;
+    public AudioClip instruction_bass;
+    public AudioClip instruction_piano;
+    public AudioClip instruction_drums;
+    public AudioClip instruction_voice;
     
     [Header("Recorded Audio")]
     public float[] recorded_guitar;

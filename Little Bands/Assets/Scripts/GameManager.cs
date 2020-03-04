@@ -248,6 +248,24 @@ public class GameManager : MonoBehaviour
             if (SelectedInstrument != instrument) {
                 SelectedInstrument = instrument;
                 sheetMusicTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedSong.title + ": " + SelectedInstrument;
+                switch (instrument) {
+                    case "guitar":
+                        audioGuideSource.clip = SelectedSong.instruction_guitar;
+                        break;
+                    case "bass":
+                        audioGuideSource.clip = SelectedSong.instruction_bass;
+                        break;
+                    case "piano":
+                        audioGuideSource.clip = SelectedSong.instruction_piano;
+                        break;
+                    case "drums":
+                        audioGuideSource.clip = SelectedSong.instruction_drums;
+                        break;
+                    case "voice":
+                        audioGuideSource.clip = SelectedSong.instruction_voice;
+                        break;
+                }
+
             }
             // Every Subsequent Click Toggle Audio
             else {
@@ -569,6 +587,7 @@ public class GameManager : MonoBehaviour
             pianoAudioSource.Play();
             drumsAudioSource.Play();
             voiceAudioSource.Play();
+            audioGuideSource.Play();
             playing_layeredAudio = true;
         } else {
             guitarAudioSource.Stop();
@@ -576,6 +595,7 @@ public class GameManager : MonoBehaviour
             pianoAudioSource.Stop();
             drumsAudioSource.Stop();
             voiceAudioSource.Stop();
+            audioGuideSource.Stop();
             playing_layeredAudio = false;
         }
     }
