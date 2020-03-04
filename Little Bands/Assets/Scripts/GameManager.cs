@@ -626,23 +626,23 @@ public class GameManager : MonoBehaviour
             if (playing_layeredAudio == false) {
                 switch (SelectedInstrument) {
                     case "guitar":
-                        SelectedSong.recorded_guitar = audioReader.recordedClips[0];
+                        SelectedSong.recorded_guitar = audioReader.recordedGuitar;
                         audioReader.startRecord = false;
                         break;
                     case "bass":
-                        SelectedSong.recorded_bass = audioReader.recordedClips[0];
+                        SelectedSong.recorded_bass = audioReader.recordedBass;
                         audioReader.startRecord = false;
                         break;
                     case "piano":
-                        SelectedSong.recorded_piano = audioReader.recordedClips[0];
+                        SelectedSong.recorded_piano = audioReader.recordedPiano;
                         audioReader.startRecord = false;
                         break;
                     case "drums":
-                        SelectedSong.recorded_drums = audioReader.recordedClips[0];
+                        SelectedSong.recorded_drums = audioReader.recordedDrums;
                         audioReader.startRecord = false;
                         break;
                     case "voice":
-                        SelectedSong.recorded_voice = audioReader.recordedClips[0];
+                        SelectedSong.recorded_voice = audioReader.recordedVoice;
                         audioReader.startRecord = false;
                         break;
                 }
