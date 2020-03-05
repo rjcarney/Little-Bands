@@ -57,15 +57,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject sheetMusicPopUp;
     public GameObject sheetMusicTitle;
-    public GameObject sheetMusicClose;
-
-    public GameObject audioGuideToggle;
-    public AudioSource audioGuideSource;
 
     public GameObject videoPopUp;
     public GameObject videoTitle;
 
     public GameObject recordView;
+    public AudioSource audioGuideSource;
     public GameObject confirmPopUp;
 
     public AudioSource fullAudioSource;
@@ -116,7 +113,6 @@ public class GameManager : MonoBehaviour
         AvatarSelecetPage.SetActive(false);
         SongListPage.SetActive(true);
     }
-
     public void Load() {
         //Here is where we will call harris's load method
 
@@ -213,13 +209,10 @@ public class GameManager : MonoBehaviour
         // Audio slider value
         audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = fullAudioSource.clip.length;
 
-        // Set Correct Avatar to display
-
         // Change View
         SongListPage.SetActive(false);
         RecordPage.SetActive(true);
     }
-
     public void backToSongs() {
         //Deselect song and audio
         SelectedSong = null;
@@ -229,6 +222,7 @@ public class GameManager : MonoBehaviour
         pianoAudioSource.clip = null;
         drumsAudioSource.clip = null;
         voiceAudioSource.clip = null;
+        audioGuideSource.clip = null;
         SelectedInstrument = null;
 
         // Change view
@@ -414,7 +408,7 @@ public class GameManager : MonoBehaviour
                         }
                     }
             }
-            }
+        }
     }
     
     //  The Play Button will now only play the users recorded audio
@@ -634,42 +628,52 @@ public class GameManager : MonoBehaviour
                 recordView.SetActive(true);
             } else {
                 recording = false;
-                PlayOptions.SetActive(true);
+                confirmPopUp.SetActive(true);
                 recordView.SetActive(false);
             }
 
             // Toggle Audio and AudioReader start
             playLayeredAudio();
             audioReader.startRecord = true;
-
-            // Save recording float to correct variable
-            if (playing_layeredAudio == false) {
-                switch (SelectedInstrument) {
-                    case "guitar":
-                        SelectedSong.recorded_guitar = audioReader.recordedGuitar;
-                        audioReader.startRecord = false;
-                        break;
-                    case "bass":
-                        SelectedSong.recorded_bass = audioReader.recordedBass;
-                        audioReader.startRecord = false;
-                        break;
-                    case "piano":
-                        SelectedSong.recorded_piano = audioReader.recordedPiano;
-                        audioReader.startRecord = false;
-                        break;
-                    case "drums":
-                        SelectedSong.recorded_drums = audioReader.recordedDrums;
-                        audioReader.startRecord = false;
-                        break;
-                    case "voice":
-                        SelectedSong.recorded_voice = audioReader.recordedVoice;
-                        audioReader.startRecord = false;
-                        break;
-                }
-            }
         } else {
             // Prompt user to select an instrument
         }
+    }
+
+    // Confirm the user wishes to save current recording session
+    public void confirmRecording(string confirm) {
+        if (confirm == "Yes") {
+            switch (SelectedInstrument) {
+                case "guitar":
+                    SelectedSong.recorded_guitar = audioReader.recordedGuitar;
+                    break;
+                case "bass":
+                    SelectedSong.recorded_bass = audioReader.recordedBass;
+                    break;
+                case "piano":
+                    SelectedSong.recorded_piano = audioReader.recordedPiano;
+                    break;
+                case "drums":
+                    SelectedSong.recorded_drums = audioReader.recordedDrums;
+                    break;
+                case "voice":
+                    SelectedSong.recorded_voice = audioReader.recordedVoice;
+                    break;
+            }
+            audioReader.startRecord = false;
+        }
+
+        confirmPopUp.SetActive(false);
+        PlayOptions.SetActive(true);
+
+    }
+
+    // Toggle the teacher guide audio
+    public void audioGuideMuteToggle() {
+        if (audioGuideSource.volume == 1)
+            audioGuideSource.volume = 0;
+        else
+            audioGuideSource.volume = 1;
     }
 
     // Update is called once per frame
