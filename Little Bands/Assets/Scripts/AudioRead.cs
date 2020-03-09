@@ -13,12 +13,7 @@ public class AudioRead : MonoBehaviour {
     public List<float> tempRecording = new List<float>();
     public float[] recordedInstrument;
 
-<<<<<<< HEAD
     void Start() {
-=======
-    void Start()
-    {
->>>>>>> b0fdf84bf1186bde5cf6ad7de898f1c2b46d91cd
         //Set audioSource
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = Microphone.Start(null, true, seconds, frequency);
@@ -30,12 +25,7 @@ public class AudioRead : MonoBehaviour {
             startRecord = false;
 
             //Create audio float array
-<<<<<<< HEAD
             if (isRecording == false) {
-=======
-            if (isRecording == false)
-            {
->>>>>>> b0fdf84bf1186bde5cf6ad7de898f1c2b46d91cd
                 int length = Microphone.GetPosition(null);
                 Microphone.End(null);
                 float[] clipData = new float[length];
@@ -49,43 +39,22 @@ public class AudioRead : MonoBehaviour {
                         fullClip[i] = clipData[i - tempRecording.Count];
                 }
 
-<<<<<<< HEAD
                 recordedInstrument = fullClip;
-=======
-                recordedInstrument=fullClip;
->>>>>>> b0fdf84bf1186bde5cf6ad7de898f1c2b46d91cd
                 audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length, 1, frequency, false);
                 audioSource.clip.SetData(fullClip, 0);
             }
             //Record
-<<<<<<< HEAD
             else {
-=======
-            else
-            {
->>>>>>> b0fdf84bf1186bde5cf6ad7de898f1c2b46d91cd
                 audioSource.Stop();
                 tempRecording.Clear();
                 Microphone.End(null);
                 audioSource.clip = Microphone.Start(null, true, seconds, frequency);
             }
         }
-        //Initiate audio playback
-        if (Input.GetKeyDown(KeyCode.M))
-            playAudio(recordedInstrument);
-
-        //Stop audio from playing
-        if (Input.GetKeyDown(KeyCode.N))
-            audioSource.Stop();
     }
 
     //Convert float array to audio
-<<<<<<< HEAD
     void playAudio(float[] sound) {
-=======
-    void playAudio(float[] sound)
-    {
->>>>>>> b0fdf84bf1186bde5cf6ad7de898f1c2b46d91cd
         audioSource.Stop();
         int length = sound.Length;
         audioSource.clip = AudioClip.Create("recorded samples", length, 1, frequency, false);
