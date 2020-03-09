@@ -41,42 +41,54 @@ public class GameManager : MonoBehaviour
     private string SelectedInstrument;
     public GameObject avatarDisplay;
     public GameObject avatarDisplayText;
-    public GameObject audioSlider;
-
-    private bool playing_recording;
-    public GameObject playBtn;
-    public GameObject playBtnTxt;
-    private bool playing_layeredAudio;
-    private bool recording;
+    
 
     public Texture playTexture;
     public Texture stopTexture;
     public Texture micTexture;
 
+    // PlayOptions Content
     public GameObject PlayOptions;
+    private bool playing_recording;
+    public GameObject playBtn;
+    public GameObject playBtnTxt;
+    public GameObject audioSlider_playOptions;
+    private bool playing_layeredAudio;
 
+    // RecordView Content
+    private bool recording;
+    public GameObject recordView;
+    public GameObject audioSlider_recordView;
+    public GameObject confirmPopUp;
+
+    // SheetMusic Content
     public GameObject sheetMusicPopUp;
     public GameObject sheetMusicTitle;
 
+    // Video Content
     public GameObject videoPopUp;
     public GameObject videoTitle;
 
-    public GameObject recordView;
-    public AudioSource audioGuideSource;
-    public GameObject confirmPopUp;
-
+    // Audio Sources
     public AudioSource fullAudioSource;
     public AudioSource guitarAudioSource;
     public AudioSource bassAudioSource;
     public AudioSource pianoAudioSource;
     public AudioSource drumsAudioSource;
     public AudioSource voiceAudioSource;
+    public AudioSource audioGuideSource;
 
-    public Text guitarTrackText;
-    public Text bassTrackText;
-    public Text pianoTrackText;
-    public Text drumsTrackText;
-    public Text voiceTrackText;
+    public Text guitarTrackText_playOptions;
+    public Text bassTrackText_playOptions;
+    public Text pianoTrackText_playOptions;
+    public Text drumsTrackText_playOptions;
+    public Text voiceTrackText_playOptions;
+
+    public Text guitarTrackText_recordView;
+    public Text bassTrackText_recordView;
+    public Text pianoTrackText_recordView;
+    public Text drumsTrackText_recordView;
+    public Text voiceTrackText_recordView;
 
 
     // Awake is called once after all game objects are initialized
@@ -100,9 +112,12 @@ public class GameManager : MonoBehaviour
         playing_layeredAudio = false;
         recording = false;
 
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().direction = Slider.Direction.LeftToRight;
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().minValue = 0;
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = 1;
+        audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().direction = Slider.Direction.LeftToRight;
+        audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().minValue = 0;
+        audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().maxValue = 1;
+        audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().direction = Slider.Direction.LeftToRight;
+        audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().minValue = 0;
+        audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().maxValue = 1;
     }
 
    /*  AVATAR SELECTION PAGE
@@ -207,7 +222,8 @@ public class GameManager : MonoBehaviour
         }
 
         // Audio slider value
-        audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = fullAudioSource.clip.length;
+        audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().maxValue = fullAudioSource.clip.length;
+        audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().maxValue = fullAudioSource.clip.length;
 
         // Change View
         SongListPage.SetActive(false);
@@ -269,12 +285,15 @@ public class GameManager : MonoBehaviour
                             if (SelectedSong.recorded_guitarClip != null) {
                                 // Change to student
                                 guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
+                                guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                guitarTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
                                 SelectedSong.guitarToggleCount = 1;
                                 guitarAudioSource.volume = 1;
                             } else {
                                 // No student track, mute
                                 guitarAudioSource.clip = SelectedSong.original_guitar;
-                                guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                guitarTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                 SelectedSong.guitarToggleCount = 2;
                                 guitarAudioSource.volume = 0;
                             }
@@ -282,131 +301,148 @@ public class GameManager : MonoBehaviour
                         case 1:  // Student
                             // Mute
                             guitarAudioSource.clip = SelectedSong.original_guitar;
-                            guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            guitarTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                             SelectedSong.guitarToggleCount = 2;
                             guitarAudioSource.volume = 0;
                             break;
                         case 2:  // Muted
                             // Change to teacher
-                            guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            guitarTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
                             guitarAudioSource.volume = 1;
                             SelectedSong.guitarToggleCount = 0;
                             break;
                     }
                 }
                 if (instrument == "bass") {
-                        switch (SelectedSong.bassToggleCount) {
-                            case 0:
-                                if (SelectedSong.recorded_bassClip != null) {
-                                    bassAudioSource.clip = SelectedSong.recorded_bassClip;
-                                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
-                                    SelectedSong.bassToggleCount = 1;
-                                    bassAudioSource.volume = 1;
-                                } else {
-                                    bassAudioSource.clip = SelectedSong.original_bass;
-                                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
-                                    SelectedSong.bassToggleCount = 2;
-                                    bassAudioSource.volume = 0;
-                                }
-                                break;
-                            case 1:
+                    switch (SelectedSong.bassToggleCount) {
+                        case 0:
+                            if (SelectedSong.recorded_bassClip != null) {
+                                bassAudioSource.clip = SelectedSong.recorded_bassClip;
+                                bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                bassTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                SelectedSong.bassToggleCount = 1;
+                                bassAudioSource.volume = 1;
+                            } else {
                                 bassAudioSource.clip = SelectedSong.original_bass;
-                                bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                bassTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                 SelectedSong.bassToggleCount = 2;
                                 bassAudioSource.volume = 0;
-                                break;
-                            case 2:
-                                bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
-                                bassAudioSource.volume = 1;
-                                SelectedSong.bassToggleCount = 0;
-                                break;
-                        }
+                            }
+                            break;
+                        case 1:
+                            bassAudioSource.clip = SelectedSong.original_bass;
+                            bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            bassTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            SelectedSong.bassToggleCount = 2;
+                            bassAudioSource.volume = 0;
+                            break;
+                        case 2:
+                            bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            bassTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            bassAudioSource.volume = 1;
+                            SelectedSong.bassToggleCount = 0;
+                            break;
                     }
+                }
                 if (instrument == "piano") {
-                        switch (SelectedSong.pianoToggleCount) {
-                            case 0:
-                                if (SelectedSong.recorded_pianoClip != null) {
-                                    pianoAudioSource.clip = SelectedSong.recorded_pianoClip;
-                                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
-                                    SelectedSong.pianoToggleCount = 1;
-                                    pianoAudioSource.volume = 1;
-                                } else {
-                                    pianoAudioSource.clip = SelectedSong.original_piano;
-                                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
-                                    SelectedSong.pianoToggleCount = 2;
-                                    pianoAudioSource.volume = 0;
-                                }
-                                break;
-                            case 1:
+                    switch (SelectedSong.pianoToggleCount) {
+                        case 0:
+                            if (SelectedSong.recorded_pianoClip != null) {
+                                pianoAudioSource.clip = SelectedSong.recorded_pianoClip;
+                                pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                pianoTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                SelectedSong.pianoToggleCount = 1;
+                                pianoAudioSource.volume = 1;
+                            } else {
                                 pianoAudioSource.clip = SelectedSong.original_piano;
-                                pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                pianoTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                 SelectedSong.pianoToggleCount = 2;
                                 pianoAudioSource.volume = 0;
-                                break;
-                            case 2:
-                                pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
-                                pianoAudioSource.volume = 1;
-                                SelectedSong.pianoToggleCount = 0;
-                                break;
-                        }
+                            }
+                            break;
+                        case 1:
+                            pianoAudioSource.clip = SelectedSong.original_piano;
+                            pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            pianoTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            SelectedSong.pianoToggleCount = 2;
+                            pianoAudioSource.volume = 0;
+                            break;
+                        case 2:
+                            pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            pianoTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            pianoAudioSource.volume = 1;
+                            SelectedSong.pianoToggleCount = 0;
+                            break;
                     }
+                }
                 if (instrument == "drums") {
-                        switch (SelectedSong.drumsToggleCount) {
-                            case 0:
-                                if (SelectedSong.recorded_drumsClip != null) {
-                                    drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
-                                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
-                                    SelectedSong.drumsToggleCount = 1;
-                                    drumsAudioSource.volume = 1;
-                                } else {
-                                    drumsAudioSource.clip = SelectedSong.original_drums;
-                                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
-                                    SelectedSong.drumsToggleCount = 2;
-                                    drumsAudioSource.volume = 0;
-                                    break;
-                                }
-                                break;
-                            case 1:
+                    switch (SelectedSong.drumsToggleCount) {
+                        case 0:
+                            if (SelectedSong.recorded_drumsClip != null) {
+                                drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
+                                drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                drumsTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                SelectedSong.drumsToggleCount = 1;
+                                drumsAudioSource.volume = 1;
+                            } else {
                                 drumsAudioSource.clip = SelectedSong.original_drums;
-                                drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                drumsTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                 SelectedSong.drumsToggleCount = 2;
                                 drumsAudioSource.volume = 0;
-                                break;
-                            case 2:
-                                drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
-                                drumsAudioSource.volume = 1;
-                                SelectedSong.drumsToggleCount = 0;
-                                break;
-                        }
+                            }
+                            break;
+                        case 1:
+                            drumsAudioSource.clip = SelectedSong.original_drums;
+                            drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            drumsTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            SelectedSong.drumsToggleCount = 2;
+                            drumsAudioSource.volume = 0;
+                            break;
+                        case 2:
+                            drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            drumsTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            drumsAudioSource.volume = 1;
+                            SelectedSong.drumsToggleCount = 0;
+                            break;
                     }
+                }
                 if (instrument == "voice") {
-                        switch (SelectedSong.voiceToggleCount) {
-                            case 0:
-                                if (SelectedSong.recorded_voiceClip != null) {
-                                    voiceAudioSource.clip = SelectedSong.recorded_voiceClip;
-                                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
-                                    SelectedSong.voiceToggleCount = 1;
-                                    voiceAudioSource.volume = 1;
-                                } else {
-                                    voiceAudioSource.clip = SelectedSong.original_voice;
-                                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
-                                    SelectedSong.voiceToggleCount = 2;
-                                    voiceAudioSource.volume = 0;
-                                }
-                                break;
-                            case 1:
+                    switch (SelectedSong.voiceToggleCount) {
+                        case 0:
+                            if (SelectedSong.recorded_voiceClip != null) {
+                                voiceAudioSource.clip = SelectedSong.recorded_voiceClip;
+                                voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                voiceTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                                SelectedSong.voiceToggleCount = 1;
+                                voiceAudioSource.volume = 1;
+                            } else {
                                 voiceAudioSource.clip = SelectedSong.original_voice;
-                                voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                                voiceTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                                 SelectedSong.voiceToggleCount = 2;
                                 voiceAudioSource.volume = 0;
-                                break;
-                            case 2:
-                                voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
-                                voiceAudioSource.volume = 1;
-                                SelectedSong.voiceToggleCount = 0;
-                                break;
-                        }
+                            }
+                            break;
+                        case 1:
+                            voiceAudioSource.clip = SelectedSong.original_voice;
+                            voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            voiceTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                            SelectedSong.voiceToggleCount = 2;
+                            voiceAudioSource.volume = 0;
+                            break;
+                        case 2:
+                            voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            voiceTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                            voiceAudioSource.volume = 1;
+                            SelectedSong.voiceToggleCount = 0;
+                            break;
                     }
+                }
             }
         }
     }
@@ -441,37 +477,37 @@ public class GameManager : MonoBehaviour
                     if (guitarAudioSource.clip != null) {
                         guitarAudioSource.Play();
                         guitarAudioSource.volume = 1;
-                        guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                        guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     } else {
-                        guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "None";
+                        guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "None";
                     }
                     if (bassAudioSource.clip != null) {
                         bassAudioSource.Play();
                         bassAudioSource.volume = 1;
-                        bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                        bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     } else {
-                        bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "None";
+                        bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "None";
                     }
                     if (pianoAudioSource.clip != null) {
                         pianoAudioSource.Play();
                         pianoAudioSource.volume = 1;
-                        pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                        pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     } else {
-                        pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "None";
+                        pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "None";
                     }
                     if (drumsAudioSource.clip != null) {
                         drumsAudioSource.Play();
                         drumsAudioSource.volume = 1;
-                        drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                        drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     } else {
-                        drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "None";
+                        drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "None";
                     }
                     if (voiceAudioSource.clip != null) {
                         voiceAudioSource.Play();
                         voiceAudioSource.volume = 1;
-                        voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                        voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     } else {
-                        voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "None";
+                        voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "None";
                     }
 
                     playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
@@ -574,7 +610,8 @@ public class GameManager : MonoBehaviour
             PlayButtonOnClick();
 
         if (playing_layeredAudio == false) {
-            audioSlider.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
+            audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
+            audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
 
             guitarAudioSource.Play();
             bassAudioSource.Play();
@@ -619,6 +656,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void Record() {
+        // Cancel any currently playing audio
+        if (playing_recording)
+            PlayButtonOnClick();
+
         // Ensure instrument is selected
         if (SelectedInstrument != null) {
             // Set Correct View Based on if recording or not
@@ -645,19 +686,19 @@ public class GameManager : MonoBehaviour
         if (confirm == "Yes") {
             switch (SelectedInstrument) {
                 case "guitar":
-                    SelectedSong.recorded_guitar = audioReader.recordedGuitar;
+                    SelectedSong.recorded_guitar = audioReader.recordedInstrument;
                     break;
                 case "bass":
-                    SelectedSong.recorded_bass = audioReader.recordedBass;
+                    SelectedSong.recorded_bass = audioReader.recordedInstrument;
                     break;
                 case "piano":
-                    SelectedSong.recorded_piano = audioReader.recordedPiano;
+                    SelectedSong.recorded_piano = audioReader.recordedInstrument;
                     break;
                 case "drums":
-                    SelectedSong.recorded_drums = audioReader.recordedDrums;
+                    SelectedSong.recorded_drums = audioReader.recordedInstrument;
                     break;
                 case "voice":
-                    SelectedSong.recorded_voice = audioReader.recordedVoice;
+                    SelectedSong.recorded_voice = audioReader.recordedInstrument;
                     break;
             }
             audioReader.startRecord = false;
@@ -714,57 +755,72 @@ public class GameManager : MonoBehaviour
             // playing_recording reffers to if the player is playing the audio they recorded using the play button
             switch (SelectedSong.guitarToggleCount) {
                 case 0:
-                    guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    guitarTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
                     break;
                 case 1:
-                    guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    guitarTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     break;
                 case 2:
-                    guitarTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    guitarTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    guitarTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                     break;
             }
             switch (SelectedSong.bassToggleCount) {
                 case 0:
-                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    bassTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
                     break;
                 case 1:
-                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    bassTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     break;
                 case 2:
-                    bassTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    bassTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    bassTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                     break;
             }
             switch (SelectedSong.pianoToggleCount) {
                 case 0:
-                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    pianoTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
                     break;
                 case 1:
-                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    pianoTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     break;
                 case 2:
-                    pianoTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    pianoTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    pianoTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                     break;
             }
             switch (SelectedSong.drumsToggleCount) {
                 case 0:
-                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    drumsTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
                     break;
                 case 1:
-                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    drumsTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     break;
                 case 2:
-                    drumsTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    drumsTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    drumsTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                     break;
             }
             switch (SelectedSong.voiceToggleCount) {
                 case 0:
-                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
+                    voiceTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Teacher";
                     break;
                 case 1:
-                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Student";
+                    voiceTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Student";
                     break;
                 case 2:
-                    voiceTrackText.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    voiceTrackText_playOptions.GetComponent<UnityEngine.UI.Text>().text = "Muted";
+                    voiceTrackText_recordView.GetComponent<UnityEngine.UI.Text>().text = "Muted";
                     break;
             }
         }
@@ -786,7 +842,8 @@ public class GameManager : MonoBehaviour
                 // all cases do the same things, only difference is specific for selected instrument
                 case "guitar":
                     // Audio bar size equals length of recorded instrument layer
-                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
+                    audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
+                    audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
                     if (playing_recording && !guitarAudioSource.isPlaying) {
                         // Finished playing user recorded track
                         PlayButtonOnClick();
@@ -796,7 +853,8 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case "bass":
-                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
+                    audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
+                    audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
                     if (playing_recording && !bassAudioSource.isPlaying) {
                         PlayButtonOnClick();
                     } else if (recording && !bassAudioSource.isPlaying) {
@@ -804,7 +862,8 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case "piano":
-                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = pianoAudioSource.time;
+                    audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = pianoAudioSource.time;
+                    audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = pianoAudioSource.time;
                     if (playing_recording && !pianoAudioSource.isPlaying) {
                         PlayButtonOnClick();
                     } else if (recording && !pianoAudioSource.isPlaying) {
@@ -812,7 +871,8 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case "drums":
-                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
+                    audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
+                    audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
                     if (playing_recording && !drumsAudioSource.isPlaying) {
                         PlayButtonOnClick();
                     } else if (recording && !drumsAudioSource.isPlaying) {
@@ -820,7 +880,8 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case "voice":
-                    audioSlider.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
+                    audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
+                    audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
                     if (playing_recording && !voiceAudioSource.isPlaying) {
                         PlayButtonOnClick();
                     } else if (recording && !voiceAudioSource.isPlaying) {
@@ -828,11 +889,22 @@ public class GameManager : MonoBehaviour
                     }
                     break;
             } 
-        } else {
+        } else if (SelectedSong != null && SelectedInstrument == null) {
             // Selected Instrument is null
             // fill audio slider based on time passed
             // check for end of song and change play button back
             // can not record without a selected instrument
+            if(SelectedSong.recorded_guitarClip != null) {
+                audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
+            } else if (SelectedSong.recorded_bassClip != null) {
+                audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
+            } else if (SelectedSong.recorded_pianoClip != null) {
+                audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = pianoAudioSource.time;
+            } else if (SelectedSong.recorded_drumsClip != null) {
+                audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
+            } else if (SelectedSong.recorded_voiceClip != null) {
+                audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
+            }
         }
     }
 }
