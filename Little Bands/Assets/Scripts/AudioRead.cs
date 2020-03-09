@@ -12,14 +12,11 @@ public class AudioRead : MonoBehaviour
     private AudioSource audioSource;
 
     public List<float> tempRecording = new List<float>();
-    public float[] recordedGuitar;
-    public float[] recordedBass;
-    public float[] recordedPiano;
-    public float[] recordedDrums;
-    public float[] recordedVoice;
+    public float[] recordedInstrument;
 
     void Start()
     {
+        //Set audioSource
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = Microphone.Start(null, true, seconds, frequency);
     }
@@ -31,6 +28,7 @@ public class AudioRead : MonoBehaviour
             isRecording = !isRecording;
             startRecord = false;
 
+            //Create audio float array
             if (isRecording == false)
             {
                 int length = Microphone.GetPosition(null);
@@ -47,10 +45,11 @@ public class AudioRead : MonoBehaviour
                         fullClip[i] = clipData[i - tempRecording.Count];
                 }
 
-                recordedGuitar=fullClip;
+                recordedInstrument=fullClip;
                 audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length, 1, frequency, false);
                 audioSource.clip.SetData(fullClip, 0);
             }
+            //Record
             else
             {
                 audioSource.Stop();
@@ -59,14 +58,16 @@ public class AudioRead : MonoBehaviour
                 audioSource.clip = Microphone.Start(null, true, seconds, frequency);
             }
         }
+        //Initiate audio playback
         if (Input.GetKeyDown(KeyCode.M))
-        {
-            playAudio(recordedGuitar);
-        }
+            playAudio(recordedInstrument);
+
+        //Stop audio from playing
         if (Input.GetKeyDown(KeyCode.N))
             audioSource.Stop();
     }
 
+    //Convert float array to audio
     void playAudio(float[] sound)
     {
         audioSource.Stop();
