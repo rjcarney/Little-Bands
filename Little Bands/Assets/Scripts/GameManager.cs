@@ -682,8 +682,8 @@ public class GameManager : MonoBehaviour
     }
 
     // Confirm the user wishes to save current recording session
-    public void confirmRecording(string confirm) {
-        if (confirm == "Yes") {
+    public void confirmRecording(bool confirm) {
+        if (confirm) {
             switch (SelectedInstrument) {
                 case "guitar":
                     SelectedSong.recorded_guitar = audioReader.recordedInstrument;
