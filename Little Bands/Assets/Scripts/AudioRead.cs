@@ -51,6 +51,11 @@ public class AudioRead : MonoBehaviour {
                 audioSource.clip = Microphone.Start(null, true, seconds, frequency);
             }
         }
+        //testing
+        if (Input.GetKeyDown(KeyCode.M))
+            playAudio(recordedInstrument);
+
+        SFB_AudioClipArrayCombiner.combiner.SaveNow();
     }
 
     //Convert float array to audio
