@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
      */
     public static GameManager instance = null;
     public AudioRead audioReader;
+    public AudioWrite audioWriter;
 
     // Avatar Select Page Variables
     public GameObject AvatarSelecetPage;
@@ -34,7 +35,6 @@ public class GameManager : MonoBehaviour
     // Song Select Page Variables
     public GameObject SongListPage;
     private SongItem SelectedSong;
-
     // Record Page Variables
     public GameObject RecordPage;
 
@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     public GameObject playBtnTxt;
     public GameObject audioSlider_playOptions;
     private bool playing_layeredAudio;
+
+    public GameObject combineAudioFilesButton;
 
     // RecordView Content
     private bool recording;
@@ -683,24 +685,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Confirm the user wishes to save current recording session
+    /* Confirm the user wishes to save current recording session
+     * Toggle audio clip to students recording
+     */
     public void confirmRecording(bool confirm) {
         if (confirm) {
             switch (SelectedInstrument) {
                 case "guitar":
                     SelectedSong.recorded_guitar = audioReader.recordedInstrument;
+                    SelectedSong.recorded_guitarClip = audioWriter.convertAudio(SelectedSong.recorded_guitar);
+                    SelectedSong.guitarToggleCount = 2;
                     break;
                 case "bass":
                     SelectedSong.recorded_bass = audioReader.recordedInstrument;
+                    SelectedSong.recorded_bassClip = audioWriter.convertAudio(SelectedSong.recorded_bass);
+                    SelectedSong.bassToggleCount = 2;
                     break;
                 case "piano":
                     SelectedSong.recorded_piano = audioReader.recordedInstrument;
+                    SelectedSong.recorded_pianoClip = audioWriter.convertAudio(SelectedSong.recorded_piano);
+                    SelectedSong.pianoToggleCount = 2;
                     break;
                 case "drums":
                     SelectedSong.recorded_drums = audioReader.recordedInstrument;
+                    SelectedSong.recorded_drumsClip = audioWriter.convertAudio(SelectedSong.recorded_drums);
+                    SelectedSong.drumsToggleCount = 2;
                     break;
                 case "voice":
                     SelectedSong.recorded_voice = audioReader.recordedInstrument;
+                    SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
+                    SelectedSong.voiceToggleCount = 2;
                     break;
             }
             audioReader.startRecord = false;
@@ -717,6 +731,10 @@ public class GameManager : MonoBehaviour
             audioGuideSource.volume = 0;
         else
             audioGuideSource.volume = 1;
+    }
+
+    public void combineAudioFiles() {
+        // Call harris's code
     }
 
     // Update is called once per frame
@@ -907,6 +925,14 @@ public class GameManager : MonoBehaviour
             } else if (SelectedSong.recorded_voiceClip != null) {
                 audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
             }
+        }
+
+        if(SelectedSong != null && SelectedSong.recorded_guitarClip != null &&
+            SelectedSong.recorded_bassClip != null && SelectedSong.recorded_pianoClip != null &&
+            SelectedSong.recorded_drumsClip != null && SelectedSong.recorded_voiceClip != null) {
+            combineAudioFilesButton.SetActive(true);
+        } else {
+            combineAudioFilesButton.SetActive(false);
         }
     }
 }

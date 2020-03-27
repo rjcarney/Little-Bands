@@ -54,8 +54,6 @@ public class AudioRead : MonoBehaviour {
         //testing
         if (Input.GetKeyDown(KeyCode.M))
             playAudio(recordedInstrument);
-
-        SFB_AudioClipArrayCombiner.combiner.SaveNow();
     }
 
     //Convert float array to audio
