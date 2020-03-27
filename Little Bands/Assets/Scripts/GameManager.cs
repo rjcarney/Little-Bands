@@ -229,6 +229,8 @@ public class GameManager : MonoBehaviour
         SongListPage.SetActive(false);
         RecordPage.SetActive(true);
     }
+
+
     public void backToSongs() {
         //Deselect song and audio
         SelectedSong = null;
