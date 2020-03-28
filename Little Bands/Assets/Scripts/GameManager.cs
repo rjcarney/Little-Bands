@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     private bool playing_layeredAudio;
 
     public GameObject combineAudioFilesButton;
+    public GameObject deleteButton;
 
     // RecordView Content
     private bool recording;
@@ -694,27 +695,27 @@ public class GameManager : MonoBehaviour
                 case "guitar":
                     SelectedSong.recorded_guitar = audioReader.recordedInstrument;
                     SelectedSong.recorded_guitarClip = audioWriter.convertAudio(SelectedSong.recorded_guitar);
-                    SelectedSong.guitarToggleCount = 2;
+                    SelectedSong.guitarToggleCount = 1;
                     break;
                 case "bass":
                     SelectedSong.recorded_bass = audioReader.recordedInstrument;
                     SelectedSong.recorded_bassClip = audioWriter.convertAudio(SelectedSong.recorded_bass);
-                    SelectedSong.bassToggleCount = 2;
+                    SelectedSong.bassToggleCount = 1;
                     break;
                 case "piano":
                     SelectedSong.recorded_piano = audioReader.recordedInstrument;
                     SelectedSong.recorded_pianoClip = audioWriter.convertAudio(SelectedSong.recorded_piano);
-                    SelectedSong.pianoToggleCount = 2;
+                    SelectedSong.pianoToggleCount = 1;
                     break;
                 case "drums":
                     SelectedSong.recorded_drums = audioReader.recordedInstrument;
                     SelectedSong.recorded_drumsClip = audioWriter.convertAudio(SelectedSong.recorded_drums);
-                    SelectedSong.drumsToggleCount = 2;
+                    SelectedSong.drumsToggleCount = 1;
                     break;
                 case "voice":
                     SelectedSong.recorded_voice = audioReader.recordedInstrument;
                     SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
-                    SelectedSong.voiceToggleCount = 2;
+                    SelectedSong.voiceToggleCount = 1;
                     break;
             }
             audioReader.startRecord = false;
@@ -723,6 +724,46 @@ public class GameManager : MonoBehaviour
         confirmPopUp.SetActive(false);
         PlayOptions.SetActive(true);
 
+    }
+
+    public void DeleteButtonOnClick() {
+        switch (SelectedInstrument) {
+            case "guitar":
+                SelectedSong.recorded_guitar = new float[0];
+                SelectedSong.recorded_guitarClip = null;
+                if (SelectedSong.guitarToggleCount == 1)
+                    SelectedSong.guitarToggleCount = 0;
+                //delete recorded guitar save file
+                break;
+            case "bass":
+                SelectedSong.recorded_bass = new float[0];
+                SelectedSong.recorded_bassClip = null;
+                if (SelectedSong.bassToggleCount == 1)
+                    SelectedSong.bassToggleCount = 0;
+                //delete recorded bass save file
+                break;
+            case "piano":
+                SelectedSong.recorded_piano = new float[0];
+                SelectedSong.recorded_pianoClip = null;
+                if (SelectedSong.pianoToggleCount == 1)
+                    SelectedSong.pianoToggleCount = 0;
+                //delete recorded piano save file
+                break;
+            case "drums":
+                SelectedSong.recorded_drums = new float[0];
+                SelectedSong.recorded_drumsClip = null;
+                if (SelectedSong.drumsToggleCount == 1)
+                    SelectedSong.drumsToggleCount = 0;
+                //delete recorded drums save file
+                break;
+            case "voice":
+                SelectedSong.recorded_voice = new float[0];
+                SelectedSong.recorded_voiceClip = null;
+                if (SelectedSong.voiceToggleCount == 1)
+                    SelectedSong.voiceToggleCount = 0;
+                //delete recorded voice save file
+                break;
+        }
     }
 
     // Toggle the teacher guide audio
@@ -871,6 +912,11 @@ public class GameManager : MonoBehaviour
                         // Finished recording
                         Record();
                     }
+                    if(SelectedSong.recorded_guitarClip != null) {
+                        deleteButton.SetActive(true);
+                    } else {
+                        deleteButton.SetActive(false);
+                    }
                     break;
                 case "bass":
                     audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
@@ -879,6 +925,11 @@ public class GameManager : MonoBehaviour
                         PlayButtonOnClick();
                     } else if (recording && !bassAudioSource.isPlaying) {
                         Record();
+                    }
+                    if (SelectedSong.recorded_bassClip != null) {
+                        deleteButton.SetActive(true);
+                    } else {
+                        deleteButton.SetActive(false);
                     }
                     break;
                 case "piano":
@@ -889,6 +940,11 @@ public class GameManager : MonoBehaviour
                     } else if (recording && !pianoAudioSource.isPlaying) {
                         Record();
                     }
+                    if (SelectedSong.recorded_pianoClip != null) {
+                        deleteButton.SetActive(true);
+                    } else {
+                        deleteButton.SetActive(false);
+                    }
                     break;
                 case "drums":
                     audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
@@ -897,6 +953,11 @@ public class GameManager : MonoBehaviour
                         PlayButtonOnClick();
                     } else if (recording && !drumsAudioSource.isPlaying) {
                         Record();
+                    }
+                    if (SelectedSong.recorded_drumsClip != null) {
+                        deleteButton.SetActive(true);
+                    } else {
+                        deleteButton.SetActive(false);
                     }
                     break;
                 case "voice":
@@ -907,6 +968,11 @@ public class GameManager : MonoBehaviour
                     } else if (recording && !voiceAudioSource.isPlaying) {
                         Record();
                     }
+                    if (SelectedSong.recorded_voiceClip != null) {
+                        deleteButton.SetActive(true);
+                    } else {
+                        deleteButton.SetActive(false);
+                    }
                     break;
             } 
         } else if (SelectedSong != null && SelectedInstrument == null) {
@@ -914,7 +980,8 @@ public class GameManager : MonoBehaviour
             // fill audio slider based on time passed
             // check for end of song and change play button back
             // can not record without a selected instrument
-            if(SelectedSong.recorded_guitarClip != null) {
+            deleteButton.SetActive(false);
+            if (SelectedSong.recorded_guitarClip != null) {
                 audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
             } else if (SelectedSong.recorded_bassClip != null) {
                 audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
@@ -925,7 +992,7 @@ public class GameManager : MonoBehaviour
             } else if (SelectedSong.recorded_voiceClip != null) {
                 audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
             }
-        }
+        } else
 
         if(SelectedSong != null && SelectedSong.recorded_guitarClip != null &&
             SelectedSong.recorded_bassClip != null && SelectedSong.recorded_pianoClip != null &&

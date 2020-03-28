@@ -5852,6 +5852,16 @@ PrefabInstance:
       propertyPath: audioWriter
       value: 
       objectReference: {fileID: 1033874271}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: combineAudioFilesButton
+      value: 
+      objectReference: {fileID: 1914218566}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: deleteButton
+      value: 
+      objectReference: {fileID: 1751091604}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name
@@ -9596,7 +9606,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1751091607}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 485476655}
+        m_MethodName: DeleteButtonOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1751091607
 MonoBehaviour:
   m_ObjectHideFlags: 0
