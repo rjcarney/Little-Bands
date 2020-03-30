@@ -12,7 +12,7 @@ using UnityEditor;
 //
 // The rest is provided by S.F. Bay Studios, Inc (http://www.InfinityPBR.com).
 
-public class SFB_AudioClipArrayCombiner : MonoBehaviour
+public class AudioClipArrayCombiner : MonoBehaviour
 {
 	[ContextMenuItem("Export Combined Audio Clips", "SaveNow")]
 	public string outputName;
@@ -57,29 +57,29 @@ public class SFB_AudioClipArrayCombiner : MonoBehaviour
 
 
 
-	public void SaveNow()
+	public void CombineFiles()
 	{
 
 		Debug.Log(Application.persistentDataPath);
-		int newLength = 2;
+		int newLength = 5;
 		AudioLayer myobj1 = new AudioLayer();
 		AudioLayer myobj2 = new AudioLayer();
-		//AudioLayer myobj3 = new AudioLayer();
-		//AudioLayer myobj4 = new AudioLayer();
-		//AudioLayer myobj5 = new AudioLayer();
+		AudioLayer myobj3 = new AudioLayer();
+		AudioLayer myobj4 = new AudioLayer();
+		AudioLayer myobj5 = new AudioLayer();
 		audioLayers = new AudioLayer[newLength];                    // Create a new array
 
 		audioLayers[0] = myobj1;
 		audioLayers[1] = myobj2;
-		//audioLayers[2] = myobj3;
-		//audioLayers[3] = myobj4;
-		//audioLayers[4] = myobj5;
+		audioLayers[2] = myobj3;
+		audioLayers[3] = myobj4;
+		audioLayers[4] = myobj5;
 
 		myobj1.clip = new AudioClip[1];
 		myobj2.clip = new AudioClip[1];
-		//myobj3.clip = new AudioClip[1];
-		//myobj4.clip = new AudioClip[1];
-		//myobj5.clip = new AudioClip[1];
+		myobj3.clip = new AudioClip[1];
+		myobj4.clip = new AudioClip[1];
+		myobj5.clip = new AudioClip[1];
 
 		// Find total number of exports
 		int totalExports = 1;                                                // Start at 1...
@@ -117,9 +117,9 @@ public class SFB_AudioClipArrayCombiner : MonoBehaviour
 
 		myobj1.clip[0] = clip1;
 		myobj2.clip[0] = clip2;
-		//myobj3.clip[0] = clip3;
-		//myobj4.clip[0] = clip4;
-		//myobj5.clip[0] = clip5;
+		myobj3.clip[0] = clip3;
+		myobj4.clip[0] = clip4;
+		myobj5.clip[0] = clip5;
 
 		for (int n = 0; n < audioLayers.Length; n++)
 		{
@@ -185,6 +185,91 @@ public class SFB_AudioClipArrayCombiner : MonoBehaviour
 		}
 	}
 
+	public void SaveNow(AudioClip clipToSave, String instrumentFileName)
+	{
+
+		Debug.Log(Application.persistentDataPath);
+		int newLength = 1;
+		AudioLayer myobj1 = new AudioLayer();
+		audioLayers = new AudioLayer[newLength];                    // Create a new array
+
+		audioLayers[0] = myobj1;
+
+		myobj1.clip = new AudioClip[1];
+
+		// Find total number of exports
+		int totalExports = 1;                                                // Start at 1...
+
+		var filename1 = instrumentFileName;
+
+		//used to load files from persistentDataPath 
+		AudioClip clip1 = clipToSave;
+
+		myobj1.clip[0] = clip1;
+
+		for (int n = 0; n < audioLayers.Length; n++)
+		{
+			totalExports *= audioLayers[n].clip.Length;                     // Multiply by the number of clips in each layer
+		}
+
+		if (totalExports > 0)
+		{
+			float progressPercent = 0.0f;
+			int clipCount = 0;
+			string[] combinations;                                                  // Start an array of all combinations
+			combinations = new string[totalExports];                                // Set the number of entries to the number of exports
+
+			// Reset the onClip value for each layer
+			for (int r = 0; r < audioLayers.Length; r++)
+			{
+				audioLayers[r].onClip = 0;
+			}
+
+			for (int l = 0; l < audioLayers.Length; l++)
+			{                           // For each layer...
+				int exportsLeft = 1;                                                // Start at 1...
+				for (int i = l; i < audioLayers.Length; i++)
+				{                           // For each layer left in the list (don't compute those we've already done)
+					exportsLeft *= audioLayers[i].clip.Length;                  // Find out how many exports are left if it were just those layers
+				}
+
+				int entriesPerValue = exportsLeft / audioLayers[l].clip.Length; // Compute how many entires per value, if the total entries were exportsLeft
+				int entryCount = 0;                                                 // Set entryCount to 0
+
+				for (int e = 0; e < combinations.Length; e++)
+				{                       // For all combinations
+					if (l != 0)                                                     // If this isn't the first layer
+						combinations[e] = combinations[e] + ",";                    // Append a "," to the String
+					combinations[e] = combinations[e] + audioLayers[l].onClip;  // Append the "onClip" value to the string
+					entryCount++;                                                   // increase entryCount
+					if (entryCount >= entriesPerValue)
+					{                           // if we've done all the entires for that "onClip" value...
+						audioLayers[l].onClip++;                                    // increase onClip by 1
+						entryCount = 0;                                             // Reset entryCount
+						if (audioLayers[l].onClip >= audioLayers[l].clip.Length)    // if we've also run out of clips for this layer
+							audioLayers[l].onClip = 0;                              // Reset onClip count
+					}
+				}
+			}
+
+			int number = 0;                                                         // for the file name
+																					// For each combination, save a .wav file with those clip numbers.
+			foreach (var combination in combinations)
+			{
+				clipCount++;
+				//progressPercent = clipCount / totalExports * 1.0f;
+				progressPercent = clipCount / (float)totalExports;
+				//Debug.Log ("progressPercent: " + progressPercent);
+				string[] clipsAsString = combination.Split(","[0]);
+				SaveClip(outputName, number, clipsAsString, audioLayers);
+				number++;
+			}
+		}
+		else
+		{
+			Debug.Log("Nothing To Export! (or maybe a layer is missing clips?)");
+		}
+	}
 
 
 	public static bool SaveClip(string filename, int exportNumber, string[] clipsAsString, AudioLayer[] audioLayers)

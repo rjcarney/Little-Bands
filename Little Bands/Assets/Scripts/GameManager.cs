@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     public AudioRead audioReader;
     public AudioWrite audioWriter;
 
+    // Saves individual files to persistentDataPath. Also combines files and saves to persistentDataPath
+    public AudioClipArrayCombiner audioClipArrayCombiner;
+
     // Avatar Select Page Variables
     public GameObject AvatarSelecetPage;
     private Avatar userAvatar;
@@ -695,26 +698,31 @@ public class GameManager : MonoBehaviour
                 case "guitar":
                     SelectedSong.recorded_guitar = audioReader.recordedInstrument;
                     SelectedSong.recorded_guitarClip = audioWriter.convertAudio(SelectedSong.recorded_guitar);
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "guitar.wav");
                     SelectedSong.guitarToggleCount = 1;
                     break;
                 case "bass":
                     SelectedSong.recorded_bass = audioReader.recordedInstrument;
                     SelectedSong.recorded_bassClip = audioWriter.convertAudio(SelectedSong.recorded_bass);
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "bass.wav");
                     SelectedSong.bassToggleCount = 1;
                     break;
                 case "piano":
                     SelectedSong.recorded_piano = audioReader.recordedInstrument;
                     SelectedSong.recorded_pianoClip = audioWriter.convertAudio(SelectedSong.recorded_piano);
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "piano.wav");
                     SelectedSong.pianoToggleCount = 1;
                     break;
                 case "drums":
                     SelectedSong.recorded_drums = audioReader.recordedInstrument;
                     SelectedSong.recorded_drumsClip = audioWriter.convertAudio(SelectedSong.recorded_drums);
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "drums.wav");
                     SelectedSong.drumsToggleCount = 1;
                     break;
                 case "voice":
                     SelectedSong.recorded_voice = audioReader.recordedInstrument;
                     SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "voice.wav");
                     SelectedSong.voiceToggleCount = 1;
                     break;
             }
@@ -775,7 +783,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void combineAudioFiles() {
-        // Call harris's code
+        audioClipArrayCombiner.CombineFiles();
     }
 
     // Update is called once per frame
