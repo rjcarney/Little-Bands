@@ -794,6 +794,14 @@ public class GameManager : MonoBehaviour
         audioClipArrayCombiner.CombineFiles();
     }
 
+    public void CancelRecording() {
+        recording = false;
+        recordView.SetActive(false);
+        PlayOptions.SetActive(true);
+        playLayeredAudio();
+        audioReader.startRecord = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
