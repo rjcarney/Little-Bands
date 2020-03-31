@@ -261,7 +261,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 				progressPercent = clipCount / (float)totalExports;
 				//Debug.Log ("progressPercent: " + progressPercent);
 				string[] clipsAsString = combination.Split(","[0]);
-				SaveClip(outputName, number, clipsAsString, audioLayers);
+				SaveClip(filename1, number, clipsAsString, audioLayers);
 				number++;
 			}
 		}
@@ -279,7 +279,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 			filename = "CombinedAudio" + exportNumber;                                      // Use a default name
 		else
 		{                                                                               // else
-			filename = filename + "_" + exportNumber;                                       // Use the chosen name plus the number
+			//filename = filename + "_" + exportNumber;                                       // Use the chosen name plus the number
 		}
 		filename += ".wav";                                                                 // add the .wav extension
 
@@ -485,7 +485,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 	/// </summary>
 	/// <returns>The AudioClip.</returns>
 	/// <param name="filePath">Local file path to .wav file</param>
-	public static AudioClip ToAudioClip(string filePath)
+	public AudioClip ToAudioClip(string filePath)
 	{
 		if (!filePath.StartsWith(Application.persistentDataPath) && !filePath.StartsWith(Application.dataPath))
 		{

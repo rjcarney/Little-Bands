@@ -9,6 +9,11 @@ public class AudioWrite : MonoBehaviour
     private AudioSource audioSource;
     public int frequency = 4400;
 
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public AudioClip convertAudio(float[] sound)
     {
         audioSource.Stop();

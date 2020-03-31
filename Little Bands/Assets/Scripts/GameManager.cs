@@ -96,6 +96,8 @@ public class GameManager : MonoBehaviour
     public Text drumsTrackText_recordView;
     public Text voiceTrackText_recordView;
 
+    public AudioClip clipGuitar;
+
 
     // Awake is called once after all game objects are initialized
     void Awake()
@@ -692,37 +694,43 @@ public class GameManager : MonoBehaviour
     /* Confirm the user wishes to save current recording session
      * Toggle audio clip to students recording
      */
+    
+
     public void confirmRecording(bool confirm) {
         if (confirm) {
             switch (SelectedInstrument) {
                 case "guitar":
                     SelectedSong.recorded_guitar = audioReader.recordedInstrument;
                     SelectedSong.recorded_guitarClip = audioWriter.convertAudio(SelectedSong.recorded_guitar);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "guitar.wav");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "guitar");
+                    //string filename1 = "song1";
+                    //clipGuitar = (AudioClip)Resources.Load(filename1);
+                    //SelectedSong.recorded_guitarClip = audioClipArrayCombiner.ToAudioClip(Application.persistentDataPath + "/" + filename1);
+                    //audioClipArrayCombiner.SaveNow(clipGuitar, "guitar");
                     SelectedSong.guitarToggleCount = 1;
                     break;
                 case "bass":
                     SelectedSong.recorded_bass = audioReader.recordedInstrument;
                     SelectedSong.recorded_bassClip = audioWriter.convertAudio(SelectedSong.recorded_bass);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "bass.wav");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "bass");
                     SelectedSong.bassToggleCount = 1;
                     break;
                 case "piano":
                     SelectedSong.recorded_piano = audioReader.recordedInstrument;
                     SelectedSong.recorded_pianoClip = audioWriter.convertAudio(SelectedSong.recorded_piano);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "piano.wav");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "piano");
                     SelectedSong.pianoToggleCount = 1;
                     break;
                 case "drums":
                     SelectedSong.recorded_drums = audioReader.recordedInstrument;
                     SelectedSong.recorded_drumsClip = audioWriter.convertAudio(SelectedSong.recorded_drums);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "drums.wav");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "drums");
                     SelectedSong.drumsToggleCount = 1;
                     break;
                 case "voice":
                     SelectedSong.recorded_voice = audioReader.recordedInstrument;
                     SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, "voice.wav");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "voice");
                     SelectedSong.voiceToggleCount = 1;
                     break;
             }
