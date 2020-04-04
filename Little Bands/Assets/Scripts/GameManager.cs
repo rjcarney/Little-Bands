@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     // Avatar Select Page Variables
     public GameObject AvatarSelecetPage;
     private Avatar userAvatar;
+    public GameObject LoadingPage;
     
     // Song Select Page Variables
     public GameObject SongListPage;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
     public GameObject recordView;
     public GameObject audioSlider_recordView;
     public GameObject confirmPopUp;
+    public GameObject savingPopUp;
 
     // SheetMusic Content
     public GameObject sheetMusicPopUp;
@@ -136,11 +138,16 @@ public class GameManager : MonoBehaviour
         AvatarSelecetPage.SetActive(false);
         SongListPage.SetActive(true);
     }
+
     public void Load() {
+        // ! UNCOMMENT ONCE LOAD FUNTIONALITY IS ADDED !
+        //AvatarSelecetPage.SetActive(false);
+        //LoadingPage.SetActive(true);
+
         //Here is where we will call harris's load method
 
-        // ! UNCOMMENT ONCE LOAD FUNTIONALITY IS ADDED ! 
-        //AvatarSelecetPage.SetActive(false);
+        // ! UNCOMMENT ONCE LOAD FUNTIONALITY IS ADDED !
+        //LoadingPage.SetActive(false);
         //SongListPage.SetActive(true);
     }
 
@@ -698,6 +705,8 @@ public class GameManager : MonoBehaviour
 
     public void confirmRecording(bool confirm) {
         if (confirm) {
+            confirmPopUp.SetActive(false);
+            savingPopUp.SetActive(true);
             switch (SelectedInstrument) {
                 case "guitar":
                     SelectedSong.recorded_guitar = audioReader.recordedInstrument;
@@ -755,6 +764,7 @@ public class GameManager : MonoBehaviour
         }
 
         confirmPopUp.SetActive(false);
+        savingPopUp.SetActive(false);
         PlayOptions.SetActive(true);
 
     }
