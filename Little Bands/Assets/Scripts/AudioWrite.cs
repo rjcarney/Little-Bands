@@ -5,16 +5,9 @@ using System;
 
 public class AudioWrite : MonoBehaviour
 {
-    public string pathName;
-    private AudioSource audioSource;
     public int frequency = 4400;
 
-    public void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    public AudioClip convertAudio(float[] sound)
+    public AudioClip convertAudio(AudioSource audioSource, float[] sound)
     {
         audioSource.Stop();
         int length = sound.Length;
@@ -24,7 +17,7 @@ public class AudioWrite : MonoBehaviour
         return audioSource.clip;
     }
 
-    static private byte[] SaveAudioClipToWav(AudioClip audioClip, string filename)
+    public byte[] SaveAudioClipToWav(AudioClip audioClip, string filename)
     {
         byte[] buffer;
         FileStream fsWrite = File.Open(filename, FileMode.Create);
@@ -61,20 +54,5 @@ public class AudioWrite : MonoBehaviour
         return buffer;
 
         fsWrite.Close();
-    }
-
-    public void createMix()
-    {
-        SaveAudioClipToWav(GameManager.instance.guitarAudioSource.clip, pathName + "guitar.wav");
-        SaveAudioClipToWav(GameManager.instance.bassAudioSource.clip, pathName + "bass.wav");
-        SaveAudioClipToWav(GameManager.instance.pianoAudioSource.clip, pathName + "piano.wav");
-        SaveAudioClipToWav(GameManager.instance.drumsAudioSource.clip, pathName + "drums.wav");
-        SaveAudioClipToWav(GameManager.instance.voiceAudioSource.clip, pathName + "voice.wav");
-        
-    }
-
-    public void playClip(int instrument)
-    {
-
     }
 }

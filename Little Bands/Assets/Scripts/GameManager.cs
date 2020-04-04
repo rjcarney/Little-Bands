@@ -701,7 +701,7 @@ public class GameManager : MonoBehaviour
             switch (SelectedInstrument) {
                 case "guitar":
                     SelectedSong.recorded_guitar = audioReader.recordedInstrument;
-                    SelectedSong.recorded_guitarClip = audioWriter.convertAudio(SelectedSong.recorded_guitar);
+                    SelectedSong.recorded_guitarClip = audioWriter.convertAudio(guitarAudioSource,SelectedSong.recorded_guitar);
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "guitar");
                     //for testing
                     //string filename1 = "Axe_On_Flesh_Axe_1";
@@ -712,7 +712,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case "bass":
                     SelectedSong.recorded_bass = audioReader.recordedInstrument;
-                    SelectedSong.recorded_bassClip = audioWriter.convertAudio(SelectedSong.recorded_bass);
+                    SelectedSong.recorded_bassClip = audioWriter.convertAudio(bassAudioSource,SelectedSong.recorded_bass);
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "bass");
                     //for testing
                     //string filename2 = "Axe_On_Flesh_Axe_2";
@@ -722,7 +722,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case "piano":
                     SelectedSong.recorded_piano = audioReader.recordedInstrument;
-                    SelectedSong.recorded_pianoClip = audioWriter.convertAudio(SelectedSong.recorded_piano);
+                    SelectedSong.recorded_pianoClip = audioWriter.convertAudio(pianoAudioSource, SelectedSong.recorded_piano);
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "piano");
                     //for testing
                     //string filename3 = "Axe_On_Flesh_Axe_3";
@@ -732,7 +732,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case "drums":
                     SelectedSong.recorded_drums = audioReader.recordedInstrument;
-                    SelectedSong.recorded_drumsClip = audioWriter.convertAudio(SelectedSong.recorded_drums);
+                    SelectedSong.recorded_drumsClip = audioWriter.convertAudio(drumsAudioSource, SelectedSong.recorded_drums);
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "drums");
                     //for testing
                     //string filename4 = "Axe_On_Flesh_Flesh_1";
@@ -742,7 +742,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case "voice":
                     SelectedSong.recorded_voice = audioReader.recordedInstrument;
-                    SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
+                    SelectedSong.recorded_voiceClip = audioWriter.convertAudio(voiceAudioSource, SelectedSong.recorded_voice);
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "voice");
                     //for testing
                     //string filename5 = "Axe_On_Flesh_Flesh_2";
