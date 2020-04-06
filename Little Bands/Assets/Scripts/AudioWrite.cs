@@ -6,15 +6,13 @@ using System;
 public class AudioWrite : MonoBehaviour
 {
     public int frequency = 4400;
+    private AudioClip clip;
 
-    public AudioClip convertAudio(AudioSource audioSource, float[] sound)
+    public AudioClip convertAudio(float[] sound)
     {
-        audioSource.Stop();
         int length = sound.Length;
-        audioSource.clip = AudioClip.Create("recorded samples", length, 1, frequency, false);
-        audioSource.clip.SetData(sound, 0);
-        audioSource.loop = true;
-        return audioSource.clip;
+        clip = AudioClip.Create("recorded samples", length, 1, frequency, false);
+        return clip;
     }
 
     public byte[] SaveAudioClipToWav(AudioClip audioClip, string filename)

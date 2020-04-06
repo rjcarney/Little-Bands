@@ -58,7 +58,7 @@ public class AudioRead : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.N))
         {
             AudioWrite x = new AudioWrite();
-            x.SaveAudioClipToWav(x.convertAudio(audioSource,recordedInstrument), "Test420.wav");
+            x.SaveAudioClipToWav(x.convertAudio(recordedInstrument), "Test420.wav");
         }
         if (Input.GetKeyDown(KeyCode.B))       
             audioSource.Stop();
