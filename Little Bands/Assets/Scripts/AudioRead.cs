@@ -8,7 +8,7 @@ public class AudioRead : MonoBehaviour {
     public bool isRecording = false;
     public int frequency = 44100;
     public int seconds = 120;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     public List<float> tempRecording = new List<float>();
     public float[] recordedInstrument;
@@ -41,7 +41,7 @@ public class AudioRead : MonoBehaviour {
                 }
 
                 recordedInstrument = fullClip;
-                audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length, 1, frequency, false);
+                audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length*2, 1, frequency, false);
                 audioSource.clip.SetData(fullClip, 0);
             }
             //Record

@@ -709,50 +709,30 @@ public class GameManager : MonoBehaviour
             savingPopUp.SetActive(true);
             switch (SelectedInstrument) {
                 case "guitar":
-                    SelectedSong.recorded_guitar = audioReader.recordedInstrument;
-                    SelectedSong.recorded_guitarClip = audioWriter.convertAudio(SelectedSong.recorded_guitar);
+                    SelectedSong.recorded_guitarClip = audioReader.audioSource.clip;
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "guitar");
-                    //for testing
-                    //string filename1 = "Axe_On_Flesh_Axe_1";
-                    //clipGuitar = (AudioClip)Resources.Load(filename1);
-                    //audioClipArrayCombiner.SaveNow(clipGuitar, SelectedSong.title + "guitar");
-                    //Debug.Log(SelectedSong.title);
                     SelectedSong.guitarToggleCount = 1;
                     break;
                 case "bass":
-                    SelectedSong.recorded_bass = audioReader.recordedInstrument;
-                    SelectedSong.recorded_bassClip = audioWriter.convertAudio(SelectedSong.recorded_bass);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "bass");
-                    //for testing
-                    //string filename2 = "Axe_On_Flesh_Axe_2";
-                    //clipGuitar = (AudioClip)Resources.Load(filename2);
-                    //audioClipArrayCombiner.SaveNow(clipGuitar, SelectedSong.title + "bass");
+                    SelectedSong.recorded_bassClip = audioReader.audioSource.clip;
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_bassClip, SelectedSong.title + "bass");
                     SelectedSong.bassToggleCount = 1;
                     break;
                 case "piano":
-                    SelectedSong.recorded_piano = audioReader.recordedInstrument;
-                    SelectedSong.recorded_pianoClip = audioWriter.convertAudio(SelectedSong.recorded_piano);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "piano");
-                    //for testing
-                    //string filename3 = "Axe_On_Flesh_Axe_3";
-                    //clipGuitar = (AudioClip)Resources.Load(filename3);
-                    //audioClipArrayCombiner.SaveNow(clipGuitar, SelectedSong.title + "piano");
+                    SelectedSong.recorded_pianoClip = audioReader.audioSource.clip;
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_pianoClip, SelectedSong.title + "piano");
                     SelectedSong.pianoToggleCount = 1;
                     break;
                 case "drums":
-                    SelectedSong.recorded_drums = audioReader.recordedInstrument;
-                    SelectedSong.recorded_drumsClip = audioWriter.convertAudio(SelectedSong.recorded_drums);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "drums");
-                    //for testing
-                    //string filename4 = "Axe_On_Flesh_Flesh_1";
-                    //clipGuitar = (AudioClip)Resources.Load(filename4);
-                    //audioClipArrayCombiner.SaveNow(clipGuitar, SelectedSong.title + "drums");
+                    SelectedSong.recorded_drumsClip = audioReader.audioSource.clip;
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_drumsClip, SelectedSong.title + "drums");
                     SelectedSong.drumsToggleCount = 1;
                     break;
                 case "voice":
-                    SelectedSong.recorded_voice = audioReader.recordedInstrument;
-                    SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "voice");
+                    //SelectedSong.recorded_voice = audioReader.recordedInstrument;
+                    //SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
+                    SelectedSong.recorded_voiceClip = audioReader.audioSource.clip;
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_voiceClip, SelectedSong.title + "voice");
                     //for testing
                     //string filename5 = "Axe_On_Flesh_Flesh_2";
                     //clipGuitar = (AudioClip)Resources.Load(filename5);
