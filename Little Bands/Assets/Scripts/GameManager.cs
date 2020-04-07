@@ -710,29 +710,29 @@ public class GameManager : MonoBehaviour
             switch (SelectedInstrument) {
                 case "guitar":
                     SelectedSong.recorded_guitarClip = audioReader.audioSource.clip;
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, SelectedSong.title + "guitar");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_guitarClip, userAvatar.avatarName, SelectedSong.title, "guitar");
                     SelectedSong.guitarToggleCount = 1;
                     break;
                 case "bass":
                     SelectedSong.recorded_bassClip = audioReader.audioSource.clip;
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_bassClip, SelectedSong.title + "bass");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_bassClip, userAvatar.avatarName, SelectedSong.title, "bass");
                     SelectedSong.bassToggleCount = 1;
                     break;
                 case "piano":
                     SelectedSong.recorded_pianoClip = audioReader.audioSource.clip;
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_pianoClip, SelectedSong.title + "piano");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_pianoClip, userAvatar.avatarName, SelectedSong.title, "piano");
                     SelectedSong.pianoToggleCount = 1;
                     break;
                 case "drums":
                     SelectedSong.recorded_drumsClip = audioReader.audioSource.clip;
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_drumsClip, SelectedSong.title + "drums");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_drumsClip, userAvatar.avatarName, SelectedSong.title, "drums");
                     SelectedSong.drumsToggleCount = 1;
                     break;
                 case "voice":
                     //SelectedSong.recorded_voice = audioReader.recordedInstrument;
                     //SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
                     SelectedSong.recorded_voiceClip = audioReader.audioSource.clip;
-                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_voiceClip, SelectedSong.title + "voice");
+                    audioClipArrayCombiner.SaveNow(SelectedSong.recorded_voiceClip, userAvatar.avatarName, SelectedSong.title, "voice");
                     //for testing
                     //string filename5 = "Axe_On_Flesh_Flesh_2";
                     //clipGuitar = (AudioClip)Resources.Load(filename5);
@@ -757,7 +757,7 @@ public class GameManager : MonoBehaviour
                 if (SelectedSong.guitarToggleCount == 1)
                     SelectedSong.guitarToggleCount = 0;
                 //delete recorded guitar save file
-                audioClipArrayCombiner.DeleteFile(SelectedSong.title + "guitar");
+                audioClipArrayCombiner.DeleteFile(userAvatar.avatarName, SelectedSong.title, "guitar");
                 break;
             case "bass":
                 SelectedSong.recorded_bass = new float[0];
@@ -765,7 +765,7 @@ public class GameManager : MonoBehaviour
                 if (SelectedSong.bassToggleCount == 1)
                     SelectedSong.bassToggleCount = 0;
                 //delete recorded bass save file
-                audioClipArrayCombiner.DeleteFile(SelectedSong.title + "bass");
+                audioClipArrayCombiner.DeleteFile(userAvatar.avatarName, SelectedSong.title, "bass");
                 break;
             case "piano":
                 SelectedSong.recorded_piano = new float[0];
@@ -773,7 +773,7 @@ public class GameManager : MonoBehaviour
                 if (SelectedSong.pianoToggleCount == 1)
                     SelectedSong.pianoToggleCount = 0;
                 //delete recorded piano save file
-                audioClipArrayCombiner.DeleteFile(SelectedSong.title + "piano");
+                audioClipArrayCombiner.DeleteFile(userAvatar.avatarName, SelectedSong.title, "piano");
                 break;
             case "drums":
                 SelectedSong.recorded_drums = new float[0];
@@ -781,7 +781,7 @@ public class GameManager : MonoBehaviour
                 if (SelectedSong.drumsToggleCount == 1)
                     SelectedSong.drumsToggleCount = 0;
                 //delete recorded drums save file
-                audioClipArrayCombiner.DeleteFile(SelectedSong.title + "drums");
+                audioClipArrayCombiner.DeleteFile(userAvatar.avatarName, SelectedSong.title, "drums");
                 break;
             case "voice":
                 SelectedSong.recorded_voice = new float[0];
@@ -789,7 +789,7 @@ public class GameManager : MonoBehaviour
                 if (SelectedSong.voiceToggleCount == 1)
                     SelectedSong.voiceToggleCount = 0;
                 //delete recorded voice save file
-                audioClipArrayCombiner.DeleteFile(SelectedSong.title + "voice");
+                audioClipArrayCombiner.DeleteFile(userAvatar.avatarName, SelectedSong.title, "voice");
                 break;
         }
     }
@@ -803,7 +803,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void combineAudioFiles() {
-        audioClipArrayCombiner.CombineFiles(SelectedSong.title);
+        audioClipArrayCombiner.CombineFiles(userAvatar.avatarName, SelectedSong.title);
     }
 
     public void CancelRecording() {

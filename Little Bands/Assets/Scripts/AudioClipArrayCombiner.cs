@@ -55,14 +55,13 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		}
 	}
 
-	public void DeleteFile(string filename)
+	public void DeleteFile(string userFolder, string songFolder, string foldername)
 	{
-		string foldername = filename;
-		DirectoryInfo dataDir = new DirectoryInfo(Application.persistentDataPath + "/" + foldername);
+		DirectoryInfo dataDir = new DirectoryInfo(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + foldername);
 		dataDir.Delete(true);
 	}
 
-	public void CombineFiles(string songTitle)
+	public void CombineFiles(string userFolder, String songFolder)
 	{
 
 		Debug.Log(Application.persistentDataPath);
@@ -89,16 +88,18 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		// Find total number of exports
 		int totalExports = 1;                                                // Start at 1...
 
-		string folder1 = songTitle + "guitar";
-		string filename1 = folder1 + ".wav";
-		string folder2 = songTitle + "bass";
-		string filename2 = folder2 + ".wav";
-		string folder3 = songTitle + "piano";
-		string filename3 = folder3 + ".wav";
-		string folder4 = songTitle + "drums";
-		string filename4 = folder4 + ".wav";
-		string folder5 = songTitle + "voice";
-		string filename5 = folder5 + ".wav";
+        string folderName1 = "guitar";
+        string filename1 = userFolder + "_" + songFolder + "_guitar.wav";
+		string folderName2 = "bass";
+		string filename2 = userFolder + "_" + songFolder + "_bass.wav";
+		string folderName3 = "piano";
+		string filename3 = userFolder + "_" + songFolder + "_piano.wav";
+		string folderName4 = "drums";
+		string filename4 = userFolder + "_" + songFolder + "_drums.wav";
+		string folderName5 = "voice";
+		string filename5 = userFolder + "_" + songFolder + "_voice.wav";
+
+		string filename = "";
 		//var filename1 = "song1.wav";
 		//var filename2 = "song2.wav";
 		//var filename1 = "Axe_On_Flesh_Axe_1.wav";
@@ -112,11 +113,11 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		//var filename5 = "Axe_On_Flesh_Flesh_3.wav";
 
 		//used to load files from persistentDataPath 
-		AudioClip clip1 = ToAudioClip(Application.persistentDataPath + "/" + folder1 + "/" + filename1);
-		AudioClip clip2 = ToAudioClip(Application.persistentDataPath + "/" + folder2 + "/" + filename2);
-		AudioClip clip3 = ToAudioClip(Application.persistentDataPath + "/" + folder3 + "/" + filename3);
-		AudioClip clip4 = ToAudioClip(Application.persistentDataPath + "/" + folder4 + "/" + filename4);
-		AudioClip clip5 = ToAudioClip(Application.persistentDataPath + "/" + folder5 + "/" + filename5);
+		AudioClip clip1 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName1 + "/" + filename1);
+		AudioClip clip2 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName2 + "/" + filename2);
+		AudioClip clip3 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName3 + "/" + filename3);
+		AudioClip clip4 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName4 + "/" + filename4);
+		AudioClip clip5 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName5 + "/" + filename5);
 
 		//used to load files from Asset folder in Unity
 		//AudioClip clip1 = (AudioClip)Resources.Load(filename1);
@@ -185,7 +186,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 				progressPercent = clipCount / (float)totalExports;
 				//Debug.Log ("progressPercent: " + progressPercent);
 				string[] clipsAsString = combination.Split(","[0]);
-				SaveClip(songTitle, number, clipsAsString, audioLayers);
+				SaveClip(userFolder, songFolder, filename, number, clipsAsString, audioLayers);
 				number++;
 			}
 		}
@@ -195,7 +196,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		}
 	}
 
-	public void SaveNow(AudioClip clipToSave, String instrumentFileName)
+	public void SaveNow(AudioClip clipToSave, string userFolder, string songFolder, string filename)
 	{
 
 		Debug.Log(Application.persistentDataPath);
@@ -209,8 +210,6 @@ public class AudioClipArrayCombiner : MonoBehaviour
 
 		// Find total number of exports
 		int totalExports = 1;                                                // Start at 1...
-
-		var filename1 = instrumentFileName;
 
 		//used to load files from persistentDataPath 
 		AudioClip clip1 = clipToSave;
@@ -271,7 +270,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 				progressPercent = clipCount / (float)totalExports;
 				//Debug.Log ("progressPercent: " + progressPercent);
 				string[] clipsAsString = combination.Split(","[0]);
-				SaveClip(filename1, number, clipsAsString, audioLayers);
+				SaveClip(userFolder, songFolder, filename, number, clipsAsString, audioLayers);
 				number++;
 			}
 		}
@@ -282,21 +281,29 @@ public class AudioClipArrayCombiner : MonoBehaviour
 	}
 
 
-	public static bool SaveClip(string filename, int exportNumber, string[] clipsAsString, AudioLayer[] audioLayers)
+	public static bool SaveClip(string userFolder, string songFolder, string filename, int exportNumber, string[] clipsAsString, AudioLayer[] audioLayers)
 	{
 		//Debug.Log ("Doing Export " + exportNumber);
-		if (filename.Length <= 0)                                                           // If the name hasn't been set
-			filename = "CombinedAudio" + exportNumber;                                      // Use a default name
+		var filepath="";
+        if (filename.Length <= 0)                                                           // If the name hasn't been set
+		{
+			filename = userFolder + "_" + songFolder;                                      // Use a default name
+			string folderName = filename;
+			filename += ".wav";
+			filepath = Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName + "/" + filename;
+		}
 		else
 		{                                                                               // else
-			//filename = filename + "_" + exportNumber;                                       // Use the chosen name plus the number
+			string folderName = filename;
+			filename = userFolder + "_" + songFolder + "_" + filename;                  // Use the chosen name plus the number
+			filename += ".wav";
+			filepath = Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName + "/" + filename;
 		}
-		string folder = filename;
-		filename += ".wav";                                                                 // add the .wav extension
+		//filename += ".wav";                                                                 // add the .wav extension
 
 		//USED IF SAVED WITHIN ASSET FOLDER
 		//var filepath	= "Assets/SFBayStudios/Exported Audio Files/" + filename;           // Set the file path
-		var filepath = Application.persistentDataPath + "/" + folder + "/" + filename;                     // Set the file path
+		//var filepath = Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName + "/" + filename;                     // Set the file path
 
 		// Make sure directory exists if user is saving to sub dir.
 		Directory.CreateDirectory(Path.GetDirectoryName(filepath));
