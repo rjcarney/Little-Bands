@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     public GameObject playBtnTxt;
     public GameObject audioSlider_playOptions;
     private bool playing_layeredAudio;
-
+    public GameObject removeInstrumentButton;
     public GameObject combineAudioFilesButton;
     public GameObject deleteButton;
 
@@ -272,7 +272,7 @@ public class GameManager : MonoBehaviour
     public void InstrumentButtonOnClick(string instrument) {
         if (!playing_recording && !recording) {
             // First Click Select instrument
-            if (SelectedInstrument != instrument) {
+            if (SelectedInstrument == null) {
                 SelectedInstrument = instrument;
                 sheetMusicTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedSong.title + ": " + SelectedInstrument;
                 switch (instrument) {
@@ -462,6 +462,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void RemoveInstrument() {
+        SelectedInstrument = null;
     }
     
     //  The Play Button will now only play the users recorded audio
@@ -1028,14 +1032,20 @@ public class GameManager : MonoBehaviour
             } else if (SelectedSong.recorded_voiceClip != null) {
                 audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
             }
-        } else
+        }
 
-        if(SelectedSong != null && SelectedSong.recorded_guitarClip != null &&
-            SelectedSong.recorded_bassClip != null && SelectedSong.recorded_pianoClip != null &&
-            SelectedSong.recorded_drumsClip != null && SelectedSong.recorded_voiceClip != null) {
-            combineAudioFilesButton.SetActive(true);
+        if(SelectedSong != null) {
+            if(SelectedSong.recorded_guitarClip == null || SelectedSong.recorded_bassClip == null || SelectedSong.recorded_pianoClip == null || SelectedSong.recorded_drumsClip == null || SelectedSong.recorded_voiceClip == null) {
+                combineAudioFilesButton.SetActive(false);
+            } else {
+                combineAudioFilesButton.SetActive(true);
+            }
+        }
+
+        if(SelectedInstrument == null) {
+            removeInstrumentButton.SetActive(false);
         } else {
-            combineAudioFilesButton.SetActive(false);
+            removeInstrumentButton.SetActive(true);
         }
     }
 }
