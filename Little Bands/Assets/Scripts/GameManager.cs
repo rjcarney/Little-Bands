@@ -261,6 +261,12 @@ public class GameManager : MonoBehaviour
         // Change view
         RecordPage.SetActive(false);
         SongListPage.SetActive(true);
+        videoPopUp.SetActive(false);
+        sheetMusicPopUp.SetActive(false);
+        PlayOptions.SetActive(true);
+        if (recording) {
+            CancelRecording();
+        }
     }
 
     /* RECORDING PAGE
