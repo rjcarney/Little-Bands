@@ -245,6 +245,17 @@ public class GameManager : MonoBehaviour
         RecordPage.SetActive(true);
     }
 
+    public void exitToAvatars() {
+        userAvatar = null;
+        SongListPage.SetActive(false);
+        AvatarSelecetPage.SetActive(true);
+    }
+
+
+    /* RECORDING PAGE
+     * After selecting a song the user will be need to select in instrument before they are able to record
+     * 
+     */
 
     public void backToSongs() {
         //Deselect song and audio
@@ -268,11 +279,6 @@ public class GameManager : MonoBehaviour
             CancelRecording();
         }
     }
-
-    /* RECORDING PAGE
-     * After selecting a song the user will be need to select in instrument before they are able to record
-     * 
-     */
 
     // New Record page instrument buttons
     public void InstrumentButtonOnClick(string instrument) {
@@ -1048,7 +1054,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(SelectedInstrument == null) {
+        if(SelectedInstrument == null || recording) {
             removeInstrumentButton.SetActive(false);
         } else {
             removeInstrumentButton.SetActive(true);
