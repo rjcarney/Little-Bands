@@ -485,12 +485,7 @@ public class GameManager : MonoBehaviour
         if (!recording) {
             if (playing_recording == false) {
                 // Stop all curently playing audio
-                guitarAudioSource.Stop();
-                bassAudioSource.Stop();
-                pianoAudioSource.Stop();
-                drumsAudioSource.Stop();
-                voiceAudioSource.Stop();
-                playing_layeredAudio = false;
+                stopLayeredAudio();
 
                 // Set all recording clips to associated recorded wav file otherwise set to null
                 guitarAudioSource.clip = (SelectedSong.recorded_guitarClip == null) ? null : SelectedSong.recorded_guitarClip;
@@ -545,15 +540,12 @@ public class GameManager : MonoBehaviour
 
                     playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
                     playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\nStop";
+                    playing_layeredAudio = true;
                     playing_recording = true;
                 }
             } else {
                 // Stop All Audio
-                guitarAudioSource.Stop();
-                bassAudioSource.Stop();
-                pianoAudioSource.Stop();
-                drumsAudioSource.Stop();
-                voiceAudioSource.Stop();
+                stopLayeredAudio();
 
                 // Reset Audio Track to toggled Selection
                 // Reset guitar track
@@ -632,36 +624,34 @@ public class GameManager : MonoBehaviour
                 playing_recording = false;
             }
         } else {
-            // Audio is recoring this button will display the microphone texture at this time
-            // This will be happening in the update method
+            // Audio is recording this button will display the microphone texture at this time
+            // Texture change will be happening in the update method
         }
     }
 
-    
     public void playLayeredAudio() {
-        if (playing_recording)
-            PlayButtonOnClick();
+        audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
+        audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
 
-        if (playing_layeredAudio == false) {
-            audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
-            audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().maxValue = SelectedSong.original_full_audio.length;
+        guitarAudioSource.Play();
+        bassAudioSource.Play();
+        pianoAudioSource.Play();
+        drumsAudioSource.Play();
+        voiceAudioSource.Play();
+        audioGuideSource.Play();
+        playing_layeredAudio = true;
+    }
 
-            guitarAudioSource.Play();
-            bassAudioSource.Play();
-            pianoAudioSource.Play();
-            drumsAudioSource.Play();
-            voiceAudioSource.Play();
-            audioGuideSource.Play();
-            playing_layeredAudio = true;
-        } else {
-            guitarAudioSource.Stop();
-            bassAudioSource.Stop();
-            pianoAudioSource.Stop();
-            drumsAudioSource.Stop();
-            voiceAudioSource.Stop();
-            audioGuideSource.Stop();
-            playing_layeredAudio = false;
-        }
+    public void stopLayeredAudio() {
+        audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = 0;
+        audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = 0;
+        guitarAudioSource.Stop();
+        bassAudioSource.Stop();
+        pianoAudioSource.Stop();
+        drumsAudioSource.Stop();
+        voiceAudioSource.Stop();
+        audioGuideSource.Stop();
+        playing_layeredAudio = false;
     }
 
     // Change view from Play Options to Sheet Music
@@ -690,24 +680,27 @@ public class GameManager : MonoBehaviour
 
     public void Record() {
         // Cancel any currently playing audio
-        if (playing_recording)
+        if (playing_recording) {
             PlayButtonOnClick();
+        }
 
         // Ensure instrument is selected
         if (SelectedInstrument != null) {
             // Set Correct View Based on if recording or not
             if (recording == false) {
+                // Start recording process
                 recording = true;
                 PlayOptions.SetActive(false);
                 recordView.SetActive(true);
+                playLayeredAudio();
             } else {
+                // End recording process
                 recording = false;
                 confirmPopUp.SetActive(true);
                 recordView.SetActive(false);
+                stopLayeredAudio();
             }
-
-            // Toggle Audio and AudioReader start
-            playLayeredAudio();
+            // Toggle AudioReader
             audioReader.startRecord = true;
         } else {
             // Prompt user to select an instrument
@@ -826,7 +819,7 @@ public class GameManager : MonoBehaviour
         recording = false;
         recordView.SetActive(false);
         PlayOptions.SetActive(true);
-        playLayeredAudio();
+        stopLayeredAudio();
         audioReader.startRecord = true;
     }
 
@@ -1047,14 +1040,24 @@ public class GameManager : MonoBehaviour
         }
 
         if(SelectedSong != null) {
-            if(SelectedSong.recorded_guitarClip == null || SelectedSong.recorded_bassClip == null || SelectedSong.recorded_pianoClip == null || SelectedSong.recorded_drumsClip == null || SelectedSong.recorded_voiceClip == null) {
+            if(SelectedSong.recorded_guitarClip == null || SelectedSong.recorded_bassClip == null ||
+                SelectedSong.recorded_pianoClip == null || SelectedSong.recorded_drumsClip == null || 
+                SelectedSong.recorded_voiceClip == null) {
                 combineAudioFilesButton.SetActive(false);
             } else {
                 combineAudioFilesButton.SetActive(true);
             }
         }
 
-        if(SelectedInstrument == null || recording) {
+        if (SelectedSong.recorded_guitarClip == null && SelectedSong.recorded_bassClip == null &&
+                SelectedSong.recorded_pianoClip == null && SelectedSong.recorded_drumsClip == null &&
+                SelectedSong.recorded_voiceClip == null) {
+            playBtn.SetActive(false);
+        } else {
+            playBtn.SetActive(true);
+        }
+
+        if (SelectedInstrument == null || recording) {
             removeInstrumentButton.SetActive(false);
         } else {
             removeInstrumentButton.SetActive(true);
