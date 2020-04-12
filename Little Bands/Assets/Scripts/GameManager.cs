@@ -1049,9 +1049,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (SelectedSong.recorded_guitarClip == null && SelectedSong.recorded_bassClip == null &&
-                SelectedSong.recorded_pianoClip == null && SelectedSong.recorded_drumsClip == null &&
-                SelectedSong.recorded_voiceClip == null) {
+        if (SelectedSong != null && SelectedSong.recorded_guitarClip == null &&
+            SelectedSong.recorded_bassClip == null && SelectedSong.recorded_pianoClip == null &&
+            SelectedSong.recorded_drumsClip == null && SelectedSong.recorded_voiceClip == null) {
             playBtn.SetActive(false);
         } else {
             playBtn.SetActive(true);
