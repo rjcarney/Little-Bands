@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviour
     public GameObject PlayOptions;
     private bool playing_recording;
     public GameObject playBtn;
-    public GameObject playBtnTxt;
     public GameObject audioSlider_playOptions;
     private bool playing_layeredAudio;
     public GameObject removeInstrumentButton;
@@ -163,6 +163,8 @@ public class GameManager : MonoBehaviour
         SelectedSong = SongListItem.GetComponent<SongItem>();
         videoTitle.GetComponent<UnityEngine.UI.Text>().text = SelectedSong.title;
 
+        LoadSavedClips();
+
         //Set Audio Tracks
         fullAudioSource.clip = SelectedSong.original_full_audio;
         // Set guitar track
@@ -243,6 +245,40 @@ public class GameManager : MonoBehaviour
         // Change View
         SongListPage.SetActive(false);
         RecordPage.SetActive(true);
+    }
+
+    public void LoadSavedClips() {
+        string path = Application.persistentDataPath + "/" + userAvatar.avatarName + "/" + SelectedSong.title + "/";
+
+        if(System.IO.File.Exists(path + "guitar/" + userAvatar.avatarName + "_" + SelectedSong.title + "_guitar.wav")) {
+            SelectedSong.recorded_guitarClip = audioClipArrayCombiner.ToAudioClip(path + "guitar/" + userAvatar.avatarName + "_" + SelectedSong.title + "_guitar.wav");
+        } else {
+            Debug.Log("No guitar recording saved");
+        }
+
+        if (System.IO.File.Exists(path + "bass/" + userAvatar.avatarName + "_" + SelectedSong.title + "_bass.wav")) {
+            SelectedSong.recorded_bassClip = audioClipArrayCombiner.ToAudioClip(path + "bass/" + userAvatar.avatarName + "_" + SelectedSong.title + "_bass.wav");
+        } else {
+            Debug.Log("No bass recording saved");
+        }
+
+        if (System.IO.File.Exists(path + "piano/" + userAvatar.avatarName + "_" + SelectedSong.title + "_piano.wav")) {
+            SelectedSong.recorded_pianoClip = audioClipArrayCombiner.ToAudioClip(path + "piano/" + userAvatar.avatarName + "_" + SelectedSong.title + "_piano.wav");
+        } else {
+            Debug.Log("No piano recording saved");
+        }
+
+        if (System.IO.File.Exists(path + "drums/" + userAvatar.avatarName + "_" + SelectedSong.title + "_drums.wav")) {
+            SelectedSong.recorded_drumsClip = audioClipArrayCombiner.ToAudioClip(path + "drums/" + userAvatar.avatarName + "_" + SelectedSong.title + "_drums.wav");
+        } else {
+            Debug.Log("No drums recording saved");
+        }
+
+        if (System.IO.File.Exists(path + "voice/" + userAvatar.avatarName + "_" + SelectedSong.title + "_voice.wav")) {
+            SelectedSong.recorded_voiceClip = audioClipArrayCombiner.ToAudioClip(path + "voice/" + userAvatar.avatarName + "_" + SelectedSong.title + "_voice.wav");
+        } else {
+            Debug.Log("No voice recording saved");
+        }
     }
 
     public void exitToAvatars() {
@@ -539,7 +575,6 @@ public class GameManager : MonoBehaviour
                     }
 
                     playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
-                    playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\nStop";
                     playing_layeredAudio = true;
                     playing_recording = true;
                 }
@@ -620,7 +655,6 @@ public class GameManager : MonoBehaviour
                 }
 
                 playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
-                playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\nPlay";
                 playing_recording = false;
             }
         } else {
@@ -934,13 +968,11 @@ public class GameManager : MonoBehaviour
         // Revert To Play Button When Audio is Finished Playing Recording or Recording
         if (!playing_recording && !recording) {
             playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
-            playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\nPlay";
         }
 
         // Show Mircrophone Texture on Play Button When Recording
         if (recording) {
             playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = micTexture;
-            playBtnTxt.GetComponent<UnityEngine.UI.Text>().text = "\n\n\nRecording";
         }
 
         if(SelectedInstrument != null) {

@@ -8918,12 +8918,12 @@ PrefabInstance:
         type: 3}
       propertyPath: recorded_bassClip
       value: 
-      objectReference: {fileID: 8300000, guid: 0a511cb10cc97b44a8d82accdb458225, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
         type: 3}
       propertyPath: recorded_drumsClip
       value: 
-      objectReference: {fileID: 8300000, guid: 018edd4581bf75949b5a83ef99aa7425, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2470767134434415253, guid: 816de0b17ad76ae438534362f9e062ed,
         type: 3}
       propertyPath: m_Name
@@ -9792,7 +9792,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 63152893}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.4756522
+  m_Size: 0.41058597
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12078,7 +12078,7 @@ PrefabInstance:
         type: 3}
       propertyPath: recorded_pianoClip
       value: 
-      objectReference: {fileID: 8300000, guid: a828c5a31422b744696ff27c3b31dd27, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2470767134434415253, guid: 816de0b17ad76ae438534362f9e062ed,
         type: 3}
       propertyPath: m_Name
