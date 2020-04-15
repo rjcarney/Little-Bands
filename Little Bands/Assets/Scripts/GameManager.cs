@@ -6,25 +6,6 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    /*  Notes for UI update:
-     *  We now need to start off on an Avatar Select Page
-     *  The user will select either Red, Green or Blue as their avatar
-     * 
-     *  We can remove the InstrumentSelectPage and go directly to the RecordPage
-     *  
-     *  On the record page our instrument buttons will now have two new functions:
-     *  On first click if instrument has not been selected
-     *                  then select that instrument
-     *  else
-     *  On every subsequent click toggle the audio being played from 
-     *      0. teacher audio
-     *      1. if user has recording for insturment
-     *          then users recording
-     *          else count = 2
-     *      2. mute
-     *  
-     *  There also be the addition of a new Audio Source to play a teacher guide to play each instrument
-     */
     public static GameManager instance = null;
     public AudioRead audioReader;
     public AudioWrite audioWriter;
@@ -58,6 +39,8 @@ public class GameManager : MonoBehaviour
     public GameObject playBtn;
     public GameObject audioSlider_playOptions;
     private bool playing_layeredAudio;
+    public GameObject videoButton;
+    public GameObject sheetMusicButton;
     public GameObject removeInstrumentButton;
     public GameObject combineAudioFilesButton;
     public GameObject deleteButton;
@@ -68,10 +51,12 @@ public class GameManager : MonoBehaviour
     public GameObject audioSlider_recordView;
     public GameObject confirmPopUp;
     public GameObject savingPopUp;
+    public GameObject promptScrollBar;
 
     // SheetMusic Content
     public GameObject sheetMusicPopUp;
     public GameObject sheetMusicTitle;
+    public GameObject sheetMusicScrollBar;
 
     // Video Content
     public GameObject videoPopUp;
@@ -655,6 +640,7 @@ public class GameManager : MonoBehaviour
     public void OpenSheetMusic() {
         sheetMusicPopUp.SetActive(true);
         PlayOptions.SetActive(false);
+        sheetMusicScrollBar.GetComponent<Scrollbar>().value = 1;
     }
 
     // Change view from Sheet Music to Play Options
@@ -692,6 +678,7 @@ public class GameManager : MonoBehaviour
                 recording = true;
                 PlayOptions.SetActive(false);
                 recordView.SetActive(true);
+                promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
             } else {
                 // End recording process
@@ -867,9 +854,12 @@ public class GameManager : MonoBehaviour
         // Show Mircrophone Texture on Play Button When Recording
         if (recording) {
             playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = micTexture;
+            promptScrollBar.GetComponent<Scrollbar>().value = 1 - (audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value / audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().maxValue);
         }
 
         if(SelectedInstrument != null) {
+            sheetMusicButton.SetActive(true);
+            videoButton.SetActive(true);
             switch (SelectedInstrument) {
                 // all cases do the same things, only difference is specific for selected instrument
                 case "guitar":
@@ -951,6 +941,8 @@ public class GameManager : MonoBehaviour
             // fill audio slider based on time passed
             // check for end of song and change play button back
             // can not record without a selected instrument
+            sheetMusicButton.SetActive(false);
+            videoButton.SetActive(false);
             deleteButton.SetActive(false);
             if (SelectedSong.recorded_guitarClip != null) {
                 audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
