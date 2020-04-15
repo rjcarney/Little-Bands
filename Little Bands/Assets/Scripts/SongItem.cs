@@ -27,12 +27,6 @@ public class SongItem : MonoBehaviour
     public AudioClip instruction_voice;
     
     [Header("Recorded Audio")]
-    public float[] recorded_guitar;
-    public float[] recorded_bass;
-    public float[] recorded_piano;
-    public float[] recorded_drums;
-    public float[] recorded_voice;
-
     public AudioClip recorded_guitarClip;
     public AudioClip recorded_bassClip;
     public AudioClip recorded_pianoClip;
