@@ -45,6 +45,28 @@ public class GameManager : MonoBehaviour
     public GameObject combineAudioFilesButton;
     public GameObject deleteButton;
 
+    public GameObject guitarButton;
+    public GameObject bassButton;
+    public GameObject pianoButton;
+    public GameObject drumsButton;
+    public GameObject voiceButton;
+    public GameObject guideButton;
+
+    public Texture guitarTexture;
+    public Texture bassTexture;
+    public Texture pianoTexture;
+    public Texture drumsTexture;
+    public Texture voiceTexture;
+    public Texture guideTexture;
+
+    public Texture guitarTexture_mute;
+    public Texture bassTexture_mute;
+    public Texture pianoTexture_mute;
+    public Texture drumsTexture_mute;
+    public Texture voiceTexture_mute;
+    public Texture guideTexture_mute;
+
+
     public GameObject guitarText;
     public GameObject bassText;
     public GameObject pianoText;
@@ -77,8 +99,6 @@ public class GameManager : MonoBehaviour
     public AudioSource drumsAudioSource;
     public AudioSource voiceAudioSource;
     public AudioSource audioGuideSource;
-
-    public AudioClip clipGuitar;
 
 
     // Awake is called once after all game objects are initialized
@@ -800,10 +820,10 @@ public class GameManager : MonoBehaviour
     public void audioGuideMuteToggle() {
         if (audioGuideSource.volume == 1) {
             audioGuideSource.volume = 0;
-            guitarText.GetComponent<Text>().text = "Mute";
+            guideText.GetComponent<Text>().text = "Mute";
         } else {
             audioGuideSource.volume = 1;
-            guitarText.GetComponent<Text>().text = "Teacher";
+            guideText.GetComponent<Text>().text = "Teacher";
         }
     }
 
@@ -861,56 +881,71 @@ public class GameManager : MonoBehaviour
             switch (SelectedSong.guitarToggleCount) {
                 case 0:
                     guitarText.GetComponent<Text>().text = "Teacher";
+                    guitarButton.GetComponent<RawImage>().texture = guitarTexture;
                     break;
                 case 1:
                     guitarText.GetComponent<Text>().text = "Student";
+                    guitarButton.GetComponent<RawImage>().texture = guitarTexture;
                     break;
                 case 2:
                     guitarText.GetComponent<Text>().text = "Mute";
+                    guitarButton.GetComponent<RawImage>().texture = guitarTexture_mute;
                     break;
             }
             switch (SelectedSong.bassToggleCount) {
                 case 0:
                     bassText.GetComponent<Text>().text = "Teacher";
+                    guitarButton.GetComponent<RawImage>().texture = bassTexture;
                     break;
                 case 1:
                     bassText.GetComponent<Text>().text = "Student";
+                    guitarButton.GetComponent<RawImage>().texture = bassTexture;
                     break;
                 case 2:
                     bassText.GetComponent<Text>().text = "Mute";
+                    guitarButton.GetComponent<RawImage>().texture = bassTexture_mute;
                     break;
             }
             switch (SelectedSong.pianoToggleCount) {
                 case 0:
                     pianoText.GetComponent<Text>().text = "Teacher";
+                    guitarButton.GetComponent<RawImage>().texture = pianoTexture;
                     break;
                 case 1:
                     pianoText.GetComponent<Text>().text = "Student";
+                    guitarButton.GetComponent<RawImage>().texture = pianoTexture;
                     break;
                 case 2:
                     pianoText.GetComponent<Text>().text = "Mute";
+                    guitarButton.GetComponent<RawImage>().texture = pianoTexture_mute;
                     break;
             }
             switch (SelectedSong.drumsToggleCount) {
                 case 0:
                     drumsText.GetComponent<Text>().text = "Teacher";
+                    guitarButton.GetComponent<RawImage>().texture = drumsTexture;
                     break;
                 case 1:
                     drumsText.GetComponent<Text>().text = "Student";
+                    guitarButton.GetComponent<RawImage>().texture = drumsTexture;
                     break;
                 case 2:
                     drumsText.GetComponent<Text>().text = "Mute";
+                    guitarButton.GetComponent<RawImage>().texture = drumsTexture_mute;
                     break;
             }
             switch (SelectedSong.voiceToggleCount) {
                 case 0:
                     voiceText.GetComponent<Text>().text = "Teacher";
+                    guitarButton.GetComponent<RawImage>().texture = voiceTexture;
                     break;
                 case 1:
                     voiceText.GetComponent<Text>().text = "Student";
+                    guitarButton.GetComponent<RawImage>().texture = voiceTexture;
                     break;
                 case 2:
                     voiceText.GetComponent<Text>().text = "Mute";
+                    guitarButton.GetComponent<RawImage>().texture = voiceTexture_mute;
                     break;
             }
         }

@@ -5403,6 +5403,66 @@ PrefabInstance:
       propertyPath: guideText
       value: 
       objectReference: {fileID: 1225840306}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: guitarButton
+      value: 
+      objectReference: {fileID: 1817153662}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: bassButton
+      value: 
+      objectReference: {fileID: 108970}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: pianoButton
+      value: 
+      objectReference: {fileID: 1750001814}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: drumsButton
+      value: 
+      objectReference: {fileID: 1996324879}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: voiceButton
+      value: 
+      objectReference: {fileID: 809819041}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: guideButton
+      value: 
+      objectReference: {fileID: 809819041}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: guitarTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 3af22f65c76f81b4b94b869e0c06da33, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: bassTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 275680031ba235a49adf5bd7f0b0f716, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: pianoTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 1c8e2f5ce37700743a333dac3bbed281, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: drumsTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 99b4bf4f76e16f540b1d13befdfdb648, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: guideTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 938cc13fe8c85084b8150a803e23d08a, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: voiceTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 5128dd7aa5eb5784489c453d9624d85e, type: 3}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name
