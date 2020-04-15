@@ -45,6 +45,13 @@ public class GameManager : MonoBehaviour
     public GameObject combineAudioFilesButton;
     public GameObject deleteButton;
 
+    public GameObject guitarText;
+    public GameObject bassText;
+    public GameObject pianoText;
+    public GameObject drumsText;
+    public GameObject voiceText;
+    public GameObject guideText;
+
     // RecordView Content
     private bool recording;
     public GameObject recordView;
@@ -791,10 +798,13 @@ public class GameManager : MonoBehaviour
 
     // Toggle the volume of the teacher guide audio
     public void audioGuideMuteToggle() {
-        if (audioGuideSource.volume == 1)
+        if (audioGuideSource.volume == 1) {
             audioGuideSource.volume = 0;
-        else
+            guitarText.GetComponent<Text>().text = "Mute";
+        } else {
             audioGuideSource.volume = 1;
+            guitarText.GetComponent<Text>().text = "Teacher";
+        }
     }
 
     /* Combine Audio Button On Click Function
@@ -842,6 +852,65 @@ public class GameManager : MonoBehaviour
                 default:
                     avatarDisplay.GetComponent<RawImage>().texture = userAvatar.avatar;
                     avatarDisplayText.GetComponent<UnityEngine.UI.Text>().text = userAvatar.avatarName + ": No Instrument";
+                    break;
+            }
+        }
+
+        // Toggle Instrument button text
+        if(SelectedSong != null) {
+            switch (SelectedSong.guitarToggleCount) {
+                case 0:
+                    guitarText.GetComponent<Text>().text = "Teacher";
+                    break;
+                case 1:
+                    guitarText.GetComponent<Text>().text = "Student";
+                    break;
+                case 2:
+                    guitarText.GetComponent<Text>().text = "Mute";
+                    break;
+            }
+            switch (SelectedSong.bassToggleCount) {
+                case 0:
+                    bassText.GetComponent<Text>().text = "Teacher";
+                    break;
+                case 1:
+                    bassText.GetComponent<Text>().text = "Student";
+                    break;
+                case 2:
+                    bassText.GetComponent<Text>().text = "Mute";
+                    break;
+            }
+            switch (SelectedSong.pianoToggleCount) {
+                case 0:
+                    pianoText.GetComponent<Text>().text = "Teacher";
+                    break;
+                case 1:
+                    pianoText.GetComponent<Text>().text = "Student";
+                    break;
+                case 2:
+                    pianoText.GetComponent<Text>().text = "Mute";
+                    break;
+            }
+            switch (SelectedSong.drumsToggleCount) {
+                case 0:
+                    drumsText.GetComponent<Text>().text = "Teacher";
+                    break;
+                case 1:
+                    drumsText.GetComponent<Text>().text = "Student";
+                    break;
+                case 2:
+                    drumsText.GetComponent<Text>().text = "Mute";
+                    break;
+            }
+            switch (SelectedSong.voiceToggleCount) {
+                case 0:
+                    voiceText.GetComponent<Text>().text = "Teacher";
+                    break;
+                case 1:
+                    voiceText.GetComponent<Text>().text = "Student";
+                    break;
+                case 2:
+                    voiceText.GetComponent<Text>().text = "Mute";
                     break;
             }
         }
