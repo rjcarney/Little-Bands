@@ -19,6 +19,13 @@ public class SongItem : MonoBehaviour
     public AudioClip original_drums;
     public AudioClip original_voice;
 
+    [Header("Sheet Music Page Arrays")]
+    public Texture[] guitarPages;
+    public Texture[] bassPages;
+    public Texture[] pianoPages;
+    public Texture[] drumsPages;
+    public Texture[] voicePages;
+
     [Header ("Instruction Audio")]
     public AudioClip instruction_guitar;
     public AudioClip instruction_bass;

@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour
     public GameObject sheetMusicPopUp;
     public GameObject sheetMusicTitle;
     public GameObject sheetMusicScrollBar;
+    public GameObject sheetMusicPageContainer;
+    public GameObject sheetMusicPage;
 
     // Video Content
     public GameObject videoPopUp;
@@ -669,6 +671,43 @@ public class GameManager : MonoBehaviour
     // Change view from Play Options to Sheet Music
     public void OpenSheetMusic() {
         if (SelectedInstrument != null) {
+            switch(SelectedInstrument) {
+                case "guitar":
+                    foreach(Texture pageTexture in SelectedSong.guitarPages) {
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                        page.transform.parent = sheetMusicPageContainer.transform;
+                    }
+                    break;
+                case "bass":
+                    foreach (Texture pageTexture in SelectedSong.bassPages) {
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                        page.transform.parent = sheetMusicPageContainer.transform;
+                    }
+                    break;
+                case "piano":
+                    foreach (Texture pageTexture in SelectedSong.pianoPages) {
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                        page.transform.parent = sheetMusicPageContainer.transform;
+                    }
+                    break;
+                case "drums":
+                    foreach (Texture pageTexture in SelectedSong.drumsPages) {
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                        page.transform.parent = sheetMusicPageContainer.transform;
+                    }
+                    break;
+                case "voice":
+                    foreach (Texture pageTexture in SelectedSong.voicePages) {
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                        page.transform.parent = sheetMusicPageContainer.transform;
+                    }
+                    break;
+            }
             sheetMusicPopUp.SetActive(true);
             PlayOptions.SetActive(false);
             sheetMusicScrollBar.GetComponent<Scrollbar>().value = 1;
