@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
     public GameObject sheetMusicTitle;
     public GameObject sheetMusicScrollBar;
     public GameObject sheetMusicPageContainer;
+    private List<GameObject> currentPages;
     public GameObject sheetMusicPage;
 
     // Video Content
@@ -126,6 +127,7 @@ public class GameManager : MonoBehaviour
         playing_recording = false;
         playing_layeredAudio = false;
         recording = false;
+        currentPages = new List<GameObject>();
 
         audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().direction = Slider.Direction.LeftToRight;
         audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().minValue = 0;
@@ -677,6 +679,7 @@ public class GameManager : MonoBehaviour
                         GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
                         page.transform.parent = sheetMusicPageContainer.transform;
+                        currentPages.Add(page);
                     }
                     break;
                 case "bass":
@@ -684,6 +687,7 @@ public class GameManager : MonoBehaviour
                         GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
                         page.transform.parent = sheetMusicPageContainer.transform;
+                        currentPages.Add(page);
                     }
                     break;
                 case "piano":
@@ -691,6 +695,7 @@ public class GameManager : MonoBehaviour
                         GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
                         page.transform.parent = sheetMusicPageContainer.transform;
+                        currentPages.Add(page);
                     }
                     break;
                 case "drums":
@@ -698,6 +703,7 @@ public class GameManager : MonoBehaviour
                         GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
                         page.transform.parent = sheetMusicPageContainer.transform;
+                        currentPages.Add(page);
                     }
                     break;
                 case "voice":
@@ -705,6 +711,7 @@ public class GameManager : MonoBehaviour
                         GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
                         page.transform.parent = sheetMusicPageContainer.transform;
+                        currentPages.Add(page);
                     }
                     break;
             }
@@ -716,6 +723,10 @@ public class GameManager : MonoBehaviour
 
     // Change view from Sheet Music to Play Options
     public void CloseSheetMusic() {
+        foreach(GameObject page in currentPages) {
+            Destroy(page);
+        }
+        currentPages = new List<GameObject>();
         sheetMusicPopUp.SetActive(false);
         PlayOptions.SetActive(true);
     }

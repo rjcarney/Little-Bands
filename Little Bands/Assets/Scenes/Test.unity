@@ -8197,6 +8197,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
         type: 3}
+      propertyPath: guitarPages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: bassPages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: pianoPages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: drumsPages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: voicePages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
       propertyPath: recorded_bassClip
       value: 
       objectReference: {fileID: 0}
@@ -8210,6 +8235,61 @@ PrefabInstance:
       propertyPath: title
       value: Adventure
       objectReference: {fileID: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: guitarPages.Array.data[0]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: guitarPages.Array.data[1]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: guitarPages.Array.data[2]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: bassPages.Array.data[0]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: bassPages.Array.data[1]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: pianoPages.Array.data[0]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: pianoPages.Array.data[1]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: pianoPages.Array.data[2]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: drumsPages.Array.data[0]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: drumsPages.Array.data[1]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 2470767134434415252, guid: 816de0b17ad76ae438534362f9e062ed,
+        type: 3}
+      propertyPath: voicePages.Array.data[0]
+      value: 
+      objectReference: {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 2470767134434415253, guid: 816de0b17ad76ae438534362f9e062ed,
         type: 3}
       propertyPath: m_Name
