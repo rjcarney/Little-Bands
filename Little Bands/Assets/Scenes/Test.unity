@@ -5432,7 +5432,7 @@ PrefabInstance:
         type: 3}
       propertyPath: guideButton
       value: 
-      objectReference: {fileID: 809819041}
+      objectReference: {fileID: 1970212649}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: guitarTexture
@@ -5463,6 +5463,56 @@ PrefabInstance:
       propertyPath: voiceTexture
       value: 
       objectReference: {fileID: 2800000, guid: 5128dd7aa5eb5784489c453d9624d85e, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: videoButtonActive
+      value: 
+      objectReference: {fileID: 2800000, guid: 0f074af85ef394f0dac0edc19b86e4cb, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: sheetMusicButtonActive
+      value: 
+      objectReference: {fileID: 2800000, guid: 507ccefa98c014f4697ba36de962507b, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: videoButtonInactive
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: sheetMusicButtonInactive
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: guitarTexture_mute
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: bassTexture_mute
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: pianoTexture_mute
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: drumsTexture_mute
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: voiceTexture_mute
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: guideTexture_mute
+      value: 
+      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name
@@ -10860,8 +10910,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1970212650}
   - component: {fileID: 1970212653}
-  - component: {fileID: 1970212652}
   - component: {fileID: 1970212651}
+  - component: {fileID: 1970212652}
   m_Layer: 5
   m_Name: AudioGuideToggle
   m_TagString: Untagged
@@ -10928,7 +10978,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1970212652}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -10952,7 +11002,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1970212649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -10961,16 +11011,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 938cc13fe8c85084b8150a803e23d08a, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Texture: {fileID: 2800000, guid: 938cc13fe8c85084b8150a803e23d08a, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!222 &1970212653
 CanvasRenderer:
   m_ObjectHideFlags: 0

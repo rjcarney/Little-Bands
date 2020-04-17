@@ -40,7 +40,11 @@ public class GameManager : MonoBehaviour
     public GameObject audioSlider_playOptions;
     private bool playing_layeredAudio;
     public GameObject videoButton;
+    public Texture videoButtonActive;
+    public Texture videoButtonInactive;
     public GameObject sheetMusicButton;
+    public Texture sheetMusicButtonActive;
+    public Texture sheetMusicButtonInactive;
     public GameObject removeInstrumentButton;
     public GameObject combineAudioFilesButton;
     public GameObject deleteButton;
@@ -65,7 +69,6 @@ public class GameManager : MonoBehaviour
     public Texture drumsTexture_mute;
     public Texture voiceTexture_mute;
     public Texture guideTexture_mute;
-
 
     public GameObject guitarText;
     public GameObject bassText;
@@ -665,9 +668,11 @@ public class GameManager : MonoBehaviour
 
     // Change view from Play Options to Sheet Music
     public void OpenSheetMusic() {
-        sheetMusicPopUp.SetActive(true);
-        PlayOptions.SetActive(false);
-        sheetMusicScrollBar.GetComponent<Scrollbar>().value = 1;
+        if (SelectedInstrument != null) {
+            sheetMusicPopUp.SetActive(true);
+            PlayOptions.SetActive(false);
+            sheetMusicScrollBar.GetComponent<Scrollbar>().value = 1;
+        }
     }
 
     // Change view from Sheet Music to Play Options
@@ -678,8 +683,10 @@ public class GameManager : MonoBehaviour
 
     // Change view from Play Options to Video
     public void OpenVideo() {
-        videoPopUp.SetActive(true);
-        PlayOptions.SetActive(false);
+        if (SelectedInstrument != null) {
+            videoPopUp.SetActive(true);
+            PlayOptions.SetActive(false);
+        }
     }
 
     // Change view from Video to Play Options
@@ -821,9 +828,11 @@ public class GameManager : MonoBehaviour
         if (audioGuideSource.volume == 1) {
             audioGuideSource.volume = 0;
             guideText.GetComponent<Text>().text = "Mute";
+            guideButton.GetComponent<UnityEngine.UI.RawImage>().texture = guideTexture_mute;
         } else {
             audioGuideSource.volume = 1;
             guideText.GetComponent<Text>().text = "Teacher";
+            guideButton.GetComponent<UnityEngine.UI.RawImage>().texture = guideTexture;
         }
     }
 
@@ -881,71 +890,71 @@ public class GameManager : MonoBehaviour
             switch (SelectedSong.guitarToggleCount) {
                 case 0:
                     guitarText.GetComponent<Text>().text = "Teacher";
-                    guitarButton.GetComponent<RawImage>().texture = guitarTexture;
+                    guitarButton.GetComponent<UnityEngine.UI.RawImage>().texture = guitarTexture;
                     break;
                 case 1:
                     guitarText.GetComponent<Text>().text = "Student";
-                    guitarButton.GetComponent<RawImage>().texture = guitarTexture;
+                    guitarButton.GetComponent<UnityEngine.UI.RawImage>().texture = guitarTexture;
                     break;
                 case 2:
                     guitarText.GetComponent<Text>().text = "Mute";
-                    guitarButton.GetComponent<RawImage>().texture = guitarTexture_mute;
+                    guitarButton.GetComponent<UnityEngine.UI.RawImage>().texture = guitarTexture_mute;
                     break;
             }
             switch (SelectedSong.bassToggleCount) {
                 case 0:
                     bassText.GetComponent<Text>().text = "Teacher";
-                    guitarButton.GetComponent<RawImage>().texture = bassTexture;
+                    bassButton.GetComponent<UnityEngine.UI.RawImage>().texture = bassTexture;
                     break;
                 case 1:
                     bassText.GetComponent<Text>().text = "Student";
-                    guitarButton.GetComponent<RawImage>().texture = bassTexture;
+                    bassButton.GetComponent<UnityEngine.UI.RawImage>().texture = bassTexture;
                     break;
                 case 2:
                     bassText.GetComponent<Text>().text = "Mute";
-                    guitarButton.GetComponent<RawImage>().texture = bassTexture_mute;
+                    bassButton.GetComponent<UnityEngine.UI.RawImage>().texture = bassTexture_mute;
                     break;
             }
             switch (SelectedSong.pianoToggleCount) {
                 case 0:
                     pianoText.GetComponent<Text>().text = "Teacher";
-                    guitarButton.GetComponent<RawImage>().texture = pianoTexture;
+                    pianoButton.GetComponent<UnityEngine.UI.RawImage>().texture = pianoTexture;
                     break;
                 case 1:
                     pianoText.GetComponent<Text>().text = "Student";
-                    guitarButton.GetComponent<RawImage>().texture = pianoTexture;
+                    pianoButton.GetComponent<UnityEngine.UI.RawImage>().texture = pianoTexture;
                     break;
                 case 2:
                     pianoText.GetComponent<Text>().text = "Mute";
-                    guitarButton.GetComponent<RawImage>().texture = pianoTexture_mute;
+                    pianoButton.GetComponent<UnityEngine.UI.RawImage>().texture = pianoTexture_mute;
                     break;
             }
             switch (SelectedSong.drumsToggleCount) {
                 case 0:
                     drumsText.GetComponent<Text>().text = "Teacher";
-                    guitarButton.GetComponent<RawImage>().texture = drumsTexture;
+                    drumsButton.GetComponent<UnityEngine.UI.RawImage>().texture = drumsTexture;
                     break;
                 case 1:
                     drumsText.GetComponent<Text>().text = "Student";
-                    guitarButton.GetComponent<RawImage>().texture = drumsTexture;
+                    drumsButton.GetComponent<UnityEngine.UI.RawImage>().texture = drumsTexture;
                     break;
                 case 2:
                     drumsText.GetComponent<Text>().text = "Mute";
-                    guitarButton.GetComponent<RawImage>().texture = drumsTexture_mute;
+                    drumsButton.GetComponent<UnityEngine.UI.RawImage>().texture = drumsTexture_mute;
                     break;
             }
             switch (SelectedSong.voiceToggleCount) {
                 case 0:
                     voiceText.GetComponent<Text>().text = "Teacher";
-                    guitarButton.GetComponent<RawImage>().texture = voiceTexture;
+                    voiceButton.GetComponent<UnityEngine.UI.RawImage>().texture = voiceTexture;
                     break;
                 case 1:
                     voiceText.GetComponent<Text>().text = "Student";
-                    guitarButton.GetComponent<RawImage>().texture = voiceTexture;
+                    voiceButton.GetComponent<UnityEngine.UI.RawImage>().texture = voiceTexture;
                     break;
                 case 2:
                     voiceText.GetComponent<Text>().text = "Mute";
-                    guitarButton.GetComponent<RawImage>().texture = voiceTexture_mute;
+                    voiceButton.GetComponent<UnityEngine.UI.RawImage>().texture = voiceTexture_mute;
                     break;
             }
         }
@@ -962,8 +971,8 @@ public class GameManager : MonoBehaviour
         }
 
         if(SelectedInstrument != null) {
-            sheetMusicButton.SetActive(true);
-            videoButton.SetActive(true);
+            sheetMusicButton.GetComponent<UnityEngine.UI.RawImage>().texture = sheetMusicButtonActive;
+            videoButton.GetComponent<UnityEngine.UI.RawImage>().texture = videoButtonActive;
             switch (SelectedInstrument) {
                 // all cases do the same things, only difference is specific for selected instrument
                 case "guitar":
@@ -1045,8 +1054,8 @@ public class GameManager : MonoBehaviour
             // fill audio slider based on time passed
             // check for end of song and change play button back
             // can not record without a selected instrument
-            sheetMusicButton.SetActive(false);
-            videoButton.SetActive(false);
+            sheetMusicButton.GetComponent<UnityEngine.UI.RawImage>().texture = sheetMusicButtonInactive;
+            videoButton.GetComponent<UnityEngine.UI.RawImage>().texture = videoButtonInactive;
             deleteButton.SetActive(false);
             if (SelectedSong.recorded_guitarClip != null) {
                 audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
