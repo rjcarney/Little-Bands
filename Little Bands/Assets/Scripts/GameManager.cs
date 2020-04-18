@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
     public GameObject confirmPopUp;
     public GameObject savingPopUp;
     public GameObject promptScrollBar;
+    public GameObject promptPageContainer;
 
     // SheetMusic Content
     public GameObject sheetMusicPopUp;
@@ -758,6 +759,48 @@ public class GameManager : MonoBehaviour
         if (SelectedInstrument != null) {
             // Set Correct View Based on if recording or not
             if (recording == false) {
+                switch (SelectedInstrument) {
+                    case "guitar":
+                        foreach (Texture pageTexture in SelectedSong.guitarPages) {
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                            page.transform.parent = promptPageContainer.transform;
+                            currentPages.Add(page);
+                        }
+                        break;
+                    case "bass":
+                        foreach (Texture pageTexture in SelectedSong.bassPages) {
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                            page.transform.parent = promptPageContainer.transform;
+                            currentPages.Add(page);
+                        }
+                        break;
+                    case "piano":
+                        foreach (Texture pageTexture in SelectedSong.pianoPages) {
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                            page.transform.parent = promptPageContainer.transform;
+                            currentPages.Add(page);
+                        }
+                        break;
+                    case "drums":
+                        foreach (Texture pageTexture in SelectedSong.drumsPages) {
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                            page.transform.parent = promptPageContainer.transform;
+                            currentPages.Add(page);
+                        }
+                        break;
+                    case "voice":
+                        foreach (Texture pageTexture in SelectedSong.voicePages) {
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                            page.transform.parent = promptPageContainer.transform;
+                            currentPages.Add(page);
+                        }
+                        break;
+                }
                 // Start recording process
                 recording = true;
                 PlayOptions.SetActive(false);
@@ -765,6 +808,10 @@ public class GameManager : MonoBehaviour
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
             } else {
+                foreach (GameObject page in currentPages) {
+                    Destroy(page);
+                }
+                currentPages = new List<GameObject>();
                 // End recording process
                 recording = false;
                 confirmPopUp.SetActive(true);
@@ -895,6 +942,10 @@ public class GameManager : MonoBehaviour
 
     // Stop the recording process and go back to the play options page without saving the recording 
     public void CancelRecording() {
+        foreach (GameObject page in currentPages) {
+            Destroy(page);
+        }
+        currentPages = new List<GameObject>();
         recording = false;
         recordView.SetActive(false);
         PlayOptions.SetActive(true);
