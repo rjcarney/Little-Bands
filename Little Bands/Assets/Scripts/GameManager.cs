@@ -500,11 +500,84 @@ public class GameManager : MonoBehaviour
         SelectedInstrument = null;
         audioGuideSource.clip = null;
     }
+
+    // Set audio tracks to users current settings
+    public void setAudioTracks() {
+        switch (SelectedSong.guitarToggleCount) {
+            case 0:  // Teacher
+                guitarAudioSource.volume = 1;
+                guitarAudioSource.clip = SelectedSong.original_guitar;
+                break;
+            case 1:  // Student
+                guitarAudioSource.volume = 1;
+                guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
+                break;
+            case 2:  // Muted
+                guitarAudioSource.volume = 0;
+                guitarAudioSource.clip = SelectedSong.original_guitar;
+                break;
+        }
+        switch (SelectedSong.bassToggleCount) {
+            case 0:  // Teacher
+                bassAudioSource.volume = 1;
+                bassAudioSource.clip = SelectedSong.original_bass;
+                break;
+            case 1:  // Student
+                bassAudioSource.volume = 1;
+                bassAudioSource.clip = SelectedSong.recorded_bassClip;
+                break;
+            case 2:  // Muted
+                bassAudioSource.volume = 0;
+                bassAudioSource.clip = SelectedSong.original_bass;
+                break;
+        }
+        switch (SelectedSong.pianoToggleCount) {
+            case 0:  // Teacher
+                pianoAudioSource.volume = 1;
+                pianoAudioSource.clip = SelectedSong.original_piano;
+                break;
+            case 1:  // Student
+                pianoAudioSource.volume = 1;
+                pianoAudioSource.clip = SelectedSong.recorded_pianoClip;
+                break;
+            case 2:  // Muted
+                pianoAudioSource.volume = 0;
+                pianoAudioSource.clip = SelectedSong.original_piano;
+                break;
+        }
+        switch (SelectedSong.drumsToggleCount) {
+            case 0:  // Teacher
+                drumsAudioSource.volume = 1;
+                drumsAudioSource.clip = SelectedSong.original_drums;
+                break;
+            case 1:  // Student
+                drumsAudioSource.volume = 1;
+                drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
+                break;
+            case 2:  // Muted
+                drumsAudioSource.volume = 0;
+                drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
+                break;
+        }
+        switch (SelectedSong.voiceToggleCount) {
+            case 0:  // Teacher
+                voiceAudioSource.volume = 1;
+                voiceAudioSource.clip = SelectedSong.original_voice;
+                break;
+            case 1:  // Student
+                voiceAudioSource.volume = 1;
+                voiceAudioSource.clip = SelectedSong.recorded_voiceClip;
+                break;
+            case 2:  // Muted
+                voiceAudioSource.volume = 0;
+                voiceAudioSource.clip = SelectedSong.original_voice;
+                break;
+        }
+    }
     
     //  The Play Button will now only play the users recorded audio
      public void PlayButtonOnClick() {
-        if (!recording) {
-            if (playing_recording == false) {
+            if (!playing_recording) {
                 // Stop all curently playing audio
                 stopLayeredAudio();
 
@@ -515,132 +588,57 @@ public class GameManager : MonoBehaviour
                 drumsAudioSource.clip = (SelectedSong.recorded_drumsClip == null) ? null : SelectedSong.recorded_drumsClip;
                 voiceAudioSource.clip = (SelectedSong.recorded_voiceClip == null) ? null : SelectedSong.recorded_voiceClip;
 
-                if (guitarAudioSource.clip == null && bassAudioSource.clip == null &&
-                    pianoAudioSource.clip == null && drumsAudioSource.clip == null &&
-                    voiceAudioSource.clip == null) {
-                    // All Recorded Wav Files Null Nothing to Play
-                    // Maybe play avatar voice saying I need to record something first
-                } else {
+                if (guitarAudioSource.clip != null || bassAudioSource.clip != null ||
+                    pianoAudioSource.clip != null || drumsAudioSource.clip != null ||
+                    voiceAudioSource.clip != null) {
                     // There are recorded wav Files
                     // Play what files the user has recorded
                     if (guitarAudioSource.clip != null) {
                         guitarAudioSource.Play();
                         guitarAudioSource.volume = 1;
                     } else {
-
+                        guitarText.GetComponent<Text>().text = "None";
                     }
                     if (bassAudioSource.clip != null) {
                         bassAudioSource.Play();
                         bassAudioSource.volume = 1;
                     } else {
-
+                        bassText.GetComponent<Text>().text = "None";
                     }
                     if (pianoAudioSource.clip != null) {
                         pianoAudioSource.Play();
                         pianoAudioSource.volume = 1;
                     } else {
-
+                        pianoText.GetComponent<Text>().text = "None";
                     }
                     if (drumsAudioSource.clip != null) {
                         drumsAudioSource.Play();
                         drumsAudioSource.volume = 1;
                     } else {
-
+                        drumsText.GetComponent<Text>().text = "None";
                     }
                     if (voiceAudioSource.clip != null) {
                         voiceAudioSource.Play();
                         voiceAudioSource.volume = 1;
                     } else {
-
+                        voiceText.GetComponent<Text>().text = "None";
                     }
 
                     playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
                     playing_layeredAudio = true;
                     playing_recording = true;
+                } else {
+                setAudioTracks();
                 }
             } else {
                 // Stop All Audio
                 stopLayeredAudio();
-
                 // Reset Audio Track to toggled Selection
-                // Reset guitar track
-                switch (SelectedSong.guitarToggleCount) {
-                    case 0: // Teacher
-                        guitarAudioSource.clip = SelectedSong.original_guitar;
-                        guitarAudioSource.volume = 1;
-                        break;
-                    case 1: // Student
-                        guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
-                        guitarAudioSource.volume = 1;
-                        break;
-                    case 2: // Muted
-                        guitarAudioSource.volume = 0;
-                        break;
-                }
-                // Reset bass track
-                switch (SelectedSong.bassToggleCount) {
-                    case 0:
-                        bassAudioSource.clip = SelectedSong.original_bass;
-                        bassAudioSource.volume = 1;
-                        break;
-                    case 1:
-                        bassAudioSource.clip = SelectedSong.recorded_bassClip;
-                        bassAudioSource.volume = 1;
-                        break;
-                    case 2:
-                        bassAudioSource.volume = 0;
-                        break;
-                }
-                // Reset piano track
-                switch (SelectedSong.pianoToggleCount) {
-                    case 0:
-                        pianoAudioSource.clip = SelectedSong.original_piano;
-                        pianoAudioSource.volume = 1;
-                        break;
-                    case 1:
-                        pianoAudioSource.clip = SelectedSong.recorded_pianoClip;
-                        pianoAudioSource.volume = 1;
-                        break;
-                    case 2:
-                        pianoAudioSource.volume = 0;
-                        break;
-                }
-                // Reset drums track
-                switch (SelectedSong.drumsToggleCount) {
-                    case 0:
-                        drumsAudioSource.clip = SelectedSong.original_drums;
-                        drumsAudioSource.volume = 1;
-                        break;
-                    case 1:
-                        drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
-                        drumsAudioSource.volume = 1;
-                        break;
-                    case 2:
-                        drumsAudioSource.volume = 0;
-                        break;
-                }
-                // Reset voice track
-                switch (SelectedSong.voiceToggleCount) {
-                    case 0:
-                        voiceAudioSource.clip = SelectedSong.original_voice;
-                        voiceAudioSource.volume = 1;
-                        break;
-                    case 1:
-                        voiceAudioSource.clip = SelectedSong.recorded_voiceClip;
-                        voiceAudioSource.volume = 1;
-                        break;
-                    case 2:
-                        voiceAudioSource.volume = 0;
-                        break;
-                }
+                setAudioTracks();
 
                 playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
                 playing_recording = false;
             }
-        } else {
-            // Audio is recording this button will display the microphone texture at this time
-            // Texture change will be happening in the update method
-        }
     }
 
 
@@ -751,14 +749,16 @@ public class GameManager : MonoBehaviour
      */
     public void Record() {
         // Cancel any currently playing audio
-        if (playing_recording) {
-            PlayButtonOnClick();
-        }
+        stopLayeredAudio();
+        playing_recording = false;
+        playing_layeredAudio = false;
+        setAudioTracks();
 
         // Ensure instrument is selected
         if (SelectedInstrument != null) {
             // Set Correct View Based on if recording or not
-            if (recording == false) {
+            if (!recording) {
+                // populate prompt page container with sheet music for the selected instrument
                 switch (SelectedInstrument) {
                     case "guitar":
                         foreach (Texture pageTexture in SelectedSong.guitarPages) {
@@ -808,6 +808,7 @@ public class GameManager : MonoBehaviour
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
             } else {
+                // remove sheet music pages from prompt container
                 foreach (GameObject page in currentPages) {
                     Destroy(page);
                 }
@@ -820,8 +821,6 @@ public class GameManager : MonoBehaviour
             }
             // Toggle AudioReader
             audioReader.startRecord = true;
-        } else {
-            // Prompt user to select an instrument
         }
     }
 
@@ -987,7 +986,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Toggle Instrument button text
-        if(SelectedSong != null) {
+        if(SelectedSong != null && !playing_recording) {
             switch (SelectedSong.guitarToggleCount) {
                 case 0:
                     guitarText.GetComponent<Text>().text = "Teacher";
