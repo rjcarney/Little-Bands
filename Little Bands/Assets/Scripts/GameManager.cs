@@ -556,7 +556,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 2:  // Muted
                 drumsAudioSource.volume = 0;
-                drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
+                drumsAudioSource.clip = SelectedSong.original_drums;
                 break;
         }
         switch (SelectedSong.voiceToggleCount) {
