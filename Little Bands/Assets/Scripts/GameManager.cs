@@ -577,68 +577,69 @@ public class GameManager : MonoBehaviour
     
     //  The Play Button will now only play the users recorded audio
      public void PlayButtonOnClick() {
-            if (!playing_recording) {
+        if (!playing_recording) {
                 // Stop all curently playing audio
                 stopLayeredAudio();
 
-                // Set all recording clips to associated recorded wav file otherwise set to null
-                guitarAudioSource.clip = (SelectedSong.recorded_guitarClip == null) ? null : SelectedSong.recorded_guitarClip;
-                bassAudioSource.clip = (SelectedSong.recorded_bassClip == null) ? null : SelectedSong.recorded_bassClip;
-                pianoAudioSource.clip = (SelectedSong.recorded_pianoClip == null) ? null : SelectedSong.recorded_pianoClip;
-                drumsAudioSource.clip = (SelectedSong.recorded_drumsClip == null) ? null : SelectedSong.recorded_drumsClip;
-                voiceAudioSource.clip = (SelectedSong.recorded_voiceClip == null) ? null : SelectedSong.recorded_voiceClip;
-
-                if (guitarAudioSource.clip != null || bassAudioSource.clip != null ||
-                    pianoAudioSource.clip != null || drumsAudioSource.clip != null ||
-                    voiceAudioSource.clip != null) {
-                    // There are recorded wav Files
-                    // Play what files the user has recorded
-                    if (guitarAudioSource.clip != null) {
-                        guitarAudioSource.Play();
-                        guitarAudioSource.volume = 1;
-                    } else {
-                        guitarText.GetComponent<Text>().text = "None";
-                    }
-                    if (bassAudioSource.clip != null) {
-                        bassAudioSource.Play();
-                        bassAudioSource.volume = 1;
-                    } else {
-                        bassText.GetComponent<Text>().text = "None";
-                    }
-                    if (pianoAudioSource.clip != null) {
-                        pianoAudioSource.Play();
-                        pianoAudioSource.volume = 1;
-                    } else {
-                        pianoText.GetComponent<Text>().text = "None";
-                    }
-                    if (drumsAudioSource.clip != null) {
-                        drumsAudioSource.Play();
-                        drumsAudioSource.volume = 1;
-                    } else {
-                        drumsText.GetComponent<Text>().text = "None";
-                    }
-                    if (voiceAudioSource.clip != null) {
-                        voiceAudioSource.Play();
-                        voiceAudioSource.volume = 1;
-                    } else {
-                        voiceText.GetComponent<Text>().text = "None";
-                    }
-
-                    playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
-                    playing_layeredAudio = true;
-                    playing_recording = true;
-                } else {
-                setAudioTracks();
-                }
+            if(SelectedSong.recorded_guitarClip == null) {
+                guitarAudioSource.clip = SelectedSong.original_guitar;
+                guitarAudioSource.volume = 0;
+                guitarText.GetComponent<Text>().text = "None";
             } else {
-                // Stop All Audio
-                stopLayeredAudio();
-                // Reset Audio Track to toggled Selection
-                setAudioTracks();
-
-                playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
-                playing_recording = false;
+                guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
+                guitarAudioSource.volume = 1;
+                guitarText.GetComponent<Text>().text = "Student";
             }
+
+            if (SelectedSong.recorded_bassClip == null) {
+                bassAudioSource.clip = SelectedSong.original_bass;
+                bassAudioSource.volume = 0;
+                bassText.GetComponent<Text>().text = "None";
+            } else {
+                bassAudioSource.clip = SelectedSong.recorded_bassClip;
+                bassAudioSource.volume = 1;
+                bassText.GetComponent<Text>().text = "Student";
+            }
+
+            if (SelectedSong.recorded_pianoClip == null) {
+                pianoAudioSource.clip = SelectedSong.original_piano;
+                pianoAudioSource.volume = 0;
+                pianoText.GetComponent<Text>().text = "None";
+            } else {
+                pianoAudioSource.clip = SelectedSong.recorded_pianoClip;
+                pianoAudioSource.volume = 1;
+                pianoText.GetComponent<Text>().text = "Student";
+            }
+
+            if (SelectedSong.recorded_drumsClip == null) {
+                drumsAudioSource.clip = SelectedSong.original_drums;
+                drumsAudioSource.volume = 0;
+                drumsText.GetComponent<Text>().text = "None";
+            } else {
+                drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
+                drumsAudioSource.volume = 1;
+                drumsText.GetComponent<Text>().text = "Student";
+            }
+
+            if (SelectedSong.recorded_voiceClip == null) {
+                voiceAudioSource.clip = SelectedSong.original_voice;
+                voiceAudioSource.volume = 0;
+                voiceText.GetComponent<Text>().text = "None";
+            } else {
+                voiceAudioSource.clip = SelectedSong.recorded_voiceClip;
+                voiceAudioSource.volume = 1;
+                voiceText.GetComponent<Text>().text = "Student";
+            }
+            playing_recording = true;
+            playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
+            playLayeredAudio();
+        } else {
+            // Stop All Audio
+            stopLayeredAudio();
+            setAudioTracks();
+            playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = playTexture;
+            playing_recording = false;
+        }
     }
 
 
@@ -652,7 +653,6 @@ public class GameManager : MonoBehaviour
         pianoAudioSource.Play();
         drumsAudioSource.Play();
         voiceAudioSource.Play();
-        audioGuideSource.Play();
         playing_layeredAudio = true;
     }
 
@@ -665,7 +665,6 @@ public class GameManager : MonoBehaviour
         pianoAudioSource.Stop();
         drumsAudioSource.Stop();
         voiceAudioSource.Stop();
-        audioGuideSource.Stop();
         playing_layeredAudio = false;
     }
 
@@ -807,6 +806,7 @@ public class GameManager : MonoBehaviour
                 recordView.SetActive(true);
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
+                audioGuideSource.Play();
             } else {
                 // remove sheet music pages from prompt container
                 foreach (GameObject page in currentPages) {
@@ -818,6 +818,7 @@ public class GameManager : MonoBehaviour
                 confirmPopUp.SetActive(true);
                 recordView.SetActive(false);
                 stopLayeredAudio();
+                audioGuideSource.Stop();
             }
             // Toggle AudioReader
             audioReader.startRecord = true;
@@ -949,6 +950,7 @@ public class GameManager : MonoBehaviour
         recordView.SetActive(false);
         PlayOptions.SetActive(true);
         stopLayeredAudio();
+        audioGuideSource.Stop();
         audioReader.startRecord = true;
     }
 
