@@ -6,11 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 
-// Part of this script, basically the exporting math bits, were derived from Gregorio Zanon's script
-// http://forum.unity3d.com/threads/119295-Writing-AudioListener.GetOutputData-to-wav-problem?p=806734&viewfull=1#post806734
-// https://gist.github.com/darktable/2317063
-//
-// The rest is provided by S.F. Bay Studios, Inc (http://www.InfinityPBR.com).
+//Majority of script derived from AUdio Clip Combiner by Infintity PBR from unity Asset Store
 
 public class AudioClipArrayCombiner : MonoBehaviour
 {
@@ -24,6 +20,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 
 	const int HEADER_SIZE = 44;
 
+    //constructor class
 	public class AudioLayer
 	{
 		//audioLayers[0]= ;
@@ -55,15 +52,17 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		}
 	}
 
+    //deletes folder containing the audio track
 	public void DeleteFile(string userFolder, string songFolder, string foldername)
 	{
 		DirectoryInfo dataDir = new DirectoryInfo(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + foldername);
 		dataDir.Delete(true);
 	}
 
+    //combines the 5 audio files into 1 file and saves it via SaveClip function
 	public void CombineFiles(string userFolder, String songFolder)
 	{
-
+        //identifies persistentDataPath on device
 		Debug.Log(Application.persistentDataPath);
 		int newLength = 5;
 		AudioLayer myobj1 = new AudioLayer();
@@ -71,7 +70,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		AudioLayer myobj3 = new AudioLayer();
 		AudioLayer myobj4 = new AudioLayer();
 		AudioLayer myobj5 = new AudioLayer();
-		audioLayers = new AudioLayer[newLength];                    // Create a new array
+		audioLayers = new AudioLayer[newLength];                                        // Create a new array
 
 		audioLayers[0] = myobj1;
 		audioLayers[1] = myobj2;
@@ -85,8 +84,8 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		myobj4.clip = new AudioClip[1];
 		myobj5.clip = new AudioClip[1];
 
-		// Find total number of exports
-		int totalExports = 1;                                                // Start at 1...
+		// 1 export
+		int totalExports = 1;                                            
 
         string folderName1 = "guitar";
         string filename1 = userFolder + "_" + songFolder + "_guitar.wav";
@@ -100,17 +99,6 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		string filename5 = userFolder + "_" + songFolder + "_voice.wav";
 
 		string filename = "";
-		//var filename1 = "song1.wav";
-		//var filename2 = "song2.wav";
-		//var filename1 = "Axe_On_Flesh_Axe_1.wav";
-		//var filename2 = "Axe_On_Flesh_Axe_2.wav";
-		//var filename1 = "song1.wav";
-		//var filename2 = "song2.wav";
-		//var filename1 = "Axe_On_Flesh_Axe_1.wav";
-		//var filename2 = "Axe_On_Flesh_Axe_2.wav";
-		//var filename3 = "Axe_On_Flesh_Flesh_1.wav";
-		//var filename4 = "Axe_On_Flesh_Flesh_2.wav";
-		//var filename5 = "Axe_On_Flesh_Flesh_3.wav";
 
 		//used to load files from persistentDataPath 
 		AudioClip clip1 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName1 + "/" + filename1);
@@ -119,12 +107,8 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		AudioClip clip4 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName4 + "/" + filename4);
 		AudioClip clip5 = ToAudioClip(Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName5 + "/" + filename5);
 
-		//used to load files from Asset folder in Unity
+		//used to load files from Asset folder in Unity (kept if needed for future testing)
 		//AudioClip clip1 = (AudioClip)Resources.Load(filename1);
-		//AudioClip clip2 = (AudioClip)Resources.Load(filename2);
-		//AudioClip clip3 = (AudioClip)Resources.Load(filename3);
-		//AudioClip clip4 = (AudioClip)Resources.Load(filename4);
-		//AudioClip clip5 = (AudioClip)Resources.Load(filename5);
 
 		myobj1.clip[0] = clip1;
 		myobj2.clip[0] = clip2;
@@ -134,7 +118,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 
 		for (int n = 0; n < audioLayers.Length; n++)
 		{
-			totalExports *= audioLayers[n].clip.Length;                     // Multiply by the number of clips in each layer
+			totalExports *= audioLayers[n].clip.Length;                             // Multiply by the number of clips in each layer
 		}
 
 		if (totalExports > 0)
@@ -154,21 +138,24 @@ public class AudioClipArrayCombiner : MonoBehaviour
 			{                           // For each layer...
 				int exportsLeft = 1;                                                // Start at 1...
 				for (int i = l; i < audioLayers.Length; i++)
-				{                           // For each layer left in the list (don't compute those we've already done)
-					exportsLeft *= audioLayers[i].clip.Length;                  // Find out how many exports are left if it were just those layers
+				{
+                    // For each layer left in the list (don't compute those we've already done)
+					exportsLeft *= audioLayers[i].clip.Length;                      // Find out how many exports are left if it were just those layers
 				}
 
-				int entriesPerValue = exportsLeft / audioLayers[l].clip.Length; // Compute how many entires per value, if the total entries were exportsLeft
+				int entriesPerValue = exportsLeft / audioLayers[l].clip.Length;     // Compute how many entires per value, if the total entries were exportsLeft
 				int entryCount = 0;                                                 // Set entryCount to 0
 
 				for (int e = 0; e < combinations.Length; e++)
-				{                       // For all combinations
+				{
+                    // For all combinations
 					if (l != 0)                                                     // If this isn't the first layer
 						combinations[e] = combinations[e] + ",";                    // Append a "," to the String
-					combinations[e] = combinations[e] + audioLayers[l].onClip;  // Append the "onClip" value to the string
+					combinations[e] = combinations[e] + audioLayers[l].onClip;      // Append the "onClip" value to the string
 					entryCount++;                                                   // increase entryCount
 					if (entryCount >= entriesPerValue)
-					{                           // if we've done all the entires for that "onClip" value...
+					{
+                        // if we've done all the entires for that "onClip" value...
 						audioLayers[l].onClip++;                                    // increase onClip by 1
 						entryCount = 0;                                             // Reset entryCount
 						if (audioLayers[l].onClip >= audioLayers[l].clip.Length)    // if we've also run out of clips for this layer
@@ -178,13 +165,12 @@ public class AudioClipArrayCombiner : MonoBehaviour
 			}
 
 			int number = 0;                                                         // for the file name
-																					// For each combination, save a .wav file with those clip numbers.
+
+            // For each combination, save a .wav file with those clip numbers.
 			foreach (var combination in combinations)
 			{
 				clipCount++;
-				//progressPercent = clipCount / totalExports * 1.0f;
 				progressPercent = clipCount / (float)totalExports;
-				//Debug.Log ("progressPercent: " + progressPercent);
 				string[] clipsAsString = combination.Split(","[0]);
 				SaveClip(userFolder, songFolder, filename, number, clipsAsString, audioLayers);
 				number++;
@@ -196,20 +182,21 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		}
 	}
 
+    //processes the recorded audio and saves it using the SaveNow function
 	public void SaveNow(AudioClip clipToSave, string userFolder, string songFolder, string filename)
 	{
 
 		Debug.Log(Application.persistentDataPath);
 		int newLength = 1;
 		AudioLayer myobj1 = new AudioLayer();
-		audioLayers = new AudioLayer[newLength];                    // Create a new array
+		audioLayers = new AudioLayer[newLength];                                    // Create a new array
 
 		audioLayers[0] = myobj1;
 
 		myobj1.clip = new AudioClip[1];
 
-		// Find total number of exports
-		int totalExports = 1;                                                // Start at 1...
+		// 1 export
+		int totalExports = 1;                                                
 
 		//used to load files from persistentDataPath 
 		AudioClip clip1 = clipToSave;
@@ -218,7 +205,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 
 		for (int n = 0; n < audioLayers.Length; n++)
 		{
-			totalExports *= audioLayers[n].clip.Length;                     // Multiply by the number of clips in each layer
+			totalExports *= audioLayers[n].clip.Length;                             // Multiply by the number of clips in each layer
 		}
 
 		if (totalExports > 0)
@@ -235,24 +222,28 @@ public class AudioClipArrayCombiner : MonoBehaviour
 			}
 
 			for (int l = 0; l < audioLayers.Length; l++)
-			{                           // For each layer...
+			{
+                // For each layer...
 				int exportsLeft = 1;                                                // Start at 1...
 				for (int i = l; i < audioLayers.Length; i++)
-				{                           // For each layer left in the list (don't compute those we've already done)
-					exportsLeft *= audioLayers[i].clip.Length;                  // Find out how many exports are left if it were just those layers
+				{
+                    // For each layer left in the list (don't compute those we've already done)
+					exportsLeft *= audioLayers[i].clip.Length;                      // Find out how many exports are left if it were just those layers
 				}
 
-				int entriesPerValue = exportsLeft / audioLayers[l].clip.Length; // Compute how many entires per value, if the total entries were exportsLeft
+				int entriesPerValue = exportsLeft / audioLayers[l].clip.Length;     // Compute how many entires per value, if the total entries were exportsLeft
 				int entryCount = 0;                                                 // Set entryCount to 0
 
 				for (int e = 0; e < combinations.Length; e++)
-				{                       // For all combinations
+				{
+                    // For all combinations
 					if (l != 0)                                                     // If this isn't the first layer
 						combinations[e] = combinations[e] + ",";                    // Append a "," to the String
-					combinations[e] = combinations[e] + audioLayers[l].onClip;  // Append the "onClip" value to the string
+					combinations[e] = combinations[e] + audioLayers[l].onClip;      // Append the "onClip" value to the string
 					entryCount++;                                                   // increase entryCount
 					if (entryCount >= entriesPerValue)
-					{                           // if we've done all the entires for that "onClip" value...
+					{
+                        // if we've done all the entires for that "onClip" value...
 						audioLayers[l].onClip++;                                    // increase onClip by 1
 						entryCount = 0;                                             // Reset entryCount
 						if (audioLayers[l].onClip >= audioLayers[l].clip.Length)    // if we've also run out of clips for this layer
@@ -266,9 +257,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 			foreach (var combination in combinations)
 			{
 				clipCount++;
-				//progressPercent = clipCount / totalExports * 1.0f;
 				progressPercent = clipCount / (float)totalExports;
-				//Debug.Log ("progressPercent: " + progressPercent);
 				string[] clipsAsString = combination.Split(","[0]);
 				SaveClip(userFolder, songFolder, filename, number, clipsAsString, audioLayers);
 				number++;
@@ -280,47 +269,46 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		}
 	}
 
-
+    //saves the files to the persistentDataPath via the user name folder, song name folder, and instrument name folder
 	public static bool SaveClip(string userFolder, string songFolder, string filename, int exportNumber, string[] clipsAsString, AudioLayer[] audioLayers)
 	{
-		//Debug.Log ("Doing Export " + exportNumber);
 		var filepath="";
-        if (filename.Length <= 0)                                                           // If the name hasn't been set
-		{
-			filename = userFolder + "_" + songFolder;                                      // Use a default name
+        //if the file is the combined audio track
+        if (filename.Length <= 0)
+        {
+			filename = userFolder + "_" + songFolder;                                     
 			string folderName = filename;
 			filename += ".wav";
 			filepath = Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName + "/" + filename;
 		}
-		else
-		{                                                                               // else
+        //if the file is a instrument track
+        else
+		{                                                                           
 			string folderName = filename;
-			filename = userFolder + "_" + songFolder + "_" + filename;                  // Use the chosen name plus the number
+			filename = userFolder + "_" + songFolder + "_" + filename;                  
 			filename += ".wav";
 			filepath = Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName + "/" + filename;
 		}
-		//filename += ".wav";                                                                 // add the .wav extension
 
-		//USED IF SAVED WITHIN ASSET FOLDER
-		//var filepath	= "Assets/SFBayStudios/Exported Audio Files/" + filename;           // Set the file path
-		//var filepath = Application.persistentDataPath + "/" + userFolder + "/" + songFolder + "/" + folderName + "/" + filename;                     // Set the file path
-
-		// Make sure directory exists if user is saving to sub dir.
+        // Make sure directory exists if user is saving to sub dir.
 		Directory.CreateDirectory(Path.GetDirectoryName(filepath));
 
-		using (var fileStream = CreateEmpty(filepath))                                      // Create an empty file
-		{
+		// Create an empty file
+		using (var fileStream = CreateEmpty(filepath))
+        {
 			int sampleCount = ConvertAndWrite(fileStream, clipsAsString, audioLayers);
 
 			//	 ClIP NUMBER CHANGE HERE
 			WriteHeader(fileStream, audioLayers[0].clip[0], sampleCount);
 		}
-		//USED IF AUDIO FILE IS SAVED IN ASSET FOLDER IN UNITY
+
+        //used if audio file is saved in asset folder in unity (keep if needed for future testing)
 		//AssetDatabase.ImportAsset(filepath);
-		return true; // TODO: return false if there's a failure saving the file
+
+        return true; // TODO: return false if there's a failure saving the file
 	}
 
-	static int ConvertAndWrite(FileStream fileStream, String[] clipsAsString, AudioLayer[] audioLayers)
+    static int ConvertAndWrite(FileStream fileStream, String[] clipsAsString, AudioLayer[] audioLayers)
 	{
 		int mostSamples = 0;                                                                // Set this to 0
 																							//Debug.Log("audioLayers Lenght: " + audioLayers.Length);
@@ -343,7 +331,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 
 			foreach (var audioLayer in audioLayers)                                         // For each layer....
 			{
-				if (i > audioLayer.delayCount && i < audioLayer.sampleCount)                    // if we are not in the delay range and we are under the samplecount for the clip
+				if (i > audioLayer.delayCount && i < audioLayer.sampleCount)                // if we are not in the delay range and we are under the samplecount for the clip
 				{
 					// Add the value from this layer to the final (sampleValue)
 					sampleValue += (audioLayer.samples[i - audioLayer.delayCount] / rescaleFactor);
@@ -352,29 +340,28 @@ public class AudioClipArrayCombiner : MonoBehaviour
 			}
 
 			sampleValues[i] += sampleValue;
-
-			//if(sampleCount!=0)																// If we have done some samples (keep from dividing by 0)
-			//    sampleValue /= sampleCount;													// compute sampleValue
-
-		}
+        }
 
 
 		float highSample = 0.0f;                                                                            // Variable for the highest sample
 		float lowSample = 0.0f;                                                                             // Variable for the lowest sample
 		for (int h = 0; h < mostSamples; h++)
-		{                                                               // For each sample...
+		{
+            // For each sample...
 			highSample = Mathf.Max(highSample, sampleValues[h]);                                            // Compute the highest sample
-			lowSample = Mathf.Min(lowSample, sampleValues[h]);                                          // Compute the lowest sample
+			lowSample = Mathf.Min(lowSample, sampleValues[h]);                                              // Compute the lowest sample
 		}
 		float parameter = Mathf.InverseLerp(0.0f, Mathf.Max(highSample, lowSample * -1), 1.0f);             // Find the amount we need to multiply each sample by, based on the most extreme sample (high or low)
 
 		for (int p = 0; p < mostSamples; p++)
-		{                                                               // For each sample...
+		{
+            // For each sample...
 			sampleValues[p] *= parameter;                                                                   // Multiply the value by the parameter value															// Adjust the volume
 		}
 
 		for (int i2 = 0; i2 < mostSamples; i2++)
-		{                                                           // For each sample...
+		{
+            // For each sample...
 			finalSamples[i2] = (short)(sampleValues[i2] * rescaleFactor);                                   // Finalize the value
 		}
 		sampleValues = new float[0];                                                                        // Clear this data
@@ -384,7 +371,6 @@ public class AudioClipArrayCombiner : MonoBehaviour
 
 		return mostSamples;
 	}
-
 
 	static Byte[] ConvertSamplesToBytes(Int16[] samples)
 	{
@@ -397,7 +383,6 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		}
 		return bytesData;
 	}
-
 
 	static Int16[] GetSamplesFromClip(AudioClip clip, float volume = 1)
 	{
@@ -415,8 +400,6 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		}
 		return intData;
 	}
-
-
 
 	static void WriteHeader(FileStream fileStream, AudioClip clip, int sampleCount)
 	{
@@ -468,8 +451,6 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		//Byte[] subChunk2 = BitConverter.GetBytes(sampleCount * channelCount * 2);
 		Byte[] subChunk2 = BitConverter.GetBytes(sampleCount * channelCount * 1);
 		fileStream.Write(subChunk2, 0, 4);
-
-		//		fileStream.Close();
 	}
 
 	static FileStream CreateEmpty(string filepath)
@@ -486,23 +467,9 @@ public class AudioClipArrayCombiner : MonoBehaviour
 	}
 
 
+	//Below script derived from UnityWav by deadlyfingers (David Douglas) from github
 
-
-
-
-
-
-
-
-
-	// Force save as 16-bit .wav
-	//const int BlockSize_16Bit = 2;
-
-	/// <summary>
-	/// Load PCM format *.wav audio file (using Unity's Application data path) and convert to AudioClip.
-	/// </summary>
-	/// <returns>The AudioClip.</returns>
-	/// <param name="filePath">Local file path to .wav file</param>
+    /// <param name="filePath">Local file path to .wav file</param>
 	public AudioClip ToAudioClip(string filePath)
 	{
 		if (!filePath.StartsWith(Application.persistentDataPath) && !filePath.StartsWith(Application.dataPath))
@@ -514,6 +481,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		return ToAudioClip(fileBytes, 0);
 	}
 
+    //converts wav file to AudioClip
 	public static AudioClip ToAudioClip(byte[] fileBytes, int offsetSamples = 0, string name = "wav")
 	{
 		//string riff = Encoding.ASCII.GetString (fileBytes, 0, 4);
@@ -538,22 +506,23 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		float[] data;
 		switch (bitDepth)
 		{
-			case 8:
-				data = Convert8BitByteArrayToAudioClipData(fileBytes, headerOffset, subchunk2);
-				break;
 			case 16:
 				data = Convert16BitByteArrayToAudioClipData(fileBytes, headerOffset, subchunk2);
+				break;
+			/*case 8:
+				data = Convert8BitByteArrayToAudioClipData(fileBytes, headerOffset, subchunk2);
 				break;
 			case 24:
 				data = Convert24BitByteArrayToAudioClipData(fileBytes, headerOffset, subchunk2);
 				break;
 			case 32:
 				data = Convert32BitByteArrayToAudioClipData(fileBytes, headerOffset, subchunk2);
-				break;
+				break;*/
 			default:
 				throw new Exception(bitDepth + " bit depth is not supported.");
 		}
 
+        // "data.Length / channels" is to account for the 2 audio channels
 		AudioClip audioClip = AudioClip.Create(name, data.Length / channels, (int)channels, sampleRate, false);
 		audioClip.SetData(data, 0);
 		return audioClip;
@@ -561,26 +530,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 
 	#region wav file bytes to Unity AudioClip conversion methods
 
-	private static float[] Convert8BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
-	{
-		int wavSize = BitConverter.ToInt32(source, headerOffset);
-		headerOffset += sizeof(int);
-		Debug.AssertFormat(wavSize > 0 && wavSize == dataSize, "Failed to get valid 8-bit wav size: {0} from data bytes: {1} at offset: {2}", wavSize, dataSize, headerOffset);
-
-		float[] data = new float[wavSize];
-
-		sbyte maxValue = sbyte.MaxValue;
-
-		int i = 0;
-		while (i < wavSize)
-		{
-			data[i] = (float)source[i] / maxValue;
-			++i;
-		}
-
-		return data;
-	}
-
+    //for 16 bits per sample wav files
 	private static float[] Convert16BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
 	{
 		//int wavSize = BitConverter.ToInt32(source, headerOffset);
@@ -607,6 +557,31 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		return data;
 	}
 
+	/*below bits per sample functions not used (or tested... can't assume they work since Convert16BitByteArrayToAudioClipData didn't work
+     * at first), but kept if needed for reference for future updates)
+
+    //8 bits per sample
+	private static float[] Convert8BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
+	{
+		int wavSize = BitConverter.ToInt32(source, headerOffset);
+		headerOffset += sizeof(int);
+		Debug.AssertFormat(wavSize > 0 && wavSize == dataSize, "Failed to get valid 8-bit wav size: {0} from data bytes: {1} at offset: {2}", wavSize, dataSize, headerOffset);
+
+		float[] data = new float[wavSize];
+
+		sbyte maxValue = sbyte.MaxValue;
+
+		int i = 0;
+		while (i < wavSize)
+		{
+			data[i] = (float)source[i] / maxValue;
+			++i;
+		}
+
+		return data;
+	}
+
+    //24 bits per sample
 	private static float[] Convert24BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
 	{
 		int wavSize = BitConverter.ToInt32(source, headerOffset);
@@ -637,6 +612,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		return data;
 	}
 
+    //32 bits per sample
 	private static float[] Convert32BitByteArrayToAudioClipData(byte[] source, int headerOffset, int dataSize)
 	{
 		int wavSize = BitConverter.ToInt32(source, headerOffset);
@@ -662,7 +638,7 @@ public class AudioClipArrayCombiner : MonoBehaviour
 		Debug.AssertFormat(data.Length == convertedSize, "AudioClip .wav data is wrong size: {0} == {1}", data.Length, convertedSize);
 
 		return data;
-	}
+	}*/
 
 	#endregion
 
@@ -717,7 +693,4 @@ public class AudioClipArrayCombiner : MonoBehaviour
 				return "";
 		}
 	}
-
-
-
 }
