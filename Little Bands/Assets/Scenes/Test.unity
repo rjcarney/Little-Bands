@@ -497,7 +497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -10, y: 10.000015}
+  m_AnchoredPosition: {x: -10, y: 10}
   m_SizeDelta: {x: 160, y: 38}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &40785623
@@ -4902,6 +4902,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1049398198459603741, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: Pan2D
+      value: -0.79
+      objectReference: {fileID: 0}
     - target: {fileID: 8947927861151572480, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5331,42 +5336,42 @@ PrefabInstance:
         type: 3}
       propertyPath: videoButtonInactive
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: a2b6fa409741149578ef0b932a23f5aa, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: sheetMusicButtonInactive
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: 295910cf74d2a46fd9db6f630765cf3b, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: guitarTexture_mute
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: ca5487a88743d45ed943a41aadcaf636, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: bassTexture_mute
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: d1a00c62e984f49edb9817a57205b857, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: pianoTexture_mute
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: f8cd84671953148728538becf64a1138, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: drumsTexture_mute
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: eef6d915fef1c48a0b374c1e707164ec, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: voiceTexture_mute
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: de2c460c85800447eb73018d2d9519c4, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: guideTexture_mute
       value: 
-      objectReference: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2800000, guid: 3c78b3903d8d74dcf9ac8afe875277bf, type: 3}
     - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: sheetMusicPage
@@ -5383,6 +5388,21 @@ PrefabInstance:
       propertyPath: promptPageContainer
       value: 
       objectReference: {fileID: 227696521}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: metronomeTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: a90b27f9895b04a13a05f99b50b8d9f7, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: metronomeTexture_mute
+      value: 
+      objectReference: {fileID: 2800000, guid: 610fd32fc27b44c118db237bdb9375b6, type: 3}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: metronomeButton
+      value: 
+      objectReference: {fileID: 1734478210}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name
@@ -8923,10 +8943,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1734478211}
   - component: {fileID: 1734478214}
-  - component: {fileID: 1734478213}
   - component: {fileID: 1734478212}
+  - component: {fileID: 1734478213}
   m_Layer: 5
-  m_Name: Metronome
+  m_Name: MetronomeToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8993,7 +9013,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1734478213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 485476655}
+        m_MethodName: SetMetronome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1734478213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9003,7 +9034,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1734478210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -9012,16 +9043,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a90b27f9895b04a13a05f99b50b8d9f7, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Texture: {fileID: 2800000, guid: a90b27f9895b04a13a05f99b50b8d9f7, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!222 &1734478214
 CanvasRenderer:
   m_ObjectHideFlags: 0

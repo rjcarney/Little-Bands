@@ -97,6 +97,12 @@ public class GameManager : MonoBehaviour
     // Video Content
     public GameObject videoPopUp;
     public GameObject videoTitle;
+	
+	// Metronome
+	public GameObject metronomeButton;
+	public Texture metronomeTexture;
+	public Texture metronomeTexture_mute;
+	public bool metronomeActive;
 
     // Audio Sources
     public AudioSource fullAudioSource;
@@ -124,6 +130,7 @@ public class GameManager : MonoBehaviour
         SongListPage.SetActive(false);
         RecordPage.SetActive(false);
 
+		metronomeActive = true;
         SelectedSong = null;
         playing_recording = false;
         playing_layeredAudio = false;
@@ -728,6 +735,16 @@ public class GameManager : MonoBehaviour
         sheetMusicPopUp.SetActive(false);
         PlayOptions.SetActive(true);
     }
+	
+	public void SetMetronome() {
+		metronomeActive = !metronomeActive;
+		
+		if(metronomeActive) {
+			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture;
+		} else {
+			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture_mute;
+		}
+	}
 
     // Change view from Play Options to Video
     public void OpenVideo() {
@@ -1195,5 +1212,12 @@ public class GameManager : MonoBehaviour
         } else {
             removeInstrumentButton.SetActive(true);
         }
+		
+		// if (metronomeActive) {
+	// 		metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture;
+	// 	} else {
+	// 		metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture_mute;
+	// 	}
+			
     }
 }
