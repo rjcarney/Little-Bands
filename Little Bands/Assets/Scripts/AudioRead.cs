@@ -24,6 +24,7 @@ public class AudioRead : MonoBehaviour {
             print("recording: " + isRecording);
             isRecording = !isRecording;
             startRecord = false;
+            //seconds = Mathf.CeilToInt(audioSource.clip.length);
 
             //Create audio float array
             if (isRecording == false) {
@@ -42,6 +43,8 @@ public class AudioRead : MonoBehaviour {
 
                 recordedInstrument = fullClip;
                 audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length*2, 1, frequency, false);
+                //
+                
                 audioSource.clip.SetData(fullClip, 0);
             }
             //Record

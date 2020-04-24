@@ -257,6 +257,9 @@ public class GameManager : MonoBehaviour
         audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().maxValue = fullAudioSource.clip.length;
         audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().maxValue = fullAudioSource.clip.length;
 
+        // Set AudioRead record size
+        audioReader.seconds = Mathf.CeilToInt(fullAudioSource.clip.length);
+
         // Change View
         SongListPage.SetActive(false);
         RecordPage.SetActive(true);
