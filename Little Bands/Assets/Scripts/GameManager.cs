@@ -594,50 +594,60 @@ public class GameManager : MonoBehaviour
             if(SelectedSong.recorded_guitarClip == null) {
                 guitarAudioSource.clip = SelectedSong.original_guitar;
                 guitarAudioSource.volume = 0;
+                guitarButton.GetComponent<UnityEngine.UI.RawImage>().texture = guitarTexture_mute;
                 guitarText.GetComponent<Text>().text = "None";
             } else {
                 guitarAudioSource.clip = SelectedSong.recorded_guitarClip;
                 guitarAudioSource.volume = 1;
+                guitarButton.GetComponent<UnityEngine.UI.RawImage>().texture = guitarTexture;
                 guitarText.GetComponent<Text>().text = "Student";
             }
 
             if (SelectedSong.recorded_bassClip == null) {
                 bassAudioSource.clip = SelectedSong.original_bass;
                 bassAudioSource.volume = 0;
+                bassButton.GetComponent<UnityEngine.UI.RawImage>().texture = bassTexture_mute;
                 bassText.GetComponent<Text>().text = "None";
             } else {
                 bassAudioSource.clip = SelectedSong.recorded_bassClip;
                 bassAudioSource.volume = 1;
+                bassButton.GetComponent<UnityEngine.UI.RawImage>().texture = bassTexture;
                 bassText.GetComponent<Text>().text = "Student";
             }
 
             if (SelectedSong.recorded_pianoClip == null) {
                 pianoAudioSource.clip = SelectedSong.original_piano;
                 pianoAudioSource.volume = 0;
+                pianoButton.GetComponent<UnityEngine.UI.RawImage>().texture = pianoTexture_mute;
                 pianoText.GetComponent<Text>().text = "None";
             } else {
                 pianoAudioSource.clip = SelectedSong.recorded_pianoClip;
                 pianoAudioSource.volume = 1;
+                pianoButton.GetComponent<UnityEngine.UI.RawImage>().texture = pianoTexture;
                 pianoText.GetComponent<Text>().text = "Student";
             }
 
             if (SelectedSong.recorded_drumsClip == null) {
                 drumsAudioSource.clip = SelectedSong.original_drums;
                 drumsAudioSource.volume = 0;
+                drumsButton.GetComponent<UnityEngine.UI.RawImage>().texture = drumsTexture_mute;
                 drumsText.GetComponent<Text>().text = "None";
             } else {
                 drumsAudioSource.clip = SelectedSong.recorded_drumsClip;
                 drumsAudioSource.volume = 1;
+                drumsButton.GetComponent<UnityEngine.UI.RawImage>().texture = drumsTexture;
                 drumsText.GetComponent<Text>().text = "Student";
             }
 
             if (SelectedSong.recorded_voiceClip == null) {
                 voiceAudioSource.clip = SelectedSong.original_voice;
                 voiceAudioSource.volume = 0;
+                voiceButton.GetComponent<UnityEngine.UI.RawImage>().texture = voiceTexture_mute;
                 voiceText.GetComponent<Text>().text = "None";
             } else {
                 voiceAudioSource.clip = SelectedSong.recorded_voiceClip;
                 voiceAudioSource.volume = 1;
+                voiceButton.GetComponent<UnityEngine.UI.RawImage>().texture = voiceTexture;
                 voiceText.GetComponent<Text>().text = "Student";
             }
             playing_recording = true;
