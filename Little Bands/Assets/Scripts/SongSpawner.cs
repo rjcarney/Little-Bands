@@ -46,6 +46,11 @@ public class SongSpawner : MonoBehaviour
             songInfo.original_piano = audioClipArrayCombiner.ToAudioClip(songFiles[20]);
             songInfo.original_voice = audioClipArrayCombiner.ToAudioClip(songFiles[22]);
 
+            songInfo.bassPages = new Texture[] { LoadPNG(songFiles[24]) };
+            songInfo.drumsPages = new Texture[] { LoadPNG(songFiles[26]) };
+            songInfo.guitarPages = new Texture[] { LoadPNG(songFiles[28]) };
+            songInfo.pianoPages = new Texture[] { LoadPNG(songFiles[30]) };
+            songInfo.voicePages = new Texture[] { LoadPNG(songFiles[32]) };
 
             song.GetComponent<Button>().onClick.AddListener( delegate { this.gameObject.GetComponent<GameManager>().selectSong(song); });
         }
