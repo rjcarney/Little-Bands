@@ -76,9 +76,8 @@ public class SongItem : MonoBehaviour
         voiceToggleCount = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+    public void setTitle(string title) {
+        this.title = title;
+        title_text.GetComponent<UnityEngine.UI.Text>().text = title;
     }
 }
