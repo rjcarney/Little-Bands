@@ -80,4 +80,15 @@ public class SongItem : MonoBehaviour
         this.title = title;
         title_text.GetComponent<UnityEngine.UI.Text>().text = title;
     }
+
+    public void setAlbumArt(Texture2D tex) {
+        albumArt = tex;
+        albumArt_image.GetComponent<UnityEngine.UI.RawImage>().texture = albumArt;
+    }
+
+    public void setFullAudio(AudioClip fullAudio) {
+        original_full_audio = fullAudio;
+        length = Mathf.Floor(original_full_audio.length / 60) + ":" + (original_full_audio.length % 60);
+        length_text.GetComponent<UnityEngine.UI.Text>().text = length;
+    }
 }
