@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
         RecordPage.SetActive(false);
 
 		metronomeActive = true;
+        metronomeSource.volume = 0;
         SelectedSong = null;
         playing_recording = false;
         playing_layeredAudio = false;
@@ -750,10 +751,8 @@ public class GameManager : MonoBehaviour
 		
 		if(metronomeActive) {
 			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture;
-            metronomeSource.volume = 1;
 		} else {
 			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture_mute;
-            metronomeSource.volume = 0;
         }
 	}
 
@@ -829,6 +828,9 @@ public class GameManager : MonoBehaviour
                 recordView.SetActive(true);
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
+                if (metronomeActive) {
+                    metronomeSource.volume = 1;
+                }
                 audioGuideSource.Play();
             } else {
                 // remove sheet music pages from prompt container
@@ -841,6 +843,7 @@ public class GameManager : MonoBehaviour
                 confirmPopUp.SetActive(true);
                 recordView.SetActive(false);
                 stopLayeredAudio();
+                metronomeSource.volume = 0;
                 audioGuideSource.Stop();
             }
             // Toggle AudioReader
@@ -974,6 +977,7 @@ public class GameManager : MonoBehaviour
         PlayOptions.SetActive(true);
         stopLayeredAudio();
         audioGuideSource.Stop();
+        metronomeSource.volume = 0;
         audioReader.startRecord = true;
     }
 

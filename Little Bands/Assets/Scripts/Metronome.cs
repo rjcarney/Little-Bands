@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Metronome : MonoBehaviour
 {
-    public double bpm = 140.0f;
+    public double bpm = 120.0f;
 
     double nextTick = 0.0f;
     double sampleRate = 0.0f;
@@ -29,7 +29,6 @@ public class Metronome : MonoBehaviour
     }
 
     void OnTick() {
-        Debug.Log("Tick");
         GetComponent<AudioSource>().Play();
     }
 
