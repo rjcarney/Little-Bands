@@ -245,13 +245,13 @@ MonoBehaviour:
   albumArt: {fileID: 2470767134835547116}
   title: Lochness
   artist: unknown
-  length: 1:30
-  original_full_audio: {fileID: 8300000, guid: 3c5394ffb823a494486ef07b9fcb52c0, type: 3}
-  original_guitar: {fileID: 8300000, guid: 5e14391cae91dfd479f8d9a79e83f092, type: 3}
-  original_bass: {fileID: 8300000, guid: 0a511cb10cc97b44a8d82accdb458225, type: 3}
-  original_piano: {fileID: 8300000, guid: a828c5a31422b744696ff27c3b31dd27, type: 3}
-  original_drums: {fileID: 8300000, guid: 018edd4581bf75949b5a83ef99aa7425, type: 3}
-  original_voice: {fileID: 8300000, guid: 656892ca6f0bfbd4fa83a6ade3c9df4b, type: 3}
+  length: 
+  original_full_audio: {fileID: 0}
+  original_guitar: {fileID: 0}
+  original_bass: {fileID: 0}
+  original_piano: {fileID: 0}
+  original_drums: {fileID: 0}
+  original_voice: {fileID: 0}
   guitarPages:
   - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
@@ -268,17 +268,17 @@ MonoBehaviour:
   - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
   voicePages:
   - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  instruction_guitar: {fileID: 8300000, guid: 73e9a0c776c31824a8e432d22c528492, type: 3}
-  instruction_bass: {fileID: 8300000, guid: 6837cf7fb140e9944aaa42e49e4f77fc, type: 3}
-  instruction_piano: {fileID: 8300000, guid: 28ae627abed1b2c49a0cbd9bdb01ecc5, type: 3}
+  instruction_guitar: {fileID: 0}
+  instruction_bass: {fileID: 0}
+  instruction_piano: {fileID: 0}
   instruction_drums: {fileID: 0}
-  instruction_voice: {fileID: 8300000, guid: 132464c860cb77047a6e1c8b6f0622dd, type: 3}
+  instruction_voice: {fileID: 0}
   recorded_guitarClip: {fileID: 0}
   recorded_bassClip: {fileID: 0}
   recorded_pianoClip: {fileID: 0}
   recorded_drumsClip: {fileID: 0}
   recorded_voiceClip: {fileID: 0}
-  albumArt_image: {fileID: 0}
+  albumArt_image: {fileID: 2470767134835547116}
   title_text: {fileID: 2470767133486855109}
   artist_text: {fileID: 2470767135147877979}
   length_text: {fileID: 2470767134387753679}
