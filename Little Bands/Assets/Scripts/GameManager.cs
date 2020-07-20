@@ -694,41 +694,36 @@ public class GameManager : MonoBehaviour
             switch(SelectedInstrument) {
                 case "guitar":
                     foreach(Texture pageTexture in SelectedSong.guitarPages) {
-                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, sheetMusicPageContainer.transform);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                        page.transform.parent = sheetMusicPageContainer.transform;
                         currentPages.Add(page);
                     }
                     break;
                 case "bass":
                     foreach (Texture pageTexture in SelectedSong.bassPages) {
-                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, sheetMusicPageContainer.transform);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                        page.transform.parent = sheetMusicPageContainer.transform;
                         currentPages.Add(page);
                     }
                     break;
                 case "piano":
                     foreach (Texture pageTexture in SelectedSong.pianoPages) {
-                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, sheetMusicPageContainer.transform);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                        page.transform.parent = sheetMusicPageContainer.transform;
                         currentPages.Add(page);
                     }
                     break;
                 case "drums":
                     foreach (Texture pageTexture in SelectedSong.drumsPages) {
-                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, sheetMusicPageContainer.transform);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                        page.transform.parent = sheetMusicPageContainer.transform;
                         currentPages.Add(page);
                     }
                     break;
                 case "voice":
                     foreach (Texture pageTexture in SelectedSong.voicePages) {
-                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                        GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, sheetMusicPageContainer.transform);
                         page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                        page.transform.parent = sheetMusicPageContainer.transform;
                         currentPages.Add(page);
                     }
                     break;
@@ -791,41 +786,36 @@ public class GameManager : MonoBehaviour
                 switch (SelectedInstrument) {
                     case "guitar":
                         foreach (Texture pageTexture in SelectedSong.guitarPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
                             page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            page.transform.parent = promptPageContainer.transform;
                             currentPages.Add(page);
                         }
                         break;
                     case "bass":
                         foreach (Texture pageTexture in SelectedSong.bassPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
                             page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            page.transform.parent = promptPageContainer.transform;
                             currentPages.Add(page);
                         }
                         break;
                     case "piano":
                         foreach (Texture pageTexture in SelectedSong.pianoPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
                             page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            page.transform.parent = promptPageContainer.transform;
                             currentPages.Add(page);
                         }
                         break;
                     case "drums":
                         foreach (Texture pageTexture in SelectedSong.drumsPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
                             page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            page.transform.parent = promptPageContainer.transform;
                             currentPages.Add(page);
                         }
                         break;
                     case "voice":
                         foreach (Texture pageTexture in SelectedSong.voicePages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity);
+                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
                             page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            page.transform.parent = promptPageContainer.transform;
                             currentPages.Add(page);
                         }
                         break;
