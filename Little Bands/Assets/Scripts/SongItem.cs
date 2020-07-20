@@ -40,6 +40,13 @@ public class SongItem : MonoBehaviour
     public AudioClip recorded_drumsClip;
     public AudioClip recorded_voiceClip;
 
+    [Header("Videos")]
+    public AudioClip video_guitar;
+    public AudioClip video_bass;
+    public AudioClip video_piano;
+    public AudioClip video_drums;
+    public AudioClip video_voice;
+
     [Header("List Item UI Objects")]
     public GameObject albumArt_image;
     public GameObject title_text;

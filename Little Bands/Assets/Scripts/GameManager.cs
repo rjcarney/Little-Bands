@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     public AudioSource drumsAudioSource;
     public AudioSource voiceAudioSource;
     public AudioSource audioGuideSource;
+    public AudioSource metronomeSource;
 
 
     // Awake is called once after all game objects are initialized
@@ -749,9 +750,11 @@ public class GameManager : MonoBehaviour
 		
 		if(metronomeActive) {
 			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture;
+            metronomeSource.volume = 1;
 		} else {
 			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture_mute;
-		}
+            metronomeSource.volume = 0;
+        }
 	}
 
     // Change view from Play Options to Video
@@ -1215,12 +1218,6 @@ public class GameManager : MonoBehaviour
         } else {
             removeInstrumentButton.SetActive(true);
         }
-		
-		// if (metronomeActive) {
-	// 		metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture;
-	// 	} else {
-	// 		metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture_mute;
-	// 	}
 			
     }
 }
