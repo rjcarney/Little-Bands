@@ -13,8 +13,6 @@ public class Metronome : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
         double startTick = AudioSettings.dspTime;
         sampleRate = AudioSettings.outputSampleRate;
 
