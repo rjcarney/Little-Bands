@@ -132,8 +132,8 @@ public class GameManager : MonoBehaviour
         SongListPage.SetActive(false);
         RecordPage.SetActive(false);
 
-		metronomeActive = true;
         metronomeSource.volume = 0;
+        metronomeActive = true;
         SelectedSong = null;
         playing_recording = false;
         playing_layeredAudio = false;
