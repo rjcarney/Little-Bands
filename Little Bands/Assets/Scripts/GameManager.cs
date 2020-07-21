@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
 	public Texture metronomeTexture;
 	public Texture metronomeTexture_mute;
 	public bool metronomeActive;
+    public Metronome metronome;
 
     // Audio Sources
     public AudioSource fullAudioSource;
@@ -261,6 +262,8 @@ public class GameManager : MonoBehaviour
 
         // Set AudioRead record size
         audioReader.seconds = Mathf.CeilToInt(fullAudioSource.clip.length);
+
+        metronome.bpm = SelectedSong.bpm;
 
         // Change View
         SongListPage.SetActive(false);

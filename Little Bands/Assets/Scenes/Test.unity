@@ -5425,6 +5425,11 @@ PrefabInstance:
       propertyPath: metronomeSource
       value: 
       objectReference: {fileID: 2123523617}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: metronome
+      value: 
+      objectReference: {fileID: 2123523618}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name

@@ -10,6 +10,7 @@ public class SongItem : MonoBehaviour
     public string title;
     public string artist;
     public string length;
+    public int bpm;
 
     [Header("Original Audio")]
     public AudioClip original_full_audio;

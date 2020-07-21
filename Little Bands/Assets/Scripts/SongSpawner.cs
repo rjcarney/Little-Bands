@@ -30,42 +30,48 @@ public class SongSpawner : MonoBehaviour
             songInfo.setTitle(Path.GetFileName(path));              // Folder Name is the songs Title
             
             string[] songFiles = Directory.GetFiles(path);          //Grab filepath for all files in the song folder
+            Debug.Log(songFiles.Length);
             
             songInfo.setAlbumArt(LoadPNG(songFiles[0]));            //Set album art
+            Debug.Log("album art set");
 
             //Prepare to Read Audio Files
             AudioClipArrayCombiner audioClipArrayCombiner = this.gameObject.GetComponent<AudioClipArrayCombiner>();
 
+            //BPM File
+            string[] lines = System.IO.File.ReadAllLines(songFiles[2]);
+            songInfo.bpm = int.Parse(lines[0]);
+
             //Full Audio
-            songInfo.setFullAudio(audioClipArrayCombiner.ToAudioClip(songFiles[2]));
+            songInfo.setFullAudio(audioClipArrayCombiner.ToAudioClip(songFiles[4]));
 
             //Audio Guide Files
-            songInfo.instruction_bass = audioClipArrayCombiner.ToAudioClip(songFiles[4]);
-            songInfo.instruction_drums = audioClipArrayCombiner.ToAudioClip(songFiles[6]);
-            songInfo.instruction_guitar = audioClipArrayCombiner.ToAudioClip(songFiles[8]);
-            songInfo.instruction_piano = audioClipArrayCombiner.ToAudioClip(songFiles[10]);
-            songInfo.instruction_voice = audioClipArrayCombiner.ToAudioClip(songFiles[12]);
+            songInfo.instruction_bass = audioClipArrayCombiner.ToAudioClip(songFiles[6]);
+            songInfo.instruction_drums = audioClipArrayCombiner.ToAudioClip(songFiles[8]);
+            songInfo.instruction_guitar = audioClipArrayCombiner.ToAudioClip(songFiles[10]);
+            songInfo.instruction_piano = audioClipArrayCombiner.ToAudioClip(songFiles[12]);
+            songInfo.instruction_voice = audioClipArrayCombiner.ToAudioClip(songFiles[14]);
 
             //Original Song Layers
-            songInfo.original_bass = audioClipArrayCombiner.ToAudioClip(songFiles[14]);
-            songInfo.original_drums = audioClipArrayCombiner.ToAudioClip(songFiles[16]);
-            songInfo.original_guitar = audioClipArrayCombiner.ToAudioClip(songFiles[18]);
-            songInfo.original_piano = audioClipArrayCombiner.ToAudioClip(songFiles[20]);
-            songInfo.original_voice = audioClipArrayCombiner.ToAudioClip(songFiles[22]);
+            songInfo.original_bass = audioClipArrayCombiner.ToAudioClip(songFiles[16]);
+            songInfo.original_drums = audioClipArrayCombiner.ToAudioClip(songFiles[18]);
+            songInfo.original_guitar = audioClipArrayCombiner.ToAudioClip(songFiles[20]);
+            songInfo.original_piano = audioClipArrayCombiner.ToAudioClip(songFiles[22]);
+            songInfo.original_voice = audioClipArrayCombiner.ToAudioClip(songFiles[24]);
 
             //Sheet Music Images
-            songInfo.bassPages = new Texture[] { LoadPNG(songFiles[24]) };
-            songInfo.drumsPages = new Texture[] { LoadPNG(songFiles[26]) };
-            songInfo.guitarPages = new Texture[] { LoadPNG(songFiles[28]) };
-            songInfo.pianoPages = new Texture[] { LoadPNG(songFiles[30]) };
-            songInfo.voicePages = new Texture[] { LoadPNG(songFiles[32]) };
+            songInfo.bassPages = new Texture[] { LoadPNG(songFiles[26]) };
+            songInfo.drumsPages = new Texture[] { LoadPNG(songFiles[28]) };
+            songInfo.guitarPages = new Texture[] { LoadPNG(songFiles[30]) };
+            songInfo.pianoPages = new Texture[] { LoadPNG(songFiles[32]) };
+            songInfo.voicePages = new Texture[] { LoadPNG(songFiles[34]) };
 
             //Video  Variables
-            //songInfo.video_bass = new Texture[] { LoadPNG(songFiles[34]) };
-            //songInfo.video_drums = new Texture[] { LoadPNG(songFiles[36]) };
-            //songInfo.video_guitar = new Texture[] { LoadPNG(songFiles[38]) };
-            //songInfo.video_piano = new Texture[] { LoadPNG(songFiles[40]) };
-            //songInfo.video_voice = new Texture[] { LoadPNG(songFiles[42]) };
+            //songInfo.video_bass = new Texture[] { LoadPNG(songFiles[36]) };
+            //songInfo.video_drums = new Texture[] { LoadPNG(songFiles[38]) };
+            //songInfo.video_guitar = new Texture[] { LoadPNG(songFiles[40]) };
+            //songInfo.video_piano = new Texture[] { LoadPNG(songFiles[42]) };
+            //songInfo.video_voice = new Texture[] { LoadPNG(songFiles[44]) };
 
             //Add On Click To Select Song
             song.GetComponent<Button>().onClick.AddListener( delegate { this.gameObject.GetComponent<GameManager>().selectSong(song); });
