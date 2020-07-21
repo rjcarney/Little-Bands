@@ -889,6 +889,133 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &8298266421964086198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7287720246939986427}
+  - component: {fileID: 7223189508989169292}
+  m_Layer: 0
+  m_Name: MetronomeSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7287720246939986427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298266421964086198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8947927861151572480}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &7223189508989169292
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8298266421964086198}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8947927861151572487
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +1053,7 @@ Transform:
   - {fileID: 545093222595607257}
   - {fileID: 2559470731392307405}
   - {fileID: 1308361891135607485}
+  - {fileID: 7287720246939986427}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -942,35 +1070,77 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioReader: {fileID: 6107906449488536845}
+  audioWriter: {fileID: 0}
+  audioClipArrayCombiner: {fileID: 0}
   AvatarSelecetPage: {fileID: 0}
+  LoadingPage: {fileID: 0}
   SongListPage: {fileID: 0}
   RecordPage: {fileID: 0}
   avatarDisplay: {fileID: 0}
   avatarDisplayText: {fileID: 0}
-  audioSlider: {fileID: 0}
-  playBtn: {fileID: 0}
-  playBtnTxt: {fileID: 0}
   playTexture: {fileID: 2800000, guid: 2fec3fefaf4c05e439492c1a2aa18408, type: 3}
   stopTexture: {fileID: 2800000, guid: bdda5725432751d42b0332e73501ec99, type: 3}
   micTexture: {fileID: 2800000, guid: f9d3707d2fcb9124c89c6e1d0ac3dc7f, type: 3}
   PlayOptions: {fileID: 0}
+  playBtn: {fileID: 0}
+  audioSlider_playOptions: {fileID: 0}
+  videoButton: {fileID: 0}
+  videoButtonActive: {fileID: 0}
+  videoButtonInactive: {fileID: 0}
+  sheetMusicButton: {fileID: 0}
+  sheetMusicButtonActive: {fileID: 0}
+  sheetMusicButtonInactive: {fileID: 0}
+  removeInstrumentButton: {fileID: 0}
+  combineAudioFilesButton: {fileID: 0}
+  deleteButton: {fileID: 0}
+  guitarButton: {fileID: 0}
+  bassButton: {fileID: 0}
+  pianoButton: {fileID: 0}
+  drumsButton: {fileID: 0}
+  voiceButton: {fileID: 0}
+  guideButton: {fileID: 0}
+  guitarTexture: {fileID: 0}
+  bassTexture: {fileID: 0}
+  pianoTexture: {fileID: 0}
+  drumsTexture: {fileID: 0}
+  voiceTexture: {fileID: 0}
+  guideTexture: {fileID: 0}
+  guitarTexture_mute: {fileID: 0}
+  bassTexture_mute: {fileID: 0}
+  pianoTexture_mute: {fileID: 0}
+  drumsTexture_mute: {fileID: 0}
+  voiceTexture_mute: {fileID: 0}
+  guideTexture_mute: {fileID: 0}
+  guitarText: {fileID: 0}
+  bassText: {fileID: 0}
+  pianoText: {fileID: 0}
+  drumsText: {fileID: 0}
+  voiceText: {fileID: 0}
+  guideText: {fileID: 0}
+  recordView: {fileID: 0}
+  audioSlider_recordView: {fileID: 0}
+  confirmPopUp: {fileID: 0}
+  savingPopUp: {fileID: 0}
+  promptScrollBar: {fileID: 0}
+  promptPageContainer: {fileID: 0}
   sheetMusicPopUp: {fileID: 0}
   sheetMusicTitle: {fileID: 0}
-  sheetMusicClose: {fileID: 0}
-  audioGuideToggle: {fileID: 0}
-  audioGuideSource: {fileID: 2276510412051399447}
+  sheetMusicScrollBar: {fileID: 0}
+  sheetMusicPageContainer: {fileID: 0}
+  sheetMusicPage: {fileID: 0}
   videoPopUp: {fileID: 0}
+  videoTitle: {fileID: 0}
+  metronomeButton: {fileID: 0}
+  metronomeTexture: {fileID: 0}
+  metronomeTexture_mute: {fileID: 0}
+  metronomeActive: 0
   fullAudioSource: {fileID: 5440666540240197952}
   guitarAudioSource: {fileID: 4444467348901180525}
   bassAudioSource: {fileID: 9080509073639550247}
   pianoAudioSource: {fileID: 278156077600229808}
   drumsAudioSource: {fileID: 5202953523918672029}
   voiceAudioSource: {fileID: 153014651388391481}
-  guitarTrackText: {fileID: 0}
-  bassTrackText: {fileID: 0}
-  pianoTrackText: {fileID: 0}
-  drumsTrackText: {fileID: 0}
-  voiceTrackText: {fileID: 0}
+  audioGuideSource: {fileID: 2276510412051399447}
 --- !u!82 &1049398198459603741
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1081,3 +1251,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startRecord: 0
   isRecording: 0
+  frequency: 44100
+  seconds: 120
+  audioSource: {fileID: 0}
+  tempRecording: []
+  recordedInstrument: []

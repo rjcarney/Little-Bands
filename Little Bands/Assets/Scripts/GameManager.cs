@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
 	public Texture metronomeTexture;
 	public Texture metronomeTexture_mute;
 	public bool metronomeActive;
+    public Metronome metronome;
 
     // Audio Sources
     public AudioSource fullAudioSource;
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour
     public AudioSource drumsAudioSource;
     public AudioSource voiceAudioSource;
     public AudioSource audioGuideSource;
+    public AudioSource metronomeSource;
 
 
     // Awake is called once after all game objects are initialized
@@ -131,6 +133,7 @@ public class GameManager : MonoBehaviour
         RecordPage.SetActive(false);
 
 		metronomeActive = true;
+        metronomeSource.volume = 0;
         SelectedSong = null;
         playing_recording = false;
         playing_layeredAudio = false;
@@ -259,6 +262,8 @@ public class GameManager : MonoBehaviour
 
         // Set AudioRead record size
         audioReader.seconds = Mathf.CeilToInt(fullAudioSource.clip.length);
+
+        metronome.bpm = SelectedSong.bpm;
 
         // Change View
         SongListPage.SetActive(false);
@@ -751,7 +756,7 @@ public class GameManager : MonoBehaviour
 			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture;
 		} else {
 			metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture_mute;
-		}
+        }
 	}
 
     // Change view from Play Options to Video
@@ -826,6 +831,10 @@ public class GameManager : MonoBehaviour
                 recordView.SetActive(true);
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
+                metronome.Restart();
+                if (metronomeActive) {
+                    metronomeSource.volume = 1;
+                }
                 audioGuideSource.Play();
             } else {
                 // remove sheet music pages from prompt container
@@ -838,6 +847,7 @@ public class GameManager : MonoBehaviour
                 confirmPopUp.SetActive(true);
                 recordView.SetActive(false);
                 stopLayeredAudio();
+                metronomeSource.volume = 0;
                 audioGuideSource.Stop();
             }
             // Toggle AudioReader
@@ -971,6 +981,7 @@ public class GameManager : MonoBehaviour
         PlayOptions.SetActive(true);
         stopLayeredAudio();
         audioGuideSource.Stop();
+        metronomeSource.volume = 0;
         audioReader.startRecord = true;
     }
 
@@ -1215,12 +1226,6 @@ public class GameManager : MonoBehaviour
         } else {
             removeInstrumentButton.SetActive(true);
         }
-		
-		// if (metronomeActive) {
-	// 		metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture;
-	// 	} else {
-	// 		metronomeButton.GetComponent<UnityEngine.UI.RawImage>().texture = metronomeTexture_mute;
-	// 	}
 			
     }
 }
