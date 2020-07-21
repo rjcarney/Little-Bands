@@ -19,6 +19,13 @@ public class Metronome : MonoBehaviour
         nextTick = startTick + (60.0 / bpm);
     }
 
+    public void Restart() {
+        double startTick = AudioSettings.dspTime;
+        sampleRate = AudioSettings.outputSampleRate;
+
+        nextTick = startTick + (60.0 / bpm);
+    }
+
     void LateUpdate() {
         if(!ticked && nextTick >= AudioSettings.dspTime) {
             ticked = true;

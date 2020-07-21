@@ -831,6 +831,7 @@ public class GameManager : MonoBehaviour
                 recordView.SetActive(true);
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
+                metronome.Restart();
                 if (metronomeActive) {
                     metronomeSource.volume = 1;
                 }
