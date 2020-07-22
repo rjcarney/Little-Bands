@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
     public GameObject videoTitle;
     public GameObject videoWindow;
     public VideoPlayer videoPlayer;
+    public AudioSource videoAudio;
 	
 	// Metronome
 	public GameObject metronomeButton;
@@ -137,6 +138,7 @@ public class GameManager : MonoBehaviour
 
         metronomeSource.volume = 0;
         metronomeActive = true;
+        videoPlayer.playOnAwake = false;
         SelectedSong = null;
         playing_recording = false;
         playing_layeredAudio = false;
@@ -771,6 +773,7 @@ public class GameManager : MonoBehaviour
             switch (SelectedInstrument) {
                 case "guitar":
                     videoPlayer.url = SelectedSong.video_url_guitar;
+                    
                     break;
                 case "bass":
                     videoPlayer.url = SelectedSong.video_url_bass;
@@ -785,6 +788,9 @@ public class GameManager : MonoBehaviour
                     videoPlayer.url = SelectedSong.video_url_voice;
                     break;
             }
+            videoPlayer.SetTargetAudioSource(0, videoAudio);
+            videoPlayer.Play();
+            videoAudio.Play();
         }
     }
 
@@ -792,6 +798,8 @@ public class GameManager : MonoBehaviour
     public void CloseVideo() {
         videoPopUp.SetActive(false);
         PlayOptions.SetActive(true);
+        videoPlayer.Stop();
+        videoAudio.Stop();
     }
 
     /* Record Function
