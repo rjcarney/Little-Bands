@@ -67,11 +67,11 @@ public class SongSpawner : MonoBehaviour
             songInfo.voicePages = new Texture[] { LoadPNG(songFiles[34]) };
 
             //Video  Variables
-            //songInfo.video_bass = new Texture[] { LoadPNG(songFiles[36]) };
-            //songInfo.video_drums = new Texture[] { LoadPNG(songFiles[38]) };
-            //songInfo.video_guitar = new Texture[] { LoadPNG(songFiles[40]) };
-            //songInfo.video_piano = new Texture[] { LoadPNG(songFiles[42]) };
-            //songInfo.video_voice = new Texture[] { LoadPNG(songFiles[44]) };
+            songInfo.video_url_bass = songFiles[36];
+            songInfo.video_url_drums = songFiles[38];
+            songInfo.video_url_guitar = songFiles[40];
+            songInfo.video_url_piano = songFiles[42];
+            songInfo.video_url_voice = songFiles[44];
 
             //Add On Click To Select Song
             song.GetComponent<Button>().onClick.AddListener( delegate { this.gameObject.GetComponent<GameManager>().selectSong(song); });

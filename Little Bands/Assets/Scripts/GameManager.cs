@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using System.IO;
 
 public class GameManager : MonoBehaviour
@@ -97,6 +98,8 @@ public class GameManager : MonoBehaviour
     // Video Content
     public GameObject videoPopUp;
     public GameObject videoTitle;
+    public GameObject videoWindow;
+    public VideoPlayer videoPlayer;
 	
 	// Metronome
 	public GameObject metronomeButton;
@@ -764,6 +767,24 @@ public class GameManager : MonoBehaviour
         if (SelectedInstrument != null) {
             videoPopUp.SetActive(true);
             PlayOptions.SetActive(false);
+
+            switch (SelectedInstrument) {
+                case "guitar":
+                    videoPlayer.url = SelectedSong.video_url_guitar;
+                    break;
+                case "bass":
+                    videoPlayer.url = SelectedSong.video_url_bass;
+                    break;
+                case "piano":
+                    videoPlayer.url = SelectedSong.video_url_piano;
+                    break;
+                case "drums":
+                    videoPlayer.url = SelectedSong.video_url_drums;
+                    break;
+                case "voice":
+                    videoPlayer.url = SelectedSong.video_url_voice;
+                    break;
+            }
         }
     }
 
