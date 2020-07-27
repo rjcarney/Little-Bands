@@ -242,42 +242,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898caef4ddce37841ab08f21a1d1b8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  albumArt: {fileID: 2470767134835547116}
+  albumArt: {fileID: 2800000, guid: b9b262a02fb85384b963677682364809, type: 3}
   title: Lochness
   artist: unknown
-  length: 
-  original_full_audio: {fileID: 0}
-  original_guitar: {fileID: 0}
-  original_bass: {fileID: 0}
-  original_piano: {fileID: 0}
-  original_drums: {fileID: 0}
-  original_voice: {fileID: 0}
+  length: 1:30
+  bpm: 80
+  original_full_audio: {fileID: 8300000, guid: 9d0d61253c642f44a830fc0152f41807, type: 3}
+  original_guitar: {fileID: 8300000, guid: 480ae63638eb5b149b364d259f48c42b, type: 3}
+  original_bass: {fileID: 8300000, guid: 093310fb6cbe620408478e1679c9d4ac, type: 3}
+  original_piano: {fileID: 8300000, guid: f1509aa4baab60b4991f043d26a71015, type: 3}
+  original_drums: {fileID: 8300000, guid: 4ec606c4448886c4597a8f1e02914d46, type: 3}
+  original_voice: {fileID: 8300000, guid: 7d4ec1565502b8e489fe539381bff6ba, type: 3}
   guitarPages:
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2800000, guid: 4b047a1a38c464c70b74161f9c921fbb, type: 3}
   bassPages:
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2800000, guid: 30e5ec89c444848c094c0fe5bce63dc7, type: 3}
   pianoPages:
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2800000, guid: 69ae92284b401b54da2281e0fcc4f141, type: 3}
   drumsPages:
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2800000, guid: 26fd6be88a1f54846ad08a3664bdd85b, type: 3}
   voicePages:
-  - {fileID: 10910, guid: 0000000000000000f000000000000000, type: 0}
-  instruction_guitar: {fileID: 0}
-  instruction_bass: {fileID: 0}
-  instruction_piano: {fileID: 0}
-  instruction_drums: {fileID: 0}
-  instruction_voice: {fileID: 0}
+  - {fileID: 2800000, guid: f16248658ec9c484faa1e25c3ce8c938, type: 3}
+  instruction_guitar: {fileID: 8300000, guid: 440050c5537907b4e9ef21709b1ad785, type: 3}
+  instruction_bass: {fileID: 8300000, guid: 1e96c4f9aac78624882ded1d5eebd6aa, type: 3}
+  instruction_piano: {fileID: 8300000, guid: c778624612da39f4cb50d8a73f1a230c, type: 3}
+  instruction_drums: {fileID: 8300000, guid: 78d70bdb95ff4dd41bb7db8374708fe4, type: 3}
+  instruction_voice: {fileID: 8300000, guid: 47fe75ee2fe0ed2439f064fb3e615d8b, type: 3}
   recorded_guitarClip: {fileID: 0}
   recorded_bassClip: {fileID: 0}
   recorded_pianoClip: {fileID: 0}
   recorded_drumsClip: {fileID: 0}
   recorded_voiceClip: {fileID: 0}
+  guitarClip: {fileID: 32900000, guid: 47c2a6c6598ab37458eb958bab8fb59e, type: 3}
+  bassClip: {fileID: 32900000, guid: 76302ed6fe4ff3d41bfdaed87cb2e083, type: 3}
+  pianoClip: {fileID: 32900000, guid: b65e623b83dc5df4c8d9c891e0c56bde, type: 3}
+  drumsClip: {fileID: 32900000, guid: f0933cc3300ae20418424164e250634c, type: 3}
+  voiceClip: {fileID: 32900000, guid: 1eb9e46f7b34fca41aea9b24a64ca5e4, type: 3}
+  video_url_guitar: 
+  video_url_bass: 
+  video_url_piano: 
+  video_url_drums: 
+  video_url_voice: 
   albumArt_image: {fileID: 2470767134835547116}
   title_text: {fileID: 2470767133486855109}
   artist_text: {fileID: 2470767135147877979}

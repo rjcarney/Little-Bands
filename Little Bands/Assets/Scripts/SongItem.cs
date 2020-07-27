@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class SongItem : MonoBehaviour
 {
@@ -42,6 +43,12 @@ public class SongItem : MonoBehaviour
     public AudioClip recorded_voiceClip;
 
     [Header("Videos")]
+    public VideoClip guitarClip;
+    public VideoClip bassClip;
+    public VideoClip pianoClip;
+    public VideoClip drumsClip;
+    public VideoClip voiceClip;
+
     public string video_url_guitar;
     public string video_url_bass;
     public string video_url_piano;

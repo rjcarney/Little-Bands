@@ -14,11 +14,8 @@ public class SongSpawner : MonoBehaviour
     // !IMPORTANT: All files must be structured the same way inorder for this to work
     void Start()
     {
-        //Directory for all song child folders
-        songsPath = Application.dataPath + "/Songs/";               //This may no longer be the correct path upon building game
-
         //Select all song child folders
-        string[] songFolders = Directory.GetDirectories(songsPath);
+        string[] songFolders = Directory.GetDirectories(Resources.Load("/Songs/").ToString());
 
         //Create A SongListItem GameObject for every song child folder
         foreach(string path in songFolders) {
