@@ -28,9 +28,9 @@ public class SongSpawner : MonoBehaviour
             songInfo.setAlbumArt((Texture2D) files[0 + sectionStart]);                //Set album art
 
             //BPM File
-            string[] lines = System.IO.File.ReadAllLines(AssetDatabase.GetAssetPath(files[2 + sectionStart]));
-            songInfo.title = lines[0];
-            songInfo.bpm = int.Parse(lines[1]);
+            //string[] lines = System.IO.File.ReadAllLines(AssetDatabase.GetAssetPath(files[2 + sectionStart]));
+            //songInfo.title = lines[0];
+            //songInfo.bpm = int.Parse(lines[1]);
 
             //Prepare to Read Audio Files
             AudioClipArrayCombiner audioClipArrayCombiner = this.gameObject.GetComponent<AudioClipArrayCombiner>();
