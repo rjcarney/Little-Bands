@@ -20,17 +20,23 @@ public class SongSpawner : MonoBehaviour
     {
         files = Resources.LoadAll("Songs");
 
-        for(int i = 0; i < files.Length/29; i++) {
-            int sectionStart = i * 29;
+        for(int i = 0; i < files.Length/24; i++) {
+            int sectionStart = i * 24;
             GameObject song = Instantiate(SongListItem, new Vector3(0, 0, 0), Quaternion.identity, ListContainer.transform);
             SongItem songInfo = song.GetComponent<SongItem>();      //Script that holds all unique song information
 
             songInfo.setAlbumArt((Texture2D) files[0 + sectionStart]);                //Set album art
 
             //BPM File
-            //string[] lines = System.IO.File.ReadAllLines(AssetDatabase.GetAssetPath(files[2 + sectionStart]));
+            //System.IO.File textFile = files[2 + sectionStart];
+            //string[] lines = ReadAllLines(textFile);
             //songInfo.title = lines[0];
             //songInfo.bpm = int.Parse(lines[1]);
+            //songInfo.video_url_bass = lines[2];
+            //songInfo.video_url_drums = lines[3];
+            //songInfo.video_url_guitar = lines[4];
+            //songInfo.video_url_piano = lines[5];
+            //songInfo.video_url_voice = lines[6];
 
             //Prepare to Read Audio Files
             AudioClipArrayCombiner audioClipArrayCombiner = this.gameObject.GetComponent<AudioClipArrayCombiner>();
@@ -56,13 +62,6 @@ public class SongSpawner : MonoBehaviour
             songInfo.guitarPages = new Texture[] { (Texture2D) files[18 + sectionStart] };
             songInfo.pianoPages = new Texture[] { (Texture2D) files[20 + sectionStart] };
             songInfo.voicePages = new Texture[] { (Texture2D) files[22 + sectionStart] };
-
-            //Video  Variables
-            songInfo.bassClip = (VideoClip) files[24 + sectionStart];
-            songInfo.drumsClip = (VideoClip) files[25 + sectionStart];
-            songInfo.guitarClip = (VideoClip) files[26 + sectionStart];
-            songInfo.pianoClip = (VideoClip) files[27 + sectionStart];
-            songInfo.voiceClip = (VideoClip) files[28 + sectionStart];
 
             //Add On Click To Select Song
             song.GetComponent<Button>().onClick.AddListener(delegate { this.gameObject.GetComponent<GameManager>().selectSong(song); });
