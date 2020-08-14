@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -11,9 +12,11 @@ public class SongSpawner : MonoBehaviour
     public GameObject SongListItem;
     public GameObject ListContainer;
 
-    public Object[] files;
+    public System.Object[] files;
 
     private string songsPath;
+
+    public string file_path;
 
     // !IMPORTANT: All files must be structured the same way inorder for this to work
     void Start()
@@ -37,6 +40,30 @@ public class SongSpawner : MonoBehaviour
             //songInfo.video_url_guitar = lines[4];
             //songInfo.video_url_piano = lines[5];
             //songInfo.video_url_voice = lines[6];
+            string songName = "Lochness";
+            file_path = "Assets/Resources/" + songName + "/bpm.txt";
+
+            StreamReader inp_stm = new StreamReader(file_path);
+            int count = 0;
+            while (!inp_stm.EndOfStream)
+            {
+                string inp_ln = inp_stm.ReadLine();
+                //if (count == 0) url = "link.com";
+                if (count == 0) songInfo.title = inp_ln;
+                if (count == 1) songInfo.bpm = Convert.ToInt32(inp_ln);
+                if (count == 2) songInfo.video_url_bass = inp_ln;
+                if (count == 3) songInfo.video_url_drums = inp_ln;
+                if (count == 4) songInfo.video_url_guitar = inp_ln;
+                if (count == 5) songInfo.video_url_piano = inp_ln;
+                if (count == 6) songInfo.video_url_voice = inp_ln;
+                //songInfo.video_url_bass = lines[2];
+                //songInfo.video_url_drums = lines[3];
+                //songInfo.video_url_guitar = lines[4];
+                //songInfo.video_url_piano = lines[5];
+                //songInfo.video_url_voice = lines[6];
+            }
+            inp_stm.Close();
+
 
             //Prepare to Read Audio Files
             AudioClipArrayCombiner audioClipArrayCombiner = this.gameObject.GetComponent<AudioClipArrayCombiner>();
@@ -69,6 +96,10 @@ public class SongSpawner : MonoBehaviour
         
     }
 
+    void readTextFile(string file_path)
+    {
+
+    }
 
     //From StackOverflow
     public static Texture2D LoadPNG(string filePath) {
