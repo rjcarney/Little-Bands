@@ -5601,7 +5601,7 @@ MonoBehaviour:
   SongListItem: {fileID: 2470767134434415253, guid: 816de0b17ad76ae438534362f9e062ed,
     type: 3}
   ListContainer: {fileID: 645150936}
-  files: []
+  file_path: 
 --- !u!114 &1033874275
 MonoBehaviour:
   m_ObjectHideFlags: 0

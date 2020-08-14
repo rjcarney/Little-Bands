@@ -103,7 +103,7 @@ public class SongItem : MonoBehaviour
 
     public void setFullAudio(AudioClip fullAudio) {
         original_full_audio = fullAudio;
-        length = Mathf.Floor(original_full_audio.length / 60) + ":" + (original_full_audio.length % 60);
+        length = Mathf.Floor(original_full_audio.length / 60) + ":" + Mathf.Floor(original_full_audio.length % 60);
         length_text.GetComponent<UnityEngine.UI.Text>().text = length;
     }
 }

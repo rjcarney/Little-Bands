@@ -771,19 +771,19 @@ public class GameManager : MonoBehaviour
 
             switch (SelectedInstrument) {
                 case "guitar":
-                    videoPlayer.url = "https://i.imgur.com/LSWRVgQ.mp4";
+                    videoPlayer.url = SelectedSong.video_url_guitar;
                     break;
                 case "bass":
-                    videoPlayer.url = "https://i.imgur.com/LSWRVgQ.mp4";
+                    videoPlayer.url = SelectedSong.video_url_bass;
                     break;
                 case "piano":
-                    videoPlayer.url = "https://i.imgur.com/LSWRVgQ.mp4";
+                    videoPlayer.url = SelectedSong.video_url_piano;
                     break;
                 case "drums":
-                    videoPlayer.url = "https://i.imgur.com/LSWRVgQ.mp4";
+                    videoPlayer.url = SelectedSong.video_url_drums;
                     break;
                 case "voice":
-                    videoPlayer.url = "https://i.imgur.com/LSWRVgQ.mp4";
+                    videoPlayer.url = SelectedSong.video_url_voice;
                     break;
             }
             videoPlayer.Prepare();

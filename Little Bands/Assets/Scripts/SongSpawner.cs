@@ -31,39 +31,16 @@ public class SongSpawner : MonoBehaviour
             songInfo.setAlbumArt((Texture2D) files[0 + sectionStart]);                //Set album art
 
             //BPM File
-            //System.IO.File textFile = files[2 + sectionStart];
-            //string[] lines = ReadAllLines(textFile);
-            //songInfo.title = lines[0];
-            //songInfo.bpm = int.Parse(lines[1]);
-            //songInfo.video_url_bass = lines[2];
-            //songInfo.video_url_drums = lines[3];
-            //songInfo.video_url_guitar = lines[4];
-            //songInfo.video_url_piano = lines[5];
-            //songInfo.video_url_voice = lines[6];
-            string songName = "Lochness";
-            file_path = "Assets/Resources/" + songName + "/bpm.txt";
-
-            StreamReader inp_stm = new StreamReader(file_path);
-            int count = 0;
-            while (!inp_stm.EndOfStream)
-            {
-                string inp_ln = inp_stm.ReadLine();
-                //if (count == 0) url = "link.com";
-                if (count == 0) songInfo.title = inp_ln;
-                if (count == 1) songInfo.bpm = Convert.ToInt32(inp_ln);
-                if (count == 2) songInfo.video_url_bass = inp_ln;
-                if (count == 3) songInfo.video_url_drums = inp_ln;
-                if (count == 4) songInfo.video_url_guitar = inp_ln;
-                if (count == 5) songInfo.video_url_piano = inp_ln;
-                if (count == 6) songInfo.video_url_voice = inp_ln;
-                //songInfo.video_url_bass = lines[2];
-                //songInfo.video_url_drums = lines[3];
-                //songInfo.video_url_guitar = lines[4];
-                //songInfo.video_url_piano = lines[5];
-                //songInfo.video_url_voice = lines[6];
-            }
-            inp_stm.Close();
-
+            TextAsset bpm = files[2 + sectionStart] as TextAsset;
+            string data = bpm.text;
+            string[] lines = data.Split('\n');
+            songInfo.title = lines[0];
+            songInfo.bpm = int.Parse(lines[1]);
+            songInfo.video_url_bass = lines[2];
+            songInfo.video_url_drums = lines[3];
+            songInfo.video_url_guitar = lines[4];
+            songInfo.video_url_piano = lines[5];
+            songInfo.video_url_voice = lines[6];
 
             //Prepare to Read Audio Files
             AudioClipArrayCombiner audioClipArrayCombiner = this.gameObject.GetComponent<AudioClipArrayCombiner>();
