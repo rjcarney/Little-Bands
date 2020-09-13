@@ -910,14 +910,8 @@ public class GameManager : MonoBehaviour
                     SelectedSong.drumsToggleCount = 1;
                     break;
                 case "voice":
-                    //SelectedSong.recorded_voice = audioReader.recordedInstrument;
-                    //SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
                     SelectedSong.recorded_voiceClip = audioReader.audioSource.clip;
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_voiceClip, userAvatar.avatarName, SelectedSong.title, "voice");
-                    //for testing
-                    //string filename5 = "Axe_On_Flesh_Flesh_2";
-                    //clipGuitar = (AudioClip)Resources.Load(filename5);
-                    //audioClipArrayCombiner.SaveNow(clipGuitar, SelectedSong.title + "voice");
                     SelectedSong.voiceToggleCount = 1;
                     break;
             }
