@@ -43,12 +43,6 @@ public class SongItem : MonoBehaviour
     public AudioClip recorded_voiceClip;
 
     [Header("Videos")]
-    public VideoClip guitarClip;
-    public VideoClip bassClip;
-    public VideoClip pianoClip;
-    public VideoClip drumsClip;
-    public VideoClip voiceClip;
-
     public string video_url_guitar;
     public string video_url_bass;
     public string video_url_piano;
@@ -60,11 +54,6 @@ public class SongItem : MonoBehaviour
     public GameObject title_text;
     public GameObject artist_text;
     public GameObject length_text;
-    public GameObject badge_guitar;
-    public GameObject badge_bass;
-    public GameObject badge_piano;
-    public GameObject badge_drums;
-    public GameObject badge_voice;
 
     public int guitarToggleCount;
     public int bassToggleCount;
