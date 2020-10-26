@@ -118,6 +118,13 @@ public class GameManager : MonoBehaviour
     public AudioSource audioGuideSource;
     public AudioSource metronomeSource;
 
+    //Playback Speed Settings
+    private static float[] playbackSpeeds = { 0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f };
+    private float playbackSpeed = playbackSpeeds[3];
+    private int defaultPlaybackSpeedIndex = 3;
+    private int playbackSpeedIndex = 3;
+    public GameObject playbackSpeedButtonText;
+
 
     // Awake is called once after all game objects are initialized
     void Awake()
@@ -268,6 +275,10 @@ public class GameManager : MonoBehaviour
         audioReader.seconds = Mathf.CeilToInt(fullAudioSource.clip.length);
 
         metronome.bpm = SelectedSong.bpm;
+
+        playbackSpeedIndex = 3;
+        playbackSpeed = playbackSpeeds[playbackSpeedIndex];
+        playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = "X " + playbackSpeed;
 
         // Change View
         SongListPage.SetActive(false);
@@ -1003,6 +1014,20 @@ public class GameManager : MonoBehaviour
         metronomeSource.volume = 0;
         audioReader.startRecord = true;
     }
+
+    //Set Playback Speed
+    public void PlaybackSpeedOnClick() {
+        if (playbackSpeedIndex > 0) {
+            playbackSpeedIndex--;
+            playbackSpeed = playbackSpeeds[playbackSpeedIndex];
+            playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = "X " + playbackSpeed;
+        } else {
+            playbackSpeedIndex = 3;
+            playbackSpeed = playbackSpeeds[playbackSpeedIndex];
+            playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = "X " + playbackSpeed;
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
