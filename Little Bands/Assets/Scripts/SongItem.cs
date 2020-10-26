@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class SongItem : MonoBehaviour
 {
@@ -42,22 +43,17 @@ public class SongItem : MonoBehaviour
     public AudioClip recorded_voiceClip;
 
     [Header("Videos")]
-    public AudioClip video_guitar;
-    public AudioClip video_bass;
-    public AudioClip video_piano;
-    public AudioClip video_drums;
-    public AudioClip video_voice;
+    public string video_url_guitar;
+    public string video_url_bass;
+    public string video_url_piano;
+    public string video_url_drums;
+    public string video_url_voice;
 
     [Header("List Item UI Objects")]
     public GameObject albumArt_image;
     public GameObject title_text;
     public GameObject artist_text;
     public GameObject length_text;
-    public GameObject badge_guitar;
-    public GameObject badge_bass;
-    public GameObject badge_piano;
-    public GameObject badge_drums;
-    public GameObject badge_voice;
 
     public int guitarToggleCount;
     public int bassToggleCount;
@@ -96,7 +92,7 @@ public class SongItem : MonoBehaviour
 
     public void setFullAudio(AudioClip fullAudio) {
         original_full_audio = fullAudio;
-        length = Mathf.Floor(original_full_audio.length / 60) + ":" + (original_full_audio.length % 60);
+        length = Mathf.Floor(original_full_audio.length / 60) + ":" + Mathf.Floor(original_full_audio.length % 60);
         length_text.GetComponent<UnityEngine.UI.Text>().text = length;
     }
 }

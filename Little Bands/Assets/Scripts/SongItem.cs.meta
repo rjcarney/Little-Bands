@@ -3,7 +3,38 @@ guid: 898caef4ddce37841ab08f21a1d1b8a6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - albumArt: {instanceID: 0}
+  - original_full_audio: {instanceID: 0}
+  - original_guitar: {instanceID: 0}
+  - original_bass: {instanceID: 0}
+  - original_piano: {instanceID: 0}
+  - original_drums: {instanceID: 0}
+  - original_voice: {instanceID: 0}
+  - instruction_guitar: {instanceID: 0}
+  - instruction_bass: {instanceID: 0}
+  - instruction_piano: {instanceID: 0}
+  - instruction_drums: {instanceID: 0}
+  - instruction_voice: {instanceID: 0}
+  - recorded_guitarClip: {instanceID: 0}
+  - recorded_bassClip: {instanceID: 0}
+  - recorded_pianoClip: {instanceID: 0}
+  - recorded_drumsClip: {instanceID: 0}
+  - recorded_voiceClip: {instanceID: 0}
+  - guitarClip: {instanceID: 0}
+  - bassClip: {instanceID: 0}
+  - pianoClip: {instanceID: 0}
+  - drumsClip: {instanceID: 0}
+  - voiceClip: {instanceID: 0}
+  - albumArt_image: {instanceID: 0}
+  - title_text: {instanceID: 0}
+  - artist_text: {instanceID: 0}
+  - length_text: {instanceID: 0}
+  - badge_guitar: {instanceID: 0}
+  - badge_bass: {instanceID: 0}
+  - badge_piano: {instanceID: 0}
+  - badge_drums: {instanceID: 0}
+  - badge_voice: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

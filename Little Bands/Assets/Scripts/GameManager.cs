@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using System.IO;
 
 public class GameManager : MonoBehaviour
@@ -97,6 +98,8 @@ public class GameManager : MonoBehaviour
     // Video Content
     public GameObject videoPopUp;
     public GameObject videoTitle;
+    public GameObject videoWindow;
+    public VideoPlayer videoPlayer;
 	
 	// Metronome
 	public GameObject metronomeButton;
@@ -134,6 +137,7 @@ public class GameManager : MonoBehaviour
 
         metronomeSource.volume = 0;
         metronomeActive = true;
+        videoPlayer.playOnAwake = false;
         SelectedSong = null;
         playing_recording = false;
         playing_layeredAudio = false;
@@ -764,6 +768,26 @@ public class GameManager : MonoBehaviour
         if (SelectedInstrument != null) {
             videoPopUp.SetActive(true);
             PlayOptions.SetActive(false);
+
+            switch (SelectedInstrument) {
+                case "guitar":
+                    videoPlayer.url = SelectedSong.video_url_guitar;
+                    break;
+                case "bass":
+                    videoPlayer.url = SelectedSong.video_url_bass;
+                    break;
+                case "piano":
+                    videoPlayer.url = SelectedSong.video_url_piano;
+                    break;
+                case "drums":
+                    videoPlayer.url = SelectedSong.video_url_drums;
+                    break;
+                case "voice":
+                    videoPlayer.url = SelectedSong.video_url_voice;
+                    break;
+            }
+            videoPlayer.Prepare();
+            videoPlayer.Play();
         }
     }
 
@@ -771,6 +795,7 @@ public class GameManager : MonoBehaviour
     public void CloseVideo() {
         videoPopUp.SetActive(false);
         PlayOptions.SetActive(true);
+        videoPlayer.Stop();
     }
 
     /* Record Function
@@ -885,14 +910,8 @@ public class GameManager : MonoBehaviour
                     SelectedSong.drumsToggleCount = 1;
                     break;
                 case "voice":
-                    //SelectedSong.recorded_voice = audioReader.recordedInstrument;
-                    //SelectedSong.recorded_voiceClip = audioWriter.convertAudio(SelectedSong.recorded_voice);
                     SelectedSong.recorded_voiceClip = audioReader.audioSource.clip;
                     audioClipArrayCombiner.SaveNow(SelectedSong.recorded_voiceClip, userAvatar.avatarName, SelectedSong.title, "voice");
-                    //for testing
-                    //string filename5 = "Axe_On_Flesh_Flesh_2";
-                    //clipGuitar = (AudioClip)Resources.Load(filename5);
-                    //audioClipArrayCombiner.SaveNow(clipGuitar, SelectedSong.title + "voice");
                     SelectedSong.voiceToggleCount = 1;
                     break;
             }
