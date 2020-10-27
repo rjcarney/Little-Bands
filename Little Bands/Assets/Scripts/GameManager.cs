@@ -278,7 +278,7 @@ public class GameManager : MonoBehaviour
 
         playbackSpeedIndex = 3;
         playbackSpeed = playbackSpeeds[playbackSpeedIndex];
-        playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = "X " + playbackSpeed;
+        playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = (playbackSpeed * 100) + "%";
 
         // Change View
         SongListPage.SetActive(false);
@@ -286,32 +286,38 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadSavedClips() {
+        // Grab parent save folder
         string path = Application.persistentDataPath + "/" + userAvatar.avatarName + "/" + SelectedSong.title + "/";
 
+        // Check for saved user guitar recording and load if it exists
         if(System.IO.File.Exists(path + "guitar/" + userAvatar.avatarName + "_" + SelectedSong.title + "_guitar.wav")) {
             SelectedSong.recorded_guitarClip = audioClipArrayCombiner.ToAudioClip(path + "guitar/" + userAvatar.avatarName + "_" + SelectedSong.title + "_guitar.wav");
         } else {
             Debug.Log("No guitar recording saved");
         }
 
+        // Check for saved user bass recording and load if it exists
         if (System.IO.File.Exists(path + "bass/" + userAvatar.avatarName + "_" + SelectedSong.title + "_bass.wav")) {
             SelectedSong.recorded_bassClip = audioClipArrayCombiner.ToAudioClip(path + "bass/" + userAvatar.avatarName + "_" + SelectedSong.title + "_bass.wav");
         } else {
             Debug.Log("No bass recording saved");
         }
 
+        // Check for saved user piano recording and load if it exists
         if (System.IO.File.Exists(path + "piano/" + userAvatar.avatarName + "_" + SelectedSong.title + "_piano.wav")) {
             SelectedSong.recorded_pianoClip = audioClipArrayCombiner.ToAudioClip(path + "piano/" + userAvatar.avatarName + "_" + SelectedSong.title + "_piano.wav");
         } else {
             Debug.Log("No piano recording saved");
         }
 
+        // Check for saved user drums recording and load if it exists
         if (System.IO.File.Exists(path + "drums/" + userAvatar.avatarName + "_" + SelectedSong.title + "_drums.wav")) {
             SelectedSong.recorded_drumsClip = audioClipArrayCombiner.ToAudioClip(path + "drums/" + userAvatar.avatarName + "_" + SelectedSong.title + "_drums.wav");
         } else {
             Debug.Log("No drums recording saved");
         }
 
+        // Check for saved user voice recording and load if it exists
         if (System.IO.File.Exists(path + "voice/" + userAvatar.avatarName + "_" + SelectedSong.title + "_voice.wav")) {
             SelectedSong.recorded_voiceClip = audioClipArrayCombiner.ToAudioClip(path + "voice/" + userAvatar.avatarName + "_" + SelectedSong.title + "_voice.wav");
         } else {
@@ -1020,12 +1026,12 @@ public class GameManager : MonoBehaviour
         if (playbackSpeedIndex > 0) {
             playbackSpeedIndex--;
             playbackSpeed = playbackSpeeds[playbackSpeedIndex];
-            playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = "X " + playbackSpeed;
         } else {
             playbackSpeedIndex = 3;
             playbackSpeed = playbackSpeeds[playbackSpeedIndex];
-            playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = "X " + playbackSpeed;
         }
+        playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = (playbackSpeed * 100) + "%";
+        metronome.bpm = SelectedSong.bpm * playbackSpeed;
     }
 
 
@@ -1156,6 +1162,7 @@ public class GameManager : MonoBehaviour
                     // Audio bar size equals length of recorded instrument layer
                     audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
                     audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = guitarAudioSource.time;
+
                     if (playing_recording && !guitarAudioSource.isPlaying) {
                         // Finished playing user recorded track
                         PlayButtonOnClick();
@@ -1167,7 +1174,7 @@ public class GameManager : MonoBehaviour
                         deleteButton.SetActive(true);
                     } else {
                         deleteButton.SetActive(false);
-                    }
+                    } 
                     break;
                 case "bass":
                     audioSlider_playOptions.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
@@ -1247,6 +1254,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Show combine audio button only when all  instruments have a saved audio clip
         if(SelectedSong != null) {
             if(SelectedSong.recorded_guitarClip == null || SelectedSong.recorded_bassClip == null ||
                 SelectedSong.recorded_pianoClip == null || SelectedSong.recorded_drumsClip == null || 
@@ -1257,6 +1265,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Show play button only when there is a saved instrument recording
         if (SelectedSong != null && SelectedSong.recorded_guitarClip == null &&
             SelectedSong.recorded_bassClip == null && SelectedSong.recorded_pianoClip == null &&
             SelectedSong.recorded_drumsClip == null && SelectedSong.recorded_voiceClip == null) {
@@ -1265,11 +1274,21 @@ public class GameManager : MonoBehaviour
             playBtn.SetActive(true);
         }
 
+        //Add and remove the deselect instrument button when an instrument is selected or when recording
         if (SelectedInstrument == null || recording) {
             removeInstrumentButton.SetActive(false);
         } else {
             removeInstrumentButton.SetActive(true);
         }
 			
+        // Play Audio tracks at the desired playback speed
+        if(playing_layeredAudio) {
+            guitarAudioSource.pitch = (guitarAudioSource.clip.length / SelectedSong.original_guitar.length) * playbackSpeed;
+            bassAudioSource.pitch = (bassAudioSource.clip.length / SelectedSong.original_bass.length) * playbackSpeed;
+            pianoAudioSource.pitch = (pianoAudioSource.clip.length / SelectedSong.original_piano.length) * playbackSpeed;
+            drumsAudioSource.pitch = (drumsAudioSource.clip.length / SelectedSong.original_drums.length) * playbackSpeed;
+            voiceAudioSource.pitch = (voiceAudioSource.clip.length / SelectedSong.original_voice.length) * playbackSpeed;
+            audioGuideSource.pitch = playbackSpeed;
+        }
     }
 }
