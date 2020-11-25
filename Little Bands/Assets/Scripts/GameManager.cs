@@ -118,6 +118,13 @@ public class GameManager : MonoBehaviour
     public AudioSource audioGuideSource;
     public AudioSource metronomeSource;
 
+    //Playback Speed Settings
+    private static float[] playbackSpeeds = { 0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f };
+    private float playbackSpeed = playbackSpeeds[3];
+    private int defaultPlaybackSpeedIndex = 3;
+    private int playbackSpeedIndex = 3;
+    public GameObject playbackSpeedButtonText;
+
 
     // Awake is called once after all game objects are initialized
     void Awake()
@@ -268,6 +275,10 @@ public class GameManager : MonoBehaviour
         audioReader.seconds = Mathf.CeilToInt(fullAudioSource.clip.length);
 
         metronome.bpm = SelectedSong.bpm;
+
+        playbackSpeedIndex = defaultPlaybackSpeedIndex;
+        playbackSpeed = playbackSpeeds[playbackSpeedIndex];
+        playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = (playbackSpeed * 100) + "%";
 
         // Change View
         SongListPage.SetActive(false);
@@ -592,6 +603,14 @@ public class GameManager : MonoBehaviour
                 voiceAudioSource.clip = SelectedSong.original_voice;
                 break;
         }
+
+        //Playback Speeds
+        guitarAudioSource.pitch = playbackSpeed;
+        bassAudioSource.pitch = playbackSpeed;
+        pianoAudioSource.pitch = playbackSpeed;
+        drumsAudioSource.pitch = playbackSpeed;
+        voiceAudioSource.pitch = playbackSpeed;
+        audioGuideSource.pitch = playbackSpeed;
     }
     
     //  The Play Button will now only play the users recorded audio
@@ -1002,6 +1021,19 @@ public class GameManager : MonoBehaviour
         audioGuideSource.Stop();
         metronomeSource.volume = 0;
         audioReader.startRecord = true;
+    }
+
+    //Set Playback Speed
+    public void PlaybackSpeedOnClick() {
+        if (playbackSpeedIndex > 0) {
+            playbackSpeedIndex--;
+            playbackSpeed = playbackSpeeds[playbackSpeedIndex];
+        } else {
+            playbackSpeedIndex = 3;
+            playbackSpeed = playbackSpeeds[playbackSpeedIndex];
+        }
+        playbackSpeedButtonText.GetComponent<UnityEngine.UI.Text>().text = (playbackSpeed * 100) + "%";
+        metronome.bpm = SelectedSong.bpm * playbackSpeed;
     }
 
     // Update is called once per frame
