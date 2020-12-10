@@ -125,6 +125,9 @@ public class GameManager : MonoBehaviour
     private int playbackSpeedIndex = 3;
     public GameObject playbackSpeedButtonText;
 
+    // Pause variables
+    private bool isPaused = false;
+
 
     // Awake is called once after all game objects are initialized
     void Awake()
@@ -716,6 +719,31 @@ public class GameManager : MonoBehaviour
         playing_layeredAudio = false;
     }
 
+    public void Pause() {
+        isPaused = !isPaused;
+        Record();
+    }
+
+    public void pauseLayeredAudio() {
+        guitarAudioSource.Pause();
+        bassAudioSource.Pause();
+        pianoAudioSource.Pause();
+        drumsAudioSource.Pause();
+        voiceAudioSource.Pause();
+        audioGuideSource.Pause();
+        playing_layeredAudio = false;
+    }
+
+    public void unpauseLayeredAudio() {
+        guitarAudioSource.UnPause();
+        bassAudioSource.UnPause();
+        pianoAudioSource.UnPause();
+        drumsAudioSource.UnPause();
+        voiceAudioSource.UnPause();
+        audioGuideSource.UnPause();
+        playing_layeredAudio = true;
+    }
+
     // Change view from Play Options to Sheet Music
     public void OpenSheetMusic() {
         if (SelectedInstrument != null) {
@@ -821,58 +849,14 @@ public class GameManager : MonoBehaviour
      * This is called to both start and end the recording process
      */
     public void Record() {
-        // Cancel any currently playing audio
-        stopLayeredAudio();
-        playing_recording = false;
-        playing_layeredAudio = false;
-        setAudioTracks();
-
         // Ensure instrument is selected
         if (SelectedInstrument != null) {
-            // Set Correct View Based on if recording or not
             if (!recording) {
-                // populate prompt page container with sheet music for the selected instrument
-                switch (SelectedInstrument) {
-                    case "guitar":
-                        foreach (Texture pageTexture in SelectedSong.guitarPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
-                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            currentPages.Add(page);
-                        }
-                        break;
-                    case "bass":
-                        foreach (Texture pageTexture in SelectedSong.bassPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
-                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            currentPages.Add(page);
-                        }
-                        break;
-                    case "piano":
-                        foreach (Texture pageTexture in SelectedSong.pianoPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
-                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            currentPages.Add(page);
-                        }
-                        break;
-                    case "drums":
-                        foreach (Texture pageTexture in SelectedSong.drumsPages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
-                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            currentPages.Add(page);
-                        }
-                        break;
-                    case "voice":
-                        foreach (Texture pageTexture in SelectedSong.voicePages) {
-                            GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
-                            page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
-                            currentPages.Add(page);
-                        }
-                        break;
-                }
-                // Start recording process
+                //Start New Recording
                 recording = true;
                 PlayOptions.SetActive(false);
                 recordView.SetActive(true);
+                fillPromptView();
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
                 playLayeredAudio();
                 metronome.Restart();
@@ -880,24 +864,83 @@ public class GameManager : MonoBehaviour
                     metronomeSource.volume = 1;
                 }
                 audioGuideSource.Play();
-            } else {
-                // remove sheet music pages from prompt container
-                foreach (GameObject page in currentPages) {
-                    Destroy(page);
-                }
-                currentPages = new List<GameObject>();
-                // End recording process
-                recording = false;
-                confirmPopUp.SetActive(true);
-                recordView.SetActive(false);
-                stopLayeredAudio();
+            } else if (recording && isPaused) {
+                // Pause recording process
+                pauseLayeredAudio();
                 metronomeSource.volume = 0;
-                audioGuideSource.Stop();
+            } else if (recording && !isPaused) {
+                // UnPause recording process
+                unpauseLayeredAudio();
+                if (metronomeActive) {
+                    metronomeSource.volume = 1;
+                }
             }
             // Toggle AudioReader
             audioReader.startRecord = true;
         }
     }
+
+    public void FinalizeRecording() {
+        // End recording process
+        clearPromptView();
+        recording = false;
+        confirmPopUp.SetActive(true);
+        recordView.SetActive(false);
+        stopLayeredAudio();
+        metronomeSource.volume = 0;
+        audioGuideSource.Stop();
+        audioReader.startRecord = true;
+    }
+
+    public void fillPromptView () {
+        // populate prompt page container with sheet music for the selected instrument
+        switch (SelectedInstrument) {
+            case "guitar":
+                foreach (Texture pageTexture in SelectedSong.guitarPages) {
+                    GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
+                    page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                    currentPages.Add(page);
+                }
+                break;
+            case "bass":
+                foreach (Texture pageTexture in SelectedSong.bassPages) {
+                    GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
+                    page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                    currentPages.Add(page);
+                }
+                break;
+            case "piano":
+                foreach (Texture pageTexture in SelectedSong.pianoPages) {
+                    GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
+                    page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                    currentPages.Add(page);
+                }
+                break;
+            case "drums":
+                foreach (Texture pageTexture in SelectedSong.drumsPages) {
+                    GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
+                    page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                    currentPages.Add(page);
+                }
+                break;
+            case "voice":
+                foreach (Texture pageTexture in SelectedSong.voicePages) {
+                    GameObject page = Instantiate(sheetMusicPage, new Vector3(0, 0, 0), Quaternion.identity, promptPageContainer.transform);
+                    page.GetComponent<UnityEngine.UI.RawImage>().texture = pageTexture;
+                    currentPages.Add(page);
+                }
+                break;
+        }
+    }
+
+    // remove sheet music pages from prompt container
+    public void clearPromptView() {
+        foreach (GameObject page in currentPages) {
+            Destroy(page);
+        }
+        currentPages = new List<GameObject>();
+    }
+    
 
     /* Yes and No on click function for the confirm page
      * Confirm the user wishes to save current recording session
@@ -1166,9 +1209,9 @@ public class GameManager : MonoBehaviour
                     if (playing_recording && !guitarAudioSource.isPlaying) {
                         // Finished playing user recorded track
                         PlayButtonOnClick();
-                    } else if (recording && !guitarAudioSource.isPlaying) {
+                    } else if (recording && !guitarAudioSource.isPlaying && !isPaused) {
                         // Finished recording
-                        Record();
+                        FinalizeRecording();
                     }
                     if(SelectedSong.recorded_guitarClip != null) {
                         deleteButton.SetActive(true);
@@ -1181,8 +1224,8 @@ public class GameManager : MonoBehaviour
                     audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = bassAudioSource.time;
                     if (playing_recording && !bassAudioSource.isPlaying) {
                         PlayButtonOnClick();
-                    } else if (recording && !bassAudioSource.isPlaying) {
-                        Record();
+                    } else if (recording && !bassAudioSource.isPlaying && !isPaused) {
+                        FinalizeRecording();
                     }
                     if (SelectedSong.recorded_bassClip != null) {
                         deleteButton.SetActive(true);
@@ -1195,8 +1238,8 @@ public class GameManager : MonoBehaviour
                     audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = pianoAudioSource.time;
                     if (playing_recording && !pianoAudioSource.isPlaying) {
                         PlayButtonOnClick();
-                    } else if (recording && !pianoAudioSource.isPlaying) {
-                        Record();
+                    } else if (recording && !pianoAudioSource.isPlaying && !isPaused) {
+                        FinalizeRecording();
                     }
                     if (SelectedSong.recorded_pianoClip != null) {
                         deleteButton.SetActive(true);
@@ -1209,8 +1252,8 @@ public class GameManager : MonoBehaviour
                     audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = drumsAudioSource.time;
                     if (playing_recording && !drumsAudioSource.isPlaying) {
                         PlayButtonOnClick();
-                    } else if (recording && !drumsAudioSource.isPlaying) {
-                        Record();
+                    } else if (recording && !drumsAudioSource.isPlaying && !isPaused) {
+                        FinalizeRecording();
                     }
                     if (SelectedSong.recorded_drumsClip != null) {
                         deleteButton.SetActive(true);
@@ -1223,8 +1266,8 @@ public class GameManager : MonoBehaviour
                     audioSlider_recordView.GetComponent<UnityEngine.UI.Slider>().value = voiceAudioSource.time;
                     if (playing_recording && !voiceAudioSource.isPlaying) {
                         PlayButtonOnClick();
-                    } else if (recording && !voiceAudioSource.isPlaying) {
-                        Record();
+                    } else if (recording && !voiceAudioSource.isPlaying && !isPaused) {
+                        FinalizeRecording();
                     }
                     if (SelectedSong.recorded_voiceClip != null) {
                         deleteButton.SetActive(true);
