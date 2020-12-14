@@ -853,6 +853,7 @@ public class GameManager : MonoBehaviour
         if (SelectedInstrument != null) {
             if (!recording) {
                 //Start New Recording
+                audioReader.ClearAudio();
                 recording = true;
                 PlayOptions.SetActive(false);
                 recordView.SetActive(true);
