@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
     public GameObject videoTitle;
     public GameObject videoWindow;
     public VideoPlayer videoPlayer;
+
+    public GameObject emailPopUp;
 	
 	// Metronome
 	public GameObject metronomeButton;
@@ -983,8 +985,14 @@ public class GameManager : MonoBehaviour
 
         confirmPopUp.SetActive(false);
         savingPopUp.SetActive(false);
-        PlayOptions.SetActive(true);
+        emailPopUp.SetActive(true);
 
+    }
+
+    public void SendEmail(bool confirm) {
+        if (confirm) {
+
+        }
     }
 
 

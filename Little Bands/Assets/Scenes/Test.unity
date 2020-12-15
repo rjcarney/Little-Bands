@@ -3050,8 +3050,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 485476655}
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: SendEmail
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7340,6 +7340,11 @@ PrefabInstance:
       propertyPath: playbackSpeedButtonText
       value: 
       objectReference: {fileID: 837210978}
+    - target: {fileID: 8947927861151572481, guid: afd316d13c79de7459afee869bd7fcbf,
+        type: 3}
+      propertyPath: emailPopUp
+      value: 
+      objectReference: {fileID: 640308564}
     - target: {fileID: 8947927861151572487, guid: afd316d13c79de7459afee869bd7fcbf,
         type: 3}
       propertyPath: m_Name
@@ -8537,8 +8542,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 485476655}
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: SendEmail
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
