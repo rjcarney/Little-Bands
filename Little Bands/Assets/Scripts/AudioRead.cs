@@ -6,136 +6,103 @@ using System.Linq;
 
 public class AudioRead : MonoBehaviour
 {
-    public bool startRecord = false;
-    public bool isRecording = false;
-    public bool finishedRecording;
-    public int frequency = 44100;
-    public int seconds = 120;
-    public AudioSource audioSource;
-    public AudioSource tempSource;
+	//Audio Controls
+	public bool startRecord = false;
+	public int frequency = 44100;
+	public int seconds = 120;
+	public AudioSource audioSource;
+	[Range(0, 100)]
+	public int recordRate = 100;
 
-    private bool tempFull = false;
+	//Tempory hold befor music request
+	private float[] tempRecording = new float[0];
+	//Helps build the switch that makes it so isRecording only needs
+	//to be called once to turn on and off.
+	private bool isRecording;
 
-    private GameManager gm;
-    private List<float> tempRecording = new List<float>();
-    private float[] recordedInstrument;
+	private void Start()
+	{
+		audioSource = GetComponent<AudioSource>();
+		audioSource.clip = Microphone.Start(null, true, seconds, frequency);
+	}
 
-    void Start()
-    {
-        //Set audioSource
-        //audioSource = GetComponent<AudioSource>();
-        //audioSource.clip = Microphone.Start(null, true, seconds, frequency);
-        //tempSource = new AudioSource();
-    }
+	//Called every Frame
+	void Update()
+	{
+		//Determine state of recording
+		if (startRecord)
+		{
+			isRecording = !isRecording;
+			startRecord = false;
+			if (isRecording == false)
+				RecordAudio();
+			else
+				audioSource.clip = Microphone.Start(null, true, seconds, frequency);
+		}
 
-    void Update()
-    {
-        //Determine state of recording
-        if (startRecord)
-        {
-            isRecording = !isRecording;
-            startRecord = false;
+		if (Input.GetKeyDown("space"))
+		{
+			startRecord = !startRecord;
+		}
+		if (Input.GetKeyDown("z"))
+		{
+			FinalizeRecording();
+			audioSource.Play();
+		}
 
-            //Create audio clip
-            if (isRecording == false)
-                RecordAudio();
-            //Stop recording
-            else
-                PauseRecording();
-        }
+	}
 
-        //Combine and clear tempSource
-        if (!isRecording)
-        {
-            if (tempFull)
-                Combine();
-            else
-                tempSource.clip = audioSource.clip;
-        }
+	//Records Audio, converts to float, and Adds to tempRecording when done
+	private void RecordAudio()
+	{
+		int length = Microphone.GetPosition(null);
+		Microphone.End(null);
+		float[] clipData = new float[length];
+		audioSource.clip.GetData(clipData, 0);
+		float[] fullClip = new float[clipData.Length + tempRecording.Length];
+		//Add new recorded data to previous data
+		for (int i = 0; i < fullClip.Length; i++)
+		{
+			if (i < tempRecording.Length)
+				fullClip[i] = tempRecording[i];
+			else
+				fullClip[i] = clipData[i - tempRecording.Length];
+		}
+		tempRecording = fullClip;
+	}
 
-        if (Input.GetKeyDown("space"))
-            startRecord = !startRecord;
-        if (Input.GetKeyDown("z"))
-            audioSource.Play();
-        if (Input.GetKeyDown("x"))
-            tempSource.Play();
-    }
+	//Clears tempRecording in order to start a different recording
+	public void ClearAudio()
+	{
+		tempRecording = new float[0];
+	}
 
-    private void RecordAudio()
-    {
-        int length = Microphone.GetPosition(null);
-        Microphone.End(null);
-        float[] clipData = new float[length];
-        audioSource.clip.GetData(clipData, 0);
+	//If called, sets tempRecording to a clip in audioSource
+	public void FinalizeRecording()
+	{
+		audioSource.clip = AudioClip.Create("recorded samples", tempRecording.Length * 2, 1, frequency, false);
+		audioSource.clip.SetData(tempRecording, 0);
+	}
 
-        float[] fullClip = new float[clipData.Length + tempRecording.Count];
-        for (int i = 0; i < fullClip.Length; i++)
-        {
-            if (i < tempRecording.Count)
-                fullClip[i] = tempRecording[i];
-            else
-                fullClip[i] = clipData[i - tempRecording.Count];
-        }
-
-        //Set Audio
-        recordedInstrument = fullClip;
-        audioSource.clip = AudioClip.Create("recorded samples", fullClip.Length, 1, frequency, false);
-
-        audioSource.clip.SetData(fullClip, 0);
-
-    }
-
-    public void PauseRecording()
-    {
-        audioSource.Stop();
-        //tempRecording.Clear();
-        Microphone.End(null);
-        audioSource.clip = Microphone.Start(null, true, seconds, frequency);
-        print("Pause Recording");
-        tempFull = true;
-    }
-
-
-    private void Combine()
-    {
-        if (tempFull)
-        {
-            print("Combining");
-            //AudioClip[] clips = new AudioClip[] { audioSource.clip, tempSource.clip };
-            Combine(audioSource.clip, tempSource.clip);
-            RemoveClip(tempSource);
-            tempFull = false;
-        }
-    }
-
-    private void RemoveClip(AudioSource audio)
-    {
-        audio.clip = Microphone.Start(null, true, seconds, frequency);
-        audio.clip = null;
-    }
-
-    public void ClearAudio()
-    {
-        audioSource.clip = null;
-        tempSource.clip = null;
-    }
-
-    private void Combine(AudioClip x, AudioClip y)
-    {
-        if (x != null && y != null)
-        {
-            float[] first = new float[x.samples * x.channels];
-            float[] second = new float[y.samples * y.channels];
-            float[] final = new float[first.Length + second.Length];
-
-            x.GetData(first, 0);
-            y.GetData(second, 0);
-
-            final = second.Concat(first).ToArray();
-
-            audioSource.clip = AudioClip.Create("recorded samples", final.Length, 1, frequency, false);
-            audioSource.clip.SetData(final, 0);
-            tempSource.clip.SetData(final, 0);
-        }
-    }
+	//TODO
+	private float[] editRate(float[] array)
+	{
+		if (recordRate == 50)
+		{
+			float[] partialData = new float[array.Length / 2];
+			for (int i = 0; i < partialData.Length; i++)
+				partialData[i] = array[i * 2];
+			return partialData;
+		}
+		else if (recordRate == 25 && array.Length > 3)
+		{
+			float[] partialData = new float[array.Length / 4];
+			for (int i = 0; i < partialData.Length; i++)
+				partialData[i] = array[i * 2];
+			return partialData;
+		}
+		return array;
+	}
 }
+
+//Update could probably be removed and the functions called accordingly by the GameManager.

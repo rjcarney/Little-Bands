@@ -893,6 +893,7 @@ public class GameManager : MonoBehaviour
         metronomeSource.volume = 0;
         audioGuideSource.Stop();
         audioReader.startRecord = true;
+        audioReader.FinalizeRecording();
     }
 
     public void fillPromptView () {
