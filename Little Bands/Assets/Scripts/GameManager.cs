@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
 
     //Playback Speed Settings
     private static float[] playbackSpeeds = { 0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f };
-    private float playbackSpeed = playbackSpeeds[3];
+    public float playbackSpeed = playbackSpeeds[3];
     private int defaultPlaybackSpeedIndex = 3;
     private int playbackSpeedIndex = 3;
     public GameObject playbackSpeedButtonText;
@@ -610,6 +610,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Playback Speeds
+        Debug.Log("Playback speed = " + playbackSpeed);
         guitarAudioSource.pitch = playbackSpeed;
         bassAudioSource.pitch = playbackSpeed;
         pianoAudioSource.pitch = playbackSpeed;
@@ -861,6 +862,7 @@ public class GameManager : MonoBehaviour
                 recordView.SetActive(true);
                 fillPromptView();
                 promptScrollBar.GetComponent<Scrollbar>().value = 1;
+                setAudioTracks();
                 playLayeredAudio();
                 metronome.Restart();
                 if (metronomeActive) {
