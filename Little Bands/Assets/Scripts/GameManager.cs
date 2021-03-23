@@ -173,18 +173,6 @@ public class GameManager : MonoBehaviour
         SongListPage.SetActive(true);
     }
 
-    public void Load() {
-        // ! UNCOMMENT ONCE LOAD FUNTIONALITY IS ADDED !
-        //AvatarSelecetPage.SetActive(false);
-        //LoadingPage.SetActive(true);
-
-        //Here is where we will call harris's load method
-
-        // ! UNCOMMENT ONCE LOAD FUNTIONALITY IS ADDED !
-        //LoadingPage.SetActive(false);
-        //SongListPage.SetActive(true);
-    }
-
     /* SONG SELECTION PAGE
      * Once  the desired avatar has been selected the user will select a song
      * 
@@ -608,14 +596,18 @@ public class GameManager : MonoBehaviour
                 voiceAudioSource.clip = SelectedSong.original_voice;
                 break;
         }
+        setAudioSourcePitches();
+    }
 
+    public void setAudioSourcePitches()
+    {
         //Playback Speeds
         Debug.Log("Playback speed = " + playbackSpeed);
-        guitarAudioSource.pitch = playbackSpeed;
-        bassAudioSource.pitch = playbackSpeed;
-        pianoAudioSource.pitch = playbackSpeed;
-        drumsAudioSource.pitch = playbackSpeed;
-        voiceAudioSource.pitch = playbackSpeed;
+        guitarAudioSource.pitch = (fullAudioSource.clip.length / guitarAudioSource.clip.length) * playbackSpeed;
+        bassAudioSource.pitch = (fullAudioSource.clip.length / bassAudioSource.clip.length) * playbackSpeed;
+        pianoAudioSource.pitch = (fullAudioSource.clip.length / pianoAudioSource.clip.length) * playbackSpeed;
+        drumsAudioSource.pitch = (fullAudioSource.clip.length / drumsAudioSource.clip.length) * playbackSpeed;
+        voiceAudioSource.pitch = (fullAudioSource.clip.length / voiceAudioSource.clip.length) * playbackSpeed;
         audioGuideSource.pitch = playbackSpeed;
     }
     
@@ -686,6 +678,7 @@ public class GameManager : MonoBehaviour
             }
             playing_recording = true;
             playBtn.GetComponent<UnityEngine.UI.RawImage>().texture = stopTexture;
+            setAudioSourcePitches();
             playLayeredAudio();
         } else {
             // Stop All Audio
@@ -994,8 +987,10 @@ public class GameManager : MonoBehaviour
 
     public void SendEmail(bool confirm) {
         if (confirm) {
-
+            // Jayse's code here
         }
+        emailPopUp.SetActive(false);
+        PlayOptions.SetActive(true);
     }
 
 
